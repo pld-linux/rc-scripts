@@ -1,7 +1,7 @@
-diff -urN rc-scripts-0.3.1.rg/run-parts rc-scripts-0.3.1/run-parts
---- rc-scripts-0.3.1.rg/run-parts	2003-12-21 19:21:15.843804656 +0100
-+++ rc-scripts-0.3.1/run-parts	2003-10-28 02:10:55.000000000 +0100
-@@ -2,29 +2,65 @@
+diff -urN rc-scripts-0.3.1.org/run-parts rc-scripts-0.3.1/run-parts
+--- rc-scripts-0.3.1.org/run-parts	2004-01-09 01:35:06.048871963 +0100
++++ rc-scripts-0.3.1/run-parts	2004-01-09 01:36:48.000000000 +0100
+@@ -2,29 +2,76 @@
  
  # run-parts - concept taken from Debian
  #
@@ -22,16 +22,22 @@ diff -urN rc-scripts-0.3.1.rg/run-parts rc-scripts-0.3.1/run-parts
  # keep going when something fails
  set +e
  
++if [ "$1" = "-u" ]; then
++	workasuser=yes
++	shift
++fi	
++
 +# std checks
  if [ $# -lt 1 ]; then
- 	echo "Usage: run-parts <dir> <args...>"
+-	echo "Usage: run-parts <dir> <args...>"
++	echo "Usage: run-parts [-u] <dir> <args...>"
  	exit 1
  fi
  
  if [ ! -d $1 ]; then
 -	echo "Not a directory: $1"
 +	echo "Is not a directory: $1"
-+	echo "Usage: run-parts <dir> <args...>"
++	echo "Usage: run-parts [-u] <dir> <args...>"
  	exit 1
  fi
  
@@ -58,7 +64,7 @@ diff -urN rc-scripts-0.3.1.rg/run-parts rc-scripts-0.3.1/run-parts
 +
 +# Ignore *~ and *, scripts
 +for i in $RUNPARTS_DIR/*[!~,] ; do
-+        [ -d $i ] && continue
++        [ -d "$i" ] && continue
 +        # Don't run *.{rpmsave,rpmorig,rpmnew,swp} scripts
 +        [ "${i%.rpmsave}" != "${i}" ] && continue
 +        [ "${i%.rpmorig}" != "${i}" ] && continue
@@ -66,8 +72,14 @@ diff -urN rc-scripts-0.3.1.rg/run-parts rc-scripts-0.3.1/run-parts
 +        [ "${i%.swp}" != "${i}" ] && continue
 +        [ "${i%,v}" != "${i}" ] && continue
 +
-+        if [ -x $i ]; then
-+                $i $* 2>&1 | awk -v "progname=$i" \
++        if [ -x "$i" ]; then
++	    	runprog="$i $@"
++	    	if [ "$workasuser" = "yes" ]; then
++		    runuser="$(/bin/ls -l "$i"  | awk ' { print $3 } ' 2> /dev/null)"
++		    [ -z "$runuser" ] && echo "Warning: Can't find owner for [$i] file. Not running." && continue
++      		    runprog="/bin/su $runuser -s /bin/sh -c $runprog"
++	   	fi
++                $runprog 2>&1 | awk -v "progname=$i" \
 +                              'progname {
 +                                   print progname ":\n"
 +                                   progname="";
