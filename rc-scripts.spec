@@ -19,8 +19,8 @@ URL:		http://svn.pld-linux.org/cgi-bin/svnview/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
-BuildRequires:	glib-devel
-%{?with_static:BuildRequires:	glib-static}
+BuildRequires:	glib2-devel
+%{?with_static:BuildRequires:	glib2-static}
 BuildRequires:	popt-devel
 BuildRequires:	pkgconfig
 Requires(post):	fileutils
@@ -93,7 +93,7 @@ programcýklar içerir.
 %configure \
 	--with-localedir=%{localedir}
 %{__make} \
-	%{!?with_static:ppp_watch_LDADD="-lglib" ppp_watch_DEPENDENCIES=}
+	%{!?with_static:ppp_watch_LDADD="-lglib-2.0" ppp_watch_DEPENDENCIES=}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -101,7 +101,7 @@ install -d $RPM_BUILD_ROOT/var/{run/netreport,log}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	%{!?with_static:ppp_watch_LDADD="-lglib" ppp_watch_DEPENDENCIES=}
+	%{!?with_static:ppp_watch_LDADD="-lglib-2.0" ppp_watch_DEPENDENCIES=}
 
 for i in 0 1 2 3 4 5 6; do
 	install -d $RPM_BUILD_ROOT/etc/rc.d/rc$i.d
