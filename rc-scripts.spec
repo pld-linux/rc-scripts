@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.104 2002-11-04 20:53:52 mmazur Exp $
+# $Id: rc-scripts.spec,v 1.105 2002-11-08 23:25:40 alchemyx Exp $
 #
 # _with_chroot		make the thing chroot safe (CAN BRAKE SOMETHING!!!)
 
@@ -9,7 +9,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.3.1
-Release:	10
+Release:	11
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 Group:		Base
@@ -23,8 +23,9 @@ Patch5:		%{name}-arp-any.patch
 Patch6:		%{name}-pppshutdownsleep.patch
 Patch7:		%{name}-chat-ppp0.tpsa.patch
 Patch8:		%{name}-via.patch
-Patch9:		%{name}-static-nat-example.patch
+Patch9:		%{name}-static-nat.patch
 Patch10:	%{name}-chroot_safe.patch
+Patch11:	%{name}-onlink.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -105,6 +106,7 @@ programcýklar içerir.
 %patch8 -p1
 %patch9 -p1
 %{!?_with_chroot:#}%patch10 -p1
+%patch11 -p1
 
 %build
 %{__aclocal}
