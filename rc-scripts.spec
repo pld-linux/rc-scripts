@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.70 2001-07-15 07:54:23 gotar Exp $
+# $Id: rc-scripts.spec,v 1.71 2001-07-19 21:13:15 klakier Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -131,6 +131,8 @@ for i in 0 1 6; do
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K01allowlogin
 done
 
+install sysconfig/interfaces/ifcfg-eth0 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/interfaces
+
 gzip -9nf doc/*.txt rc.d/init.d/template.init
 
 %clean
@@ -230,6 +232,7 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/static-nat
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/static-routes
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/timezone
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/interfaces/ifcfg-eth0
 %attr(640,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/system
 
 %{_mandir}/man1/*
