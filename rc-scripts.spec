@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.42 2000-06-09 07:55:08 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.43 2000-06-13 20:29:08 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -10,7 +10,7 @@ Release:	1
 License:	GPL
 Group:		Base
 Group(pl):	Podstawowe
-Source:		%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 BuildRequires:	popt-devel
@@ -51,25 +51,26 @@ This package contains the scripts use to boot a system, change run
 levels, and shut the system down cleanly.
 
 %description -l de
-Dieses Paket enthält die Scripts, die zum Hochfahren des Systems, Ändern
-der Betriebsebene und sauberem Herunterfahren des Systems erforderlich sind.
-Außerdem enthält es die Scripts, die Netzwerkschnittstellen aktivieren und
-deaktivieren.
+Dieses Paket enthält die Scripts, die zum Hochfahren des Systems,
+Ändern der Betriebsebene und sauberem Herunterfahren des Systems
+erforderlich sind. Außerdem enthält es die Scripts, die
+Netzwerkschnittstellen aktivieren und deaktivieren.
 
 %description -l fr
 Ce package contient les scripts utilisés pour démarrer le systéme,
-changer les niveaux d'exécution, et arréter le systéme proprement.
-Il contient aussi les scripts qui activent et désactivent la plupart
-des inetrfaces réseau.
+changer les niveaux d'exécution, et arréter le systéme proprement. Il
+contient aussi les scripts qui activent et désactivent la plupart des
+inetrfaces réseau.
 
 %description -l pl
 Pakiet zawiera skrypty uruchamiane przy starcie i zamykaniu systemu, a
-tak¿e przy zmianie poziomu uruchomienia. 
+tak¿e przy zmianie poziomu uruchomienia.
 
 %description -l tr
-Bu paket, sistem açmak, çalýþma düzeylerini deðiþtirmek ve sistemi düzgün bir
-þekilde kapatmak için gereken dosyalarý içerir. Ayrýca pek çok bilgisayar aðý
-arayüzlerini etkinleþtiren ya da edilginleþtiren programcýklar içerir.
+Bu paket, sistem açmak, çalýþma düzeylerini deðiþtirmek ve sistemi
+düzgün bir þekilde kapatmak için gereken dosyalarý içerir. Ayrýca pek
+çok bilgisayar aðý arayüzlerini etkinleþtiren ya da edilginleþtiren
+programcýklar içerir.
 
 %prep
 %setup -q
