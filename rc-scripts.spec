@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.22 1999-10-27 05:55:23 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.23 1999-11-07 13:51:49 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -122,7 +122,7 @@ if [ -f /etc/inittab.rpmsave ]; then
 fi
 
 %files
-%defattr(644,root,root,754)
+%defattr(644,root,root,755)
 %doc doc/sysconfig.txt.gz
 %doc sysconfig/interfaces/ifc*
 %doc sysconfig/interfaces/tnl*
