@@ -1,11 +1,11 @@
-# $Id: rc-scripts.spec,v 1.21 1999-10-15 05:01:15 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.22 1999-10-27 05:55:23 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.1.0
+Version:	0.1.1
 Release:	1
 Copyright:	GPL
 Group:		Base
@@ -26,6 +26,7 @@ Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	sed
 Requires:	iproute2
+Requires:	e2fsprogs >= 1.15
 Requires:	/bin/gettext
 Obsoletes:	initscripts
 Provides:	initscripts
@@ -54,7 +55,7 @@ des inetrfaces réseau.
 
 %description -l pl
 Pakiet zawiera skrypty uruchamiane przy starcie i zamykaniu systemu, a
-tak¿e przy zmianie poziomu uruchomienia. 
+tak¿e przy zmianie poziomu uruchomienia.
 
 %description -l tr
 Bu paket, sistem açmak, çalýþma düzeylerini deðiþtirmek ve sistemi düzgün bir
@@ -66,7 +67,8 @@ arayüzlerini etkinleþtiren ya da edilginleþtiren programcýklar içerir.
 
 %build
 LDFLAGS="-s"; export LDFLAGS
-%configure --with-localedir=%{localedir}
+%configure \
+	--with-localedir=%{localedir}
 make
 
 %install
@@ -130,7 +132,6 @@ fi
 %attr(755,root,root) %dir %{_sysconfdir}/rc.d/rc?.d
 
 %{_sysconfdir}/rc.d/init.d/functions
-%{_sysconfdir}/rc.d/init.d/functions.network
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/allowlogin
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/killall
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/random
@@ -176,6 +177,7 @@ fi
 %attr(755,root,root) %{_sysconfdir}/ppp/*
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig/network-scripts
 %attr(755,root,root) %{_sysconfdir}/sysconfig/network-scripts/if*
+%{_sysconfdir}/sysconfig/network-scripts/.functions
 
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/i18n
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/network
