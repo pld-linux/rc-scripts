@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.64 2001-03-10 13:24:50 malekith Exp $
+# $Id: rc-scripts.spec,v 1.65 2001-03-30 11:14:43 inglod Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -26,6 +26,7 @@ Requires:	mktemp
 Requires:	modutils >= 2.1.121
 Requires:	fileutils
 Requires:	textutils
+Requires:	findutils
 Requires:	sh-utils
 Requires:	/bin/nice
 Requires:	/bin/basename
