@@ -1,0 +1,13 @@
+diff -Nur rc-scripts-0.4.0.15.orig/rc.d/rc.sysinit rc-scripts-0.4.0.15/rc.d/rc.sysinit
+--- rc-scripts-0.4.0.15.orig/rc.d/rc.sysinit	2004-08-20 14:16:03.000000000 +0200
++++ rc-scripts-0.4.0.15/rc.d/rc.sysinit	2004-09-06 16:28:18.000000000 +0200
+@@ -27,6 +27,9 @@
+     mount -n -o gid=17 -t sysfs sysfs /sys
+ fi
+ 
++# device support
++/sbin/udevstart
++
+ # selinux
+ if grep -q selinuxfs /proc/filesystems && ! grep -q selinuxfs /proc/mounts; then
+     mount -n -o gid=17 -t selinuxfs selinuxfs /selinux
