@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.117.2.4 2003-11-14 09:17:59 jajcus Exp $
+# $Id: rc-scripts.spec,v 1.117.2.5 2003-12-10 20:51:37 ankry Exp $
 #
 # _with_chroot		make the thing chroot-safe (CAN BRAKE SOMETHING!!!)
 
@@ -9,7 +9,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.3.1
-Release:	14
+Release:	15
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 Group:		Base
