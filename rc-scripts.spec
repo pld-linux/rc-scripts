@@ -1,17 +1,17 @@
-# $Id: rc-scripts.spec,v 1.124 2003-09-03 20:12:46 arekm Exp $
+# $Id: rc-scripts.spec,v 1.125 2003-09-22 01:51:23 arekm Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.0
+Version:	0.4.0.1
 Release:	0.1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	6d804a5da745ccd56fba56683dff2e35
+# Source0-md5:	0ea8993bf933c17e045dd04e5066097d
 URL:		http://cvs.pld-linux.org/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
