@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.114 2003-06-13 14:29:43 mmazur Exp $
+# $Id: rc-scripts.spec,v 1.115 2003-06-13 14:30:58 mmazur Exp $
 
 
 Summary:	inittab and /etc/rc.d scripts
@@ -8,7 +8,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.3.1
-Release:	12.1
+Release:	12.2
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 Group:		Base
