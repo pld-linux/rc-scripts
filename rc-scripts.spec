@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.112 2003-05-25 06:26:14 misi3k Exp $
+# $Id: rc-scripts.spec,v 1.113 2003-05-25 11:00:58 malekith Exp $
 #
 # _with_chroot		make the thing chroot safe (CAN BRAKE SOMETHING!!!)
 
@@ -14,6 +14,7 @@ License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
+# Source0-md5: c032946a4ea2c81b92c70b26f65b18d9
 Patch0:		%{name}-shared.patch
 Patch1:		%{name}-ipx_fix.patch
 Patch2:		%{name}-ulimitc.patch
