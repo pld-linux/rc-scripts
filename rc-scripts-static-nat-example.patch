@@ -1,0 +1,5 @@
+--- rc-scripts-0.3.1/sysconfig/static-nat~	Wed Oct 30 17:44:02 2002
++++ rc-scripts-0.3.1/sysconfig/static-nat	Wed Oct 30 17:44:02 2002
+@@ -0,0 +1,2 @@
++#dev	mac			ip		state		opts
++#eth0	00:AA:BB:CC:DD:EE	192.168.1.1	permanent
