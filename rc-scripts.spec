@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.59 2000-12-12 17:53:09 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.60 2000-12-14 09:33:17 jajcus Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -206,6 +206,7 @@ fi
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/static-routes
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/static-nat
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/timezone
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/clock
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/inittab
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/system
