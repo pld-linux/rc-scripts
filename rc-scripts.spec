@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.134 2003-12-07 16:06:44 wolf Exp $
+# $Id: rc-scripts.spec,v 1.135 2003-12-19 13:56:26 jajcus Exp $
 #
 # Conditional build:
 %bcond_without	static	# link binaries with glib dynamically
@@ -16,6 +16,7 @@ Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	f568bd67cf9d344841e406929fc9aade
+Patch0:		%{name}-libdir.patch
 URL:		http://svn.pld-linux.org/svn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -86,6 +87,7 @@ programcýklar içerir.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__aclocal}
@@ -94,6 +96,7 @@ programcýklar içerir.
 %configure \
 	--with-localedir=%{localedir}
 %{__make} \
+	glibdir=/usr/%{_lib} \
 	%{!?with_static:ppp_watch_LDADD="-lglib" ppp_watch_DEPENDENCIES=}
 
 %install
@@ -101,6 +104,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/var/{run/netreport,log}
 
 %{__make} install \
+	glibdir=/usr/%{_lib} \
 	DESTDIR=$RPM_BUILD_ROOT \
 	%{!?with_static:ppp_watch_LDADD="-lglib" ppp_watch_DEPENDENCIES=}
 
