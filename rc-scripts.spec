@@ -1,17 +1,17 @@
-# $Id: rc-scripts.spec,v 1.15 1999-08-18 14:13:04 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.16 1999-09-15 21:51:16 wiget Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.0.8
+Version:	0.0.9
 Release:	1
 Copyright:	GPL
 Group:		Base
 Group(pl):	Bazowe	
 Source:		%{name}-%{version}.tar.gz
-BuildPrereq:	popt-devel
+BuildRequires:	popt-devel
 Requires:	mingetty
 Requires:	mktemp
 Requires:	modutils >= 2.1.121
@@ -75,8 +75,15 @@ install -d $RPM_BUILD_ROOT/var/run/netreport
 
 make install  \
 	DESTDIR=$RPM_BUILD_ROOT 
-	
-	
+
+for i in 0 1 2 3 4 5 6; do
+	install -d $RPM_BUILD_ROOT/etc/rc.d/rc$i.d
+done
+
+for i in 2 3 4 5; do
+	ln -s ../rc.local $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99local
+done
+
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man*/* \
 	doc/*.txt 
 
@@ -107,7 +114,10 @@ fi
 %doc sysconfig/interfaces/data/chat-ppp*
 %doc doc/net-scripts.txt.gz
 
+%attr(755,root,root) %dir %{_sysconfdir}/rc.d/rc?.d
+
 %{_sysconfdir}/rc.d/init.d/functions
+%{_sysconfdir}/rc.d/init.d/functions.network
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/allowlogin
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/halt
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/killall
@@ -115,29 +125,31 @@ fi
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/reboot
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/shutdwn
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/single
+%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/network
+%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/nfsfs
 
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc.sysinit
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc.local
+%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??local
 
 %attr(755,root,root) %{_sysconfdir}/profile.d/lang.sh
 
 %attr(755,root,root) %{_bindir}/doexec
 %attr(755,root,root) %{_bindir}/usleep
+%attr(755,root,root) %{_bindir}/ipcalc
+
 %attr(755,root,root) %{_sbindir}/setsysfont
 %attr(755,root,root) %{_sbindir}/initlog
 %attr(755,root,root) %{_sbindir}/loglevel
-%attr(755,root,root) %{_bindir}/ipcalc
 %attr(755,root,root) %{_sbindir}/usernetctl
 %attr(755,root,root) %{_sbindir}/netreport
 
 %attr(755,root,root) %{_sbindir}/if*
 %attr(755,root,root) %{_sbindir}/tnl*
 
-%{_sysconfdir}/rc.d/init.d/functions.network
-%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/network
-%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/nfsfs
 %attr(750,root,root) %dir /var/run/netreport
+%attr(755,root,root) %dir %{_sysconfdir}/sysconfig
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig/interfaces
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig/interfaces/data
 %attr(755,root,root) %dir %{_sysconfdir}/ppp
@@ -156,3 +168,36 @@ fi
 %{_mandir}/man1/*
 
 %lang(pl) %{localedir}/pl/LC_MESSAGES/*.mo
+
+%changelog
+* Thu Apr 29 1999 PLD Team <bugs@pld.org.pl>
+  [0.0.5-1]
+- automake/autoconf support
+
+* Wed Apr 28 1999 PLD Team <bugs@pld.org.pl>
+  [0.0.4-1]
+- added ipchains-setup  
+
+* Thu Apr 22 1999 PLD Team <bugs@pld.org.pl>
+  [0.0.3-1]
+- split into two packages: rc-scripts & net-scripts  
+- directory structure changed - only config in /etc
+
+* Tue Mar 23 1999 PLD Team <bugs@pld.org.pl>
+  [0.0.2-1]
+- be more verbose while upgrading when /etc/inittab.rpmsave is found,
+- added seting NETWORK="no" variable to when /etc/sysconfig/network is not present
+  or when NETWORK in this file is not defined.
+
+* Sun Mar 21 1999 PLD Team <bugs@pld.org.pl>
+  [0.0.1-1]
+- added /etc/sysconfig/system,
+- removed man group from man pages,
+- added in %post not replacing /etc/inittab on upgrade from initscripts,
+- removed %config from scripts.
+
+* Fri Mar 19 1999 PLD Team <bugs@pld.org.pl>
+- Modified handling ppp links. Added new features to ifcfg-ppp
+  and changed syntax of chat scripts for ppp.
+- First Release.
+- Package based on RedHat's initscripts-3.78.
