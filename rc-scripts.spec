@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.67 2001-05-22 09:06:51 wiget Exp $
+# $Id: rc-scripts.spec,v 1.68 2001-05-23 12:54:15 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -6,7 +6,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.2.11
-Release:	1
+Release:	2
 License:	GPL
 Group:		Base
 Group(de):	Gründsätzlich
@@ -146,7 +146,7 @@ fi
 
 # move network interfaces description files to new location
 %triggerpostun -- initscripts
-mv /etc/sysconfig/netwot/scripts/ifcfg-* /etc/sysconfig/interfaces/
+mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 
 %files
 %defattr(644,root,root,755)
