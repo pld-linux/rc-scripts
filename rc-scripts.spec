@@ -1,4 +1,3 @@
-# $Id: rc-scripts.spec,v 1.136 2003-12-19 14:40:46 arekm Exp $
 #
 # Conditional build:
 %bcond_without	static	# link binaries with glib dynamically
