@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.35 2000-03-30 17:15:13 zagrodzki Exp $
+# $Id: rc-scripts.spec,v 1.36 2000-04-01 11:15:39 zagrodzki Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -38,7 +38,7 @@ Requires:	bdflush
 Requires:	utempter
 Obsoletes:	initscripts
 Provides:	initscripts
-Buildroot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr
 %define		_exec_prefix	/
