@@ -1,0 +1,27 @@
+diff -ur rc-scripts-0.4.0.16.orig/rc.d/rc.sysinit rc-scripts-0.4.0.16/rc.d/rc.sysinit
+--- rc-scripts-0.4.0.16.orig/rc.d/rc.sysinit	2004-09-24 01:45:26.000000000 +0200
++++ rc-scripts-0.4.0.16/rc.d/rc.sysinit	2005-01-05 09:58:48.469438712 +0100
+@@ -19,6 +19,14 @@
+ # Read functions
+ . /etc/rc.d/init.d/functions
+ 
++if [ $(kernelverser) = "002006" ]; then
++	MODULES_CONF=/etc/modprobe.conf
++elif [ -r /etc/modules.conf ]; then
++	MODULES_CONF=/etc/modules.conf
++else
++	MODULES_CONF=/etc/conf.modules
++fi
++
+ # we need /proc mounted before everything
+ mount -n -o gid=17 -t proc /proc /proc
+ 
+@@ -428,7 +436,7 @@
+ fi    
+     
+ # Load sound modules if they need persistent DMA buffers
+-if grep -q "options sound dmabuf=1" /etc/modules.conf 2>/dev/null ; then
++if grep -q "^options sound dmabuf=1" "$MODULES_CONF" 2>/dev/null ; then
+ 	RETURN=0
+ 	alias=$(/sbin/modprobe -c | egrep -s "^alias[[:space:]]+sound[[:space:]]+" | awk '{ print $3 }')
+ 	if [ -n "$alias" -a "$alias" != "off" ] ; then
