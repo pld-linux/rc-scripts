@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.83 2001-12-10 22:31:18 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.84 2001-12-13 03:15:58 gotar Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -6,7 +6,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.3.0
-Release:	3
+Release:	4
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 Group:		Base
@@ -150,6 +150,8 @@ if [ -f /etc/inittab.rpmsave ]; then
 	mv -f /etc/inittab.rpmsave /etc/inittab
 fi
 touch /var/log/dmesg
+chmod 000 /var/log/dmesg
+chown root.root /var/log/dmesg
 chmod 640 /var/log/dmesg
 
 # move network interfaces description files to new location
