@@ -1,0 +1,35 @@
+--- ./po/pl.po.org	Thu Jan 24 15:09:34 2002
++++ ./po/pl.po	Thu Jul 25 17:53:38 2002
+@@ -553,8 +553,8 @@
+ msgstr "Ustawianie statycznych wpisów RARP"
+ 
+ #: ./rc.d/rc.sysinit:55
+-msgid "\t\t\t%sPowered by %sPLD GNU/Linux%s"
+-msgstr "\t\t\t%sNapedzane przez %sPLD GNU/Linux%s"
++msgid "\t\t\t%sPowered by %sPLD Linux Distribution%s"
++msgstr "\t\t\t%sNapedzane przez %sPLD Linux Distribution%s"
+ 
+ #: ./rc.d/init.d/functions:110
+ msgid "ERROR: Networking is down. %s can't be run."
+--- ./po/rc-scripts.pot.org	Sun Jan 27 05:04:18 2002
++++ ./po/rc-scripts.pot	Thu Jul 25 17:54:39 2002
+@@ -576,7 +576,7 @@
+ msgstr ""
+ 
+ #: ../rc.d/rc.sysinit:55
+-msgid "\t\t\t%sPowered by %sPLD GNU/Linux%s"
++msgid "\t\t\t%sPowered by %sPLD Linux Distribution%s"
+ msgstr ""
+ 
+ #: ../rc.d/init.d/functions:123
+--- ./rc.d/rc.sysinit.org	Sun Jan 27 03:13:50 2002
++++ ./rc.d/rc.sysinit	Thu Jul 25 17:52:40 2002
+@@ -53,7 +53,7 @@
+ fi
+ 
+ # Print welcome message
+-nls "\t\t\t%sPowered by %sPLD GNU/Linux%s" "$(termput setaf 6)" "$(termput setaf 2)" "$(termput setaf 7)"
++nls "\t\t\t%sPowered by %sPLD Linux Distribution%s" "$(termput setaf 6)" "$(termput setaf 2)" "$(termput setaf 7)"
+ if is_yes "$PROMPT"; then
+ 	nls -n "\t\t  Press %sI%s to enter interactive startup." "$(termput setaf 1)" "$(termput setaf 7)"
+ 	echo
