@@ -1,0 +1,33 @@
+diff -ru rc-scripts-0.3.1/rc.d/rc.sysinit rc-scripts-0.3.1-AlchemyX/rc.d/rc.sysinit
+--- rc-scripts-0.3.1/rc.d/rc.sysinit	Sun Jan 27 03:13:50 2002
++++ rc-scripts-0.3.1-AlchemyX/rc.d/rc.sysinit	Sun Dec  1 14:47:00 2002
+@@ -174,8 +174,8 @@
+ 
+ 	rc=$?
+ 
+-	# A return of 2 or higher means there were serious problems.
+-	if [ $rc -gt 1 ]; then
++	# A return of 4 or higher means there were serious problems.
++	if [ $rc -gt 4 ]; then
+ 		# don't use '\n' in nls macro !
+ 		echo
+ 		echo
+@@ -193,6 +193,18 @@
+ 
+ 		run_cmd "Unmounting file systems" umount -a
+ 		mount -n -o remount,ro /
++		run_cmd "Automatic reboot in progress" reboot
++	# A return of 2 or 3 means that filesystem was repaired but we need
++	# to reboot.
++	elif [ "$rc" = "2" -o "$rc" = "3" ]; then
++		echo
++		nls "*** Filesystem was repaired but system needs to be"
++		nls "*** rebooted before mounting it."
++		nls "*** REBOOTING ***"
++		echo
++
++		run_cmd "Unmounting file systems" umount -a
++		mount -n -o remount,ro /
+ 		run_cmd "Automatic reboot in progress" reboot
+ 	elif [ "$rc" = "1" ]; then
+ 		_RUN_QUOTACHECK=1
