@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.132 2003-10-31 15:24:54 havner Exp $
+# $Id: rc-scripts.spec,v 1.133 2003-12-07 16:02:45 arekm Exp $
 #
 # Conditional build:
 %bcond_without	static	# link binaries with glib dynamically
@@ -9,16 +9,14 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.0.4
-Release:	0.3
+Version:	0.4.0.5
+Release:	0.1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	b74550d2c1117ae3f5427db276e300d8
-Patch0:		%{name}-firewire.patch
-Patch1:		%{name}-pts.patch
-URL:		http://cvs.pld-linux.org/rc-scripts/
+# Source0-md5:	f568bd67cf9d344841e406929fc9aade
+URL:		http://svn.pld-linux.org/svn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
@@ -88,8 +86,6 @@ programcýklar içerir.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
 %{__aclocal}
