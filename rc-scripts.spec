@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.122 2003-08-31 18:03:12 mmazur Exp $
+# $Id: rc-scripts.spec,v 1.123 2003-09-02 15:23:45 qboosh Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -67,9 +67,7 @@ Conflicts:	LPRng < 3.8.0-2
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	openssh-server < 2:3.6.1p2-6
 
-%define		_prefix		/usr
 %define		_exec_prefix	/
-%define		_sysconfdir	/etc
 %define		localedir	/etc/sysconfig/locale
 
 %description
