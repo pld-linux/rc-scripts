@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.47 2000-07-31 07:38:25 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.48 2000-08-07 12:12:31 zagrodzki Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -6,7 +6,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.2.5
-Release:	1
+Release:	2
 License:	GPL
 Group:		Base
 Group(pl):	Podstawowe
@@ -177,6 +177,7 @@ fi
 %attr(755,root,root) %{_bindir}/usleep
 %attr(755,root,root) %{_bindir}/ipcalc
 %attr(755,root,root) %{_bindir}/resolvesymlink
+%attr(755,root,root) %{_bindir}/run-parts
 
 %attr(755,root,root) %{_sbindir}/setsysfont
 %attr(755,root,root) %{_sbindir}/initlog
