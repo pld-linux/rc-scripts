@@ -1,0 +1,2 @@
+- added shared patch
+- allow for non-static build (define _without_static for it)
