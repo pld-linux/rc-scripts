@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.61 2000-12-28 15:18:30 baggins Exp $
+# $Id: rc-scripts.spec,v 1.62 2001-02-16 17:21:19 qboosh Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -6,7 +6,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.2.10
-Release:	1
+Release:	2
 License:	GPL
 Group:		Base
 Group(de):	Gründsätzlich
@@ -148,6 +148,7 @@ fi
 
 %attr(755,root,root) %dir %{_sysconfdir}/rc.d
 %attr(755,root,root) %dir %{_sysconfdir}/rc.d/rc?.d
+%attr(755,root,root) %dir %{_sysconfdir}/rc.d/init.d
 
 %{_sysconfdir}/rc.d/init.d/functions
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/allowlogin
@@ -202,6 +203,12 @@ fi
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig/network-scripts
 %attr(755,root,root) %{_sysconfdir}/sysconfig/network-scripts/if*
 %{_sysconfdir}/sysconfig/network-scripts/.functions
+%dir %{_sysconfdir}/sysconfig/interfaces/up.d
+%dir %{_sysconfdir}/sysconfig/interfaces/down.d
+%dir %{_sysconfdir}/sysconfig/interfaces/up.d/*
+%dir %{_sysconfdir}/sysconfig/interfaces/down.d/*
+%attr(755,root,root) %{_sysconfdir}/sysconfig/interfaces/up.d/ppp/logger
+%attr(755,root,root) %{_sysconfdir}/sysconfig/interfaces/down.d/ppp/logger
 
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/i18n
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/network
@@ -215,4 +222,6 @@ fi
 
 %{_mandir}/man1/*
 
-%lang(pl) %{localedir}/pl/LC_MESSAGES/*.mo
+%dir %{localedir}
+%lang(pl) %{localedir}/pl
+%lang(de) %{localedir}/de
