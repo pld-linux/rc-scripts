@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.110 2002-12-07 23:49:19 ankry Exp $
+# $Id: rc-scripts.spec,v 1.111 2003-01-12 13:30:42 radek Exp $
 #
 # _with_chroot		make the thing chroot safe (CAN BRAKE SOMETHING!!!)
 
@@ -28,6 +28,7 @@ Patch10:	%{name}-chroot_safe.patch
 Patch11:	%{name}-onlink.patch
 Patch12:	%{name}-pl.po_typo.patch
 Patch13:	%{name}-reboot.patch
+Patch14:	%{name}-pl.po_duplicate.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -111,6 +112,7 @@ programcýklar içerir.
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
+%patch14 -p1
 
 %build
 %{__aclocal}
