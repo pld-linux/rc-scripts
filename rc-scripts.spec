@@ -10,7 +10,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.0.16
-Release:	2
+Release:	3
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
@@ -34,9 +34,9 @@ Requires:	/bin/nice
 Requires:	/bin/ps
 Requires:	FHS >= 2.2-6
 Requires:	SysVinit
-Requires:	e2fsprogs >= 1.15
 Requires:	fileutils
 Requires:	findutils
+Requires:	fsck
 Requires:	gettext
 Requires:	grep
 Requires:	iproute2
