@@ -13,8 +13,9 @@ Release:	1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
-Source0:	%{name}-%{version}.tar.bz2
-# Source0-md5:	d1831861e9b420472eb016cdeed88d0f
+Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	bcc5ffb754f7df0fccb482bcae5e8508
+Patch0:		%{name}-exec-shield.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -85,6 +86,7 @@ programcýklar içerir.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__aclocal}
