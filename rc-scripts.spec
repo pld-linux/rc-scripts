@@ -160,6 +160,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 
 %files
 %defattr(644,root,root,755)
+%doc ChangeLog
 %doc doc/*.txt rc.d/init.d/template.init
 %doc sysconfig/interfaces/data/chat-ppp*
 %doc sysconfig/interfaces/ifc*
