@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.20 1999-10-13 17:41:42 baggins Exp $
+# $Id: rc-scripts.spec,v 1.21 1999-10-15 05:01:15 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -12,6 +12,7 @@ Group:		Base
 Group(pl):	Bazowe	
 Source:		%{name}-%{version}.tar.gz
 BuildRequires:	popt-devel
+BuildRequires:	gettext-devel
 Requires:	mingetty
 Requires:	mktemp
 Requires:	modutils >= 2.1.121
