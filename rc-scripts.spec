@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.63 2001-02-23 20:52:49 aflinta Exp $
+# $Id: rc-scripts.spec,v 1.64 2001-03-10 13:24:50 malekith Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -83,6 +83,9 @@ programcýklar içerir.
 %patch1 -p1
 
 %build
+aclocal
+automake -a -c
+autoconf
 %configure \
 	--with-localedir=%{localedir}
 %{__make}
