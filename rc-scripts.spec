@@ -8,14 +8,13 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.0.14
-Release:	2
+Version:	0.4.0.15
+Release:	1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	b84ecd1b8e240e426684b147a176db4a
-Patch0:		%{name}-i18n.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -86,7 +85,6 @@ programcýklar içerir.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__aclocal}
@@ -180,6 +178,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/init.d/network
 %attr(754,root,root) /etc/rc.d/init.d/random
 %attr(754,root,root) /etc/rc.d/init.d/single
+%attr(754,root,root) /etc/rc.d/init.d/sys-chroots
 %attr(754,root,root) /etc/rc.d/init.d/timezone
 
 %attr(754,root,root) /etc/rc.d/rc
