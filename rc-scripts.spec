@@ -1,17 +1,21 @@
-# $Id: rc-scripts.spec,v 1.25 1999-12-18 20:04:28 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.26 2000-02-08 20:20:11 baggins Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.1.3
+Version:	0.1.4
 Release:	1
 Copyright:	GPL
 Group:		Base
 Group(pl):	Bazowe	
 Source:		%{name}-%{version}.tar.gz
+URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
+Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 BuildRequires:	popt-devel
+BuildRequires:	glib-devel
+BuildRequires:	glib-static
 BuildRequires:	gettext-devel
 Requires:	mingetty
 Requires:	mktemp
@@ -30,8 +34,6 @@ Requires:	e2fsprogs >= 1.15
 Requires:	/bin/gettext
 Obsoletes:	initscripts
 Provides:	initscripts
-BuildRequires:	glib-devel
-BuildRequires:	glib-static
 Buildroot:	/tmp/%{name}-%{version}-root
 
 %define		_prefix		/usr
