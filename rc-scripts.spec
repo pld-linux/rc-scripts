@@ -59,6 +59,8 @@ Conflicts:	openssh-server < 2:3.6.1p2-6
 
 %define		_exec_prefix	/
 %define		localedir	/etc/sysconfig/locale
+%define 	_bindir		/bin
+%define		_sbindir	/sbin
 
 %description
 This package contains the scripts use to boot a system, change run
