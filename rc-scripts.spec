@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.57 2000-11-17 15:47:58 baggins Exp $
+# $Id: rc-scripts.spec,v 1.58 2000-12-06 23:10:58 dobrek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -33,6 +33,7 @@ Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	iproute2
 Requires:	/bin/gettext
+Requires:	gettext
 Requires:	e2fsprogs >= 1.15
 Requires:	mount >= 2.10
 Requires:	bdflush
