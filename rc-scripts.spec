@@ -16,6 +16,7 @@ Requires:	mingetty
 Requires:	mktemp
 Requires:	modutils >= 2.1.121
 Requires:	procps >= 2.0
+Requires:	psmisc
 Provides:	initscripts
 Prereq:		/sbin/chkconfig
 Obsoletes:	initscripts
