@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.98 2002-08-11 17:08:39 misiek Exp $
+# $Id: rc-scripts.spec,v 1.99 2002-08-20 12:19:30 pawelk Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -214,7 +214,7 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %attr(755,root,root) %{_sbindir}/ppp-watch
 %attr(755,root,root) %{_sbindir}/netreport
 %attr(755,root,root) %{_sbindir}/setsysfont
-%attr(755,root,root) %{_sbindir}/usernetctl
+%attr(4755,root,root) %{_sbindir}/usernetctl
 
 %attr(755,root,root) %{_sbindir}/if*
 %attr(755,root,root) %{_sbindir}/tnl*
