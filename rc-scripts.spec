@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.89 2002-02-12 15:21:16 blues Exp $
+# $Id: rc-scripts.spec,v 1.90 2002-02-22 23:29:40 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -10,21 +10,6 @@ Release:	1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 Group:		Base
-Group(cs):	Z·klad
-Group(da):	Basal
-Group(de):	Basis
-Group(es):	Base
-Group(fr):	Base
-Group(is):	Grunnforrit
-Group(it):	Base
-Group(ja):	•Ÿ°º•π
-Group(no):	Basis
-Group(pl):	Podstawowe
-Group(pt):	Base
-Group(pt_BR):	Base
-Group(ru):	‚¡⁄œ◊Ÿ  Œ¡¬œ“
-Group(sl):	Osnova
-Group(sv):	Bas
 Source0:	%{name}-%{version}.tar.gz
 Patch0:		%{name}-shared.patch
 Patch1:		%{name}-ipx_fix.patch
