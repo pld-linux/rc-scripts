@@ -15,7 +15,7 @@ Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	6c6f8838755dfd6777009a51580a224c
-URL:		http://svn.pld-linux.org/cgi-bin/svnview/rc-scripts/
+URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
