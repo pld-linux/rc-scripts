@@ -1,0 +1,12 @@
+--- rc-scripts-0.4.0.11/sysctl.conf.orig	2003-12-15 01:26:24.000000000 +0100
++++ rc-scripts-0.4.0.11/sysctl.conf	2004-06-04 14:43:45.122793336 +0200
+@@ -181,3 +181,9 @@
+ #kernel.grsecurity.stealth_udp = 0
+ 
+ #kernel.grsecurity.coredump = 0
++
++#
++# Exec-Shield (kernel 2.6 only).
++#
++kernel.exec-shield-randomize = 0
++kernel.exec-shield = 0
