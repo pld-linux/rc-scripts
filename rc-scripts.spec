@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.118 2003-08-04 10:52:14 qboosh Exp $
+# $Id: rc-scripts.spec,v 1.119 2003-08-04 11:35:58 qboosh Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -178,7 +178,7 @@ if [ -f /etc/inittab.rpmsave ]; then
 fi
 touch /var/log/dmesg
 chmod 000 /var/log/dmesg
-chown root.root /var/log/dmesg
+chown root:root /var/log/dmesg
 chmod 640 /var/log/dmesg
 
 # move network interfaces description files to new location
