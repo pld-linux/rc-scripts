@@ -70,7 +70,7 @@ install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 
 make ROOT=$RPM_BUILD_ROOT install 
 
-gzip -9nf $RPM_BUILD_ROOT/usr/man/man*/* \
+gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man*/* \
 	sysconfig.txt
 
 %post
@@ -132,8 +132,8 @@ fi
 %attr(755,root,root) /bin/usleep
 %attr(755,root,root) /sbin/setsysfont
 
-/usr/man/man1/usleep.1.gz
-/usr/man/man1/doexec.1.gz
+%{_mandir}/man1/usleep.1.gz
+%{_mandir}/man1/doexec.1.gz
 
 %files -n net-scripts
 %doc sysconfig/interfaces/*-template!
@@ -157,9 +157,9 @@ fi
 %attr(755,root,root) /sbin/ifup
 %attr(755,root,root) /sbin/ifdown
 
-/usr/man/man1/netreport.1.gz
-/usr/man/man1/usernetctl.1.gz
-/usr/man/man1/ipcalc.1.gz
+%{_mandir}/man1/netreport.1.gz
+%{_mandir}/man1/usernetctl.1.gz
+%{_mandir}/man1/ipcalc.1.gz
 
 %changelog
 * Thu Apr 22 1999 Jacek Konieczny <jajcus@zeus.polsl.gliwice.pl>
