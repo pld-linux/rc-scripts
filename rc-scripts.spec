@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.117 2003-06-17 13:58:08 qboosh Exp $
+# $Id: rc-scripts.spec,v 1.118 2003-08-04 10:52:14 qboosh Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -183,7 +183,7 @@ chmod 640 /var/log/dmesg
 
 # move network interfaces description files to new location
 %triggerpostun -- initscripts
-mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
+mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 
 %files
 %defattr(644,root,root,755)
