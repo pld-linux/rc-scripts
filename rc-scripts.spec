@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.29 2000-03-22 21:51:06 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.30 2000-03-22 22:35:14 wiget Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -30,8 +30,8 @@ Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	sed
 Requires:	iproute2
-Requires:	e2fsprogs >= 1.15
 Requires:	/bin/gettext
+Requires:	e2fsprogs >= 1.15
 Requires:	mount >= 2.10
 Obsoletes:	initscripts
 Provides:	initscripts
@@ -60,7 +60,7 @@ des inetrfaces réseau.
 
 %description -l pl
 Pakiet zawiera skrypty uruchamiane przy starcie i zamykaniu systemu, a
-tak¿e przy zmianie poziomu uruchomienia.
+tak¿e przy zmianie poziomu uruchomienia. 
 
 %description -l tr
 Bu paket, sistem açmak, çalýþma düzeylerini deðiþtirmek ve sistemi düzgün bir
@@ -91,6 +91,7 @@ for i in 2 3 4 5; do
 	ln -s ../rc.local $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99local
 	ln -s ../init.d/network $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10network
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99allowlogin
+	ln -s ../init.d/timezone $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10timezone
 done
 
 for i in 1 2 3 4 5; do
@@ -115,7 +116,7 @@ for i in 0 1 6; do
 done
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man*/* \
-	doc/*.txt 
+	doc/*.txt rc.d/init.d/template.init
 
 %post
 if [ -f /etc/inittab.rpmsave ]; then
@@ -133,7 +134,7 @@ fi
 %doc sysconfig/interfaces/tnl*
 %doc sysconfig/interfaces/data/chat-ppp*
 %doc doc/net-scripts.txt.gz
-%doc rc.d/init.d/template.init
+%doc rc.d/init.d/template.init.gz
 
 %attr(755,root,root) %dir %{_sysconfdir}/rc.d/rc?.d
 
@@ -142,6 +143,7 @@ fi
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/killall
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/random
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/single
+%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/timezone
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/network
 
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc.sysinit
@@ -154,6 +156,7 @@ fi
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??network
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??random
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??single
+%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??timezone
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/K??allowlogin
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/K??killall
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/K??network
@@ -165,6 +168,7 @@ fi
 %attr(755,root,root) %{_bindir}/doexec
 %attr(755,root,root) %{_bindir}/usleep
 %attr(755,root,root) %{_bindir}/ipcalc
+%attr(755,root,root) %{_bindir}/resolvesymlink
 
 %attr(755,root,root) %{_sbindir}/setsysfont
 %attr(755,root,root) %{_sbindir}/initlog
@@ -189,6 +193,7 @@ fi
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/network
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/static-routes
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/static-nat
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/timezone
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/inittab
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/system
