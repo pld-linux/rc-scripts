@@ -10,7 +10,7 @@ Group:		Base
 Group(pl):	Podstawowe
 Release:	1
 Source:		%{name}-%{version}.tar.gz
-Buildroot:	/tmp/buildroot-%{name}-%{version}
+BuildRoot:	/tmp/%{name}-%{version}-root
 Requires:	mingetty
 Requires:	mktemp
 Requires:	modutils >= 2.1.121
