@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.108 2002-12-01 21:36:27 alchemyx Exp $
+# $Id: rc-scripts.spec,v 1.109 2002-12-07 14:33:52 ankry Exp $
 #
 # _with_chroot		make the thing chroot safe (CAN BRAKE SOMETHING!!!)
 
@@ -159,7 +159,7 @@ for i in 0 1 6; do
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K01allowlogin
 done
 
-install sysconfig/interfaces/ifcfg-eth0 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/interfaces
+install sysconfig/interfaces/ifcfg-eth0 $RPM_BUILD_ROOT/etc/sysconfig/interfaces
 > $RPM_BUILD_ROOT/var/log/dmesg
 
 %clean
@@ -189,35 +189,35 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %doc sysconfig/interfaces/ifc*
 %doc sysconfig/interfaces/tnl*
 
-%attr(755,root,root) %dir %{_sysconfdir}/rc.d
-%attr(755,root,root) %dir %{_sysconfdir}/rc.d/init.d
-%attr(755,root,root) %dir %{_sysconfdir}/rc.d/rc?.d
+%attr(755,root,root) %dir /etc/rc.d
+%attr(755,root,root) %dir /etc/rc.d/init.d
+%attr(755,root,root) %dir /etc/rc.d/rc?.d
 
-%{_sysconfdir}/rc.d/init.d/functions
-%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/allowlogin
-%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/killall
-%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/network
-%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/random
-%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/single
-%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/timezone
+/etc/rc.d/init.d/functions
+%attr(754,root,root) /etc/rc.d/init.d/allowlogin
+%attr(754,root,root) /etc/rc.d/init.d/killall
+%attr(754,root,root) /etc/rc.d/init.d/network
+%attr(754,root,root) /etc/rc.d/init.d/random
+%attr(754,root,root) /etc/rc.d/init.d/single
+%attr(754,root,root) /etc/rc.d/init.d/timezone
 
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc
-%attr(754,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rc.d/rc.local
-%attr(754,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rc.d/rc.modules
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc.sysinit
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc.shutdown
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??allowlogin
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??killall
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??local
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??network
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??random
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??single
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??timezone
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/K??allowlogin
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/K??killall
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/K??network
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/K??random
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/K??single
+%attr(754,root,root) /etc/rc.d/rc
+%attr(754,root,root) %config(noreplace) %verify(not md5 size mtime) /etc/rc.d/rc.local
+%attr(754,root,root) %config(noreplace) %verify(not md5 size mtime) /etc/rc.d/rc.modules
+%attr(754,root,root) /etc/rc.d/rc.sysinit
+%attr(754,root,root) /etc/rc.d/rc.shutdown
+%attr(754,root,root) /etc/rc.d/rc?.d/S??allowlogin
+%attr(754,root,root) /etc/rc.d/rc?.d/S??killall
+%attr(754,root,root) /etc/rc.d/rc?.d/S??local
+%attr(754,root,root) /etc/rc.d/rc?.d/S??network
+%attr(754,root,root) /etc/rc.d/rc?.d/S??random
+%attr(754,root,root) /etc/rc.d/rc?.d/S??single
+%attr(754,root,root) /etc/rc.d/rc?.d/S??timezone
+%attr(754,root,root) /etc/rc.d/rc?.d/K??allowlogin
+%attr(754,root,root) /etc/rc.d/rc?.d/K??killall
+%attr(754,root,root) /etc/rc.d/rc?.d/K??network
+%attr(754,root,root) /etc/rc.d/rc?.d/K??random
+%attr(754,root,root) /etc/rc.d/rc?.d/K??single
 
 %attr(755,root,root) %{_sysconfdir}/profile.d/lang.*sh
 
@@ -242,18 +242,18 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 
 %attr(755,root,root) %dir %{_sysconfdir}/ppp
 %attr(754,root,root) %{_sysconfdir}/ppp/*
-%attr(755,root,root) %dir %{_sysconfdir}/sysconfig
-%attr(755,root,root) %dir %{_sysconfdir}/sysconfig/interfaces
-%attr(755,root,root) %dir %{_sysconfdir}/sysconfig/interfaces/data
-%attr(755,root,root) %dir %{_sysconfdir}/sysconfig/network-scripts
-%attr(755,root,root) %{_sysconfdir}/sysconfig/network-scripts/if*
-%{_sysconfdir}/sysconfig/network-scripts/.functions
-%dir %{_sysconfdir}/sysconfig/interfaces/down.d
-%dir %{_sysconfdir}/sysconfig/interfaces/down.d/*
-%dir %{_sysconfdir}/sysconfig/interfaces/up.d
-%dir %{_sysconfdir}/sysconfig/interfaces/up.d/*
-%attr(755,root,root) %{_sysconfdir}/sysconfig/interfaces/down.d/ppp/logger
-%attr(755,root,root) %{_sysconfdir}/sysconfig/interfaces/up.d/ppp/logger
+%attr(755,root,root) %dir /etc/sysconfig
+%attr(755,root,root) %dir /etc/sysconfig/interfaces
+%attr(755,root,root) %dir /etc/sysconfig/interfaces/data
+%attr(755,root,root) %dir /etc/sysconfig/network-scripts
+%attr(755,root,root) /etc/sysconfig/network-scripts/if*
+/etc/sysconfig/network-scripts/.functions
+%dir /etc/sysconfig/interfaces/down.d
+%dir /etc/sysconfig/interfaces/down.d/*
+%dir /etc/sysconfig/interfaces/up.d
+%dir /etc/sysconfig/interfaces/up.d/*
+%attr(755,root,root) /etc/sysconfig/interfaces/down.d/ppp/logger
+%attr(755,root,root) /etc/sysconfig/interfaces/up.d/ppp/logger
 %attr(640,root,root) %ghost /var/log/dmesg
 %attr(750,root,root) %dir /var/run/netreport
 
@@ -262,14 +262,14 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/modules
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/initlog.conf
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysctl.conf
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/clock
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/i18n
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/network
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/static-nat
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/static-routes
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/timezone
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/interfaces/ifcfg-eth0
-%attr(640,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/system
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/clock
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/i18n
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/network
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/static-nat
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/static-routes
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/timezone
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/interfaces/ifcfg-eth0
+%attr(640,root,root) %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/system
 
 %{_mandir}/man1/*
 
