@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.34 2000-03-29 21:55:18 zagrodzki Exp $
+# $Id: rc-scripts.spec,v 1.35 2000-03-30 17:15:13 zagrodzki Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -20,6 +20,7 @@ BuildRequires:	gettext-devel
 Requires:	mingetty
 Requires:	mktemp
 Requires:	modutils >= 2.1.121
+Requires:	fileutils
 Requires:	textutils
 Requires:	sh-utils
 Requires:	/bin/nice
