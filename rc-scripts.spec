@@ -16,7 +16,7 @@ Group:		Base
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	f568bd67cf9d344841e406929fc9aade
 Patch0:		%{name}-libdir.patch
-URL:		http://svn.pld-linux.org/svn/rc-scripts/
+URL:		http://svn.pld-linux.org/cgi-bin/svnview/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
