@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.41 2000-06-09 07:23:58 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.42 2000-06-09 07:55:08 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -78,7 +78,7 @@ arayüzlerini etkinleþtiren ya da edilginleþtiren programcýklar içerir.
 LDFLAGS="-s"; export LDFLAGS
 %configure \
 	--with-localedir=%{localedir}
-make
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
