@@ -1,12 +1,12 @@
-# $Id: rc-scripts.spec,v 1.54 2000-10-04 01:13:54 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.55 2000-11-06 19:38:58 baggins Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.2.7
-Release:	2
+Version:	0.2.8
+Release:	1
 License:	GPL
 Group:		Base
 Group(de):	Gründsätzlich
