@@ -1,0 +1,56 @@
+Index: rc.d/rc.sysinit
+===================================================================
+--- rc.d/rc.sysinit	(.../tags/0.4.0.16)	(wersja 4664)
++++ rc.d/rc.sysinit	(.../trunk)	(wersja 4664)
+@@ -106,6 +106,12 @@
+ 	/bin/dmesg -n $CONSOLE_LOGLEVEL
+ fi
+ 
++if [ -f /etc/udev/udev.conf ];then
++	. /etc/udev/udev.conf
++fi
++
++[ -x /sbin/start_udev ] && run_cmd "Starting udev" /sbin/start_udev
++	
+ # /dev must be also mounted before everything but only if we want use them ;-)
+ if is_yes "$MOUNT_DEVFS"; then
+ 	run_cmd "Mounting Device Filesystem" mount -n -t devfs /dev /dev
+@@ -741,10 +747,6 @@
+ rm -rf /tmp/.X*-unix /tmp/.ICE-unix /tmp/.font-unix /tmp/hsperfdata_* \
+ 	/tmp/kde-* /tmp/ksocket-* /tmp/mc-* /tmp/mcop-* /tmp/orbit-*  \
+ 	/tmp/scrollkeeper-*  /tmp/ssh-*
+-# Make ICE directory
+-mkdir -m 1777 -p /tmp/.ICE-unix > /dev/null 2>&1
+-chown root:root /tmp/.ICE-unix
+-restorecon /tmp/.ICE-unix > /dev/null 2>&1
+ 
+ {
+ # Clean up utmp/wtmp
+@@ -765,6 +767,12 @@
+ 	rm -rf /tmp/* /tmp/.[a-zA-Z0-9]*
+ fi
+ 
++# System protected dirs
++mkdir -m 1777 -p /tmp/.ICE-unix > /dev/null 2>&1
++chown root:root /tmp/.ICE-unix
++restorecon /tmp/.ICE-unix > /dev/null 2>&1
++
++
+ # Right, now turn on swap in case we swap to files
+ swapon -a >/dev/null 2>&1
+ run_cmd "Enabling swap space" /bin/true
+Index: sysconfig/interfaces/ifcfg-description
+===================================================================
+--- sysconfig/interfaces/ifcfg-description	(.../tags/0.4.0.16)	(wersja 4664)
++++ sysconfig/interfaces/ifcfg-description	(.../trunk)	(wersja 4664)
+@@ -6,8 +6,8 @@
+   from lowest value first. You need to set BOOTPRIO in _all_ your
+   ifcfg* files because if you won't do that only these interfaces
+   with BOOTPRIO variable will be configured. Use the same schema
+-  when setting variable for example BOOTPRIO=numer
+-  or BOOTPRIO="numer" because sorting is done by sort command.
++  when setting variable for example BOOTPRIO=number
++  or BOOTPRIO="number" because sorting is done by sort command.
+ 
+ [ BOOTPROTO={none|bootp|dhcp|pump} ]
+   You can specify which dhcp client to use with the DHCP_CLIENT, if
