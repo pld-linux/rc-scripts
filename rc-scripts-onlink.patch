@@ -5,8 +5,8 @@ diff -ru rc-scripts-0.3.1/rc.d/init.d/functions.network rc-scripts-0.3.1-AX/rc.d
  	if [ -z "${GATEWAYDEV}" -o "${GATEWAYDEV}" = "${DEVICE}" ]; then
  	    # set up default gateway
  	    if [ -n "${GATEWAY}" ]; then
--	  	ip -4 route add default via ${GATEWAY} dev ${DEVICE} ${IP4SRCADDR} ${TNLOPTS} onlink
-+	  	ip -4 route add default via ${GATEWAY} dev ${DEVICE} ${IP4SRCADDR} ${TNLOPTS}
+-	  	ip -4 route add default via ${GATEWAY} dev ${DEVICE} ${IP4SRCADDR} ${TNLOPTS}
++	  	ip -4 route add default via ${GATEWAY} dev ${DEVICE} ${IP4SRCADDR} ${TNLOPTS} onlink
  	    	DEFGW=${GATEWAY}
  	    elif [ "${GATEWAYDEV}" = "${DEVICE}" ]; then
  	 	ip -4 route add default dev ${DEVICE} ${IP4SRCADDR} ${TNLOPTS}
@@ -14,8 +14,8 @@ diff -ru rc-scripts-0.3.1/rc.d/init.d/functions.network rc-scripts-0.3.1-AX/rc.d
      	    if [ -z "${GATEWAY6DEV}" -o "${GATEWAY6DEV}" = "${DEVICE}" ]; then
  	    	# set up default gateway
  	    	if [ -n "${GATEWAY6}" ]; then
--	    		ip -6 route add default via ${GATEWAY6} dev ${DEVICE} ${IP6SRCADDR} onlink
-+	    		ip -6 route add default via ${GATEWAY6} dev ${DEVICE} ${IP6SRCADDR}
+-	    		ip -6 route add default via ${GATEWAY6} dev ${DEVICE} ${IP6SRCADDR}
++	    		ip -6 route add default via ${GATEWAY6} dev ${DEVICE} ${IP6SRCADDR} onlink
  			DEFGW6=${GATEWAY6}
  	    	elif [ "${GATEWAY6DEV}" = "${DEVICE}" ]; then
  	    		ip -6 route add default dev ${DEVICE} ${IP6SRCADDR}
