@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.80 2001-11-30 20:23:11 gotar Exp $
+# $Id: rc-scripts.spec,v 1.81 2001-11-30 20:35:35 gotar Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
