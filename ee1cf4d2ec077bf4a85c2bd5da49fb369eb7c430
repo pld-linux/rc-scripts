@@ -1,0 +1,1 @@
+- fixed BR#103 (incorrect %defattr directory permission - must be 755).
