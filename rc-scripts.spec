@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.33 2000-03-28 22:11:05 zagrodzki Exp $
+# $Id: rc-scripts.spec,v 1.34 2000-03-29 21:55:18 zagrodzki Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -180,6 +180,8 @@ fi
 
 %attr(755,root,root) %{_sbindir}/if*
 %attr(755,root,root) %{_sbindir}/tnl*
+
+%attr(755,root,root) %{_sbindir}/getkey
 
 %attr(750,root,root) %dir /var/run/netreport
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig
