@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.91 2002-03-24 23:28:23 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.92 2002-05-21 23:14:37 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -87,8 +87,8 @@ programcýklar içerir.
 
 %build
 aclocal
-automake -a -c -f
-autoconf
+%{__automake}
+%{__autoconf}
 %configure \
 	--with-localedir=%{localedir}
 %{__make}
