@@ -8,7 +8,7 @@
  
  # First set up a default search path.
  export PATH="/sbin:/usr/sbin:/bin:/usr/bin:/usr/X11R6/bin"
-@@ -388,6 +389,29 @@
+@@ -388,6 +389,28 @@
  	fi
  }
  
@@ -24,7 +24,6 @@
 +		if [ -n "$rewt" ]; then
 +			if [ "$rewt" = "/" ] || \
 +				[ "$rewt" = "/usr/share/empty" ] || \
-+				[ "$rewt" = "/var/lib/named" ] || \
 +				[ "$rewt" = "$CHROOT_TO_DIR" ]; then
 +				filteredpids="$filteredpids $1"
 +			fi
