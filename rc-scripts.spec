@@ -151,7 +151,7 @@ fi
 %attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/network
 %attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/static-routes
 
-%attr(755,root,root) /usr/sbin/usernetctl
+%attr(755,root,root) %{_sbindir}/usernetctl
 %attr(755,root,root) /bin/ipcalc
 %attr(755,root,root) /sbin/netreport
 %attr(755,root,root) /sbin/ifup
