@@ -1,0 +1,11 @@
+--- rc-scripts-0.4.0.17/rc.d/init.d/functions.orig	2005-02-23 15:45:25.250809800 +0100
++++ rc-scripts-0.4.0.17/rc.d/init.d/functions	2005-02-23 15:43:54.477609424 +0100
+@@ -307,7 +307,7 @@
+ 			termput op
+ 		fi
+ 		echo -n "$text"
+-		awk "BEGIN { for (j=length(\"$text\"); j<$INIT_COL; j++) printf \".\" }"
++		awk "BEGIN { for (j=length(\"$CHARS$text\"); j<$INIT_COL; j++) printf \".\" }"
+ 	fi
+ }
+ 
