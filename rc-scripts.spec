@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.75 2001-10-11 18:54:54 baggins Exp $
+# $Id: rc-scripts.spec,v 1.76 2001-10-11 19:00:28 baggins Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -15,7 +15,6 @@ Group(pl):	Podstawowe
 Group(pt_BR):	Base
 Source0:	%{name}-%{version}.tar.gz
 Patch0:		%{name}-shared.patch
-Patch1:		%{name}-typo.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 BuildRequires:	autoconf
@@ -84,9 +83,7 @@ programcýklar içerir.
 
 %prep
 %setup -q
-%{!?_without_static:#}
-%patch0 -p1
-%patch1 -p1
+%{!?_without_static:#}%patch0 -p1
 
 %build
 aclocal
