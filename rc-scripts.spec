@@ -1,12 +1,12 @@
-# $Id: rc-scripts.spec,v 1.65 2001-03-30 11:14:43 inglod Exp $
+# $Id: rc-scripts.spec,v 1.66 2001-05-13 22:07:18 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.2.10
-Release:	2
+Version:	0.2.11
+Release:	1
 License:	GPL
 Group:		Base
 Group(de):	Gründsätzlich
@@ -144,6 +144,10 @@ if [ -f /etc/inittab.rpmsave ]; then
 	mv -f /etc/inittab.rpmsave /etc/inittab
 fi
 
+# move network interfaces description files to new location
+%triggerpostun -- initscripts
+mv /etc/sysconfig/netwot/scripts/ifcfg-* /etc/sysconfig/interfaces/
+
 %files
 %defattr(644,root,root,755)
 %doc doc/sysconfig.txt.gz
@@ -222,7 +226,7 @@ fi
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/static-routes
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/static-nat
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/timezone
-#%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/clock
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/clock
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/inittab
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/system
