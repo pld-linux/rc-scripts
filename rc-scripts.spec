@@ -1,6 +1,4 @@
-# $Id: rc-scripts.spec,v 1.116 2003-06-16 20:22:07 blues Exp $
-
-
+# $Id: rc-scripts.spec,v 1.117 2003-06-17 13:58:08 qboosh Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -8,7 +6,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.3.1
-Release:	12.2
+Release:	13
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 Group:		Base
@@ -29,6 +27,7 @@ Patch11:	%{name}-onlink.patch
 Patch12:	%{name}-pl.po_typo.patch
 Patch13:	%{name}-reboot.patch
 Patch14:	%{name}-pl.po_duplicate.patch
+Patch15:	%{name}-timezone-posix.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -114,6 +113,7 @@ programcýklar içerir.
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
+%patch15 -p1
 
 %build
 %{__aclocal}
