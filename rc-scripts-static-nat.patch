@@ -1,0 +1,26 @@
+diff -ru rc-scripts-0.3.1/rc.d/init.d/functions.network rc-scripts-0.3.1-AX/rc.d/init.d/functions.network
+--- rc-scripts-0.3.1/rc.d/init.d/functions.network	Mon Nov 19 20:07:17 2001
++++ rc-scripts-0.3.1-AX/rc.d/init.d/functions.network	Fri Nov  8 23:49:10 2002
+@@ -150,11 +150,11 @@
+ if [ -r /etc/sysconfig/static-nat ]; then
+ 	grep "^[0-9]" /etc/sysconfig/static-nat | while read src via dst; do
+ 		if [ "$1" = "on" ]; then
+-			/sbin/ip route add nat $src via $dst
+-			/sbin/ip rule add from $dst nat $src
++			/sbin/ip route add nat $dst via $src
++			/sbin/ip rule add from $src nat $dst
+ 		elif [ "$1" = "off" ]; then
+-			/sbin/ip rule del from $dst nat $src
+-			/sbin/ip route del nat $src via $dst
++			/sbin/ip rule del from $src nat $dst
++			/sbin/ip route del nat $dst via $src
+ 	fi
+ 	done
+ fi
+diff -ru rc-scripts-0.3.1/sysconfig/static-nat rc-scripts-0.3.1-AX/sysconfig/static-nat
+--- rc-scripts-0.3.1/sysconfig/static-nat	Mon Jun 28 15:07:45 1999
++++ rc-scripts-0.3.1-AX/sysconfig/static-nat	Fri Nov  8 23:45:47 2002
+@@ -0,0 +1,3 @@
++# <IP>[/<mask>]		via <IP>
++# 192.168.1.1		via 1.1.1.1
++# 192.168.2.1/24	via 1.1.1.1
