@@ -33,3 +33,23 @@
  if is_yes "$PROMPT"; then
  	nls -n "\t\t  Press %sI%s to enter interactive startup." "$(termput setaf 1)" "$(termput setaf 7)"
  	echo
+--- rc-scripts-0.3.1.orig/README	Tue May 15 18:05:58 2001
++++ rc-scripts-0.3.1/README	Tue Jul 30 15:18:59 2002
+@@ -36,5 +36,5 @@
+ use our Bug Tracking System ( http://bugs.pld.org.pl/ ).
+ 
+ -- 
+-PLD GNU/Linux rc-scripts Team,
++PLD Linux rc-scripts Team,
+ 
+--- rc-scripts-0.3.1.orig/rc.d/init.d/functions.network	Mon Nov 19 20:07:17 2001
++++ rc-scripts-0.3.1/rc.d/init.d/functions.network	Tue Jul 30 15:19:41 2002
+@@ -140,7 +140,7 @@
+ fi
+ }
+ 
+-# PLD GNU/Linux network functions
++# PLD Linux network functions
+ # Copyright (C) 1999, 2000 Arkadiusz Mi¶kiewicz <misiek@pld.org.pl>
+ 
+ # Setup Network Address Translation (NAT)
