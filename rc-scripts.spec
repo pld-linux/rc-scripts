@@ -1,6 +1,6 @@
-# $Id: rc-scripts.spec,v 1.110 2002-12-07 23:49:19 ankry Exp $
+# $Id: rc-scripts.spec,v 1.117.2.2 2003-07-14 22:47:04 adamg Exp $
 #
-# _with_chroot		make the thing chroot safe (CAN BRAKE SOMETHING!!!)
+# _with_chroot		make the thing chroot-safe (CAN BRAKE SOMETHING!!!)
 
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
@@ -9,11 +9,12 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.3.1
-Release:	12.1
+Release:	13
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
+# Source0-md5: c032946a4ea2c81b92c70b26f65b18d9
 Patch0:		%{name}-shared.patch
 Patch1:		%{name}-ipx_fix.patch
 Patch2:		%{name}-ulimitc.patch
@@ -28,6 +29,8 @@ Patch10:	%{name}-chroot_safe.patch
 Patch11:	%{name}-onlink.patch
 Patch12:	%{name}-pl.po_typo.patch
 Patch13:	%{name}-reboot.patch
+Patch14:	%{name}-pl.po_duplicate.patch
+#Patch15:	%{name}-timezone-posix.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -40,6 +43,7 @@ Requires:	/bin/basename
 Requires:	/bin/gettext
 Requires:	/bin/nice
 Requires:	/bin/ps
+Requires:	FHS >= 2.2-6
 Requires:	SysVinit
 Requires:	bdflush
 Requires:	e2fsprogs >= 1.15
@@ -111,6 +115,8 @@ programcýklar içerir.
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
+%patch14 -p1
+#%patch15 -p1
 
 %build
 %{__aclocal}
