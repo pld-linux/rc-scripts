@@ -1,4 +1,7 @@
-# $Id: rc-scripts.spec,v 1.117 2003-06-17 13:58:08 qboosh Exp $
+# $Id: rc-scripts.spec,v 1.117.2.1 2003-07-14 22:29:21 adamg Exp $
+#
+# _with_chroot		make the thing chroot-safe (CAN BRAKE SOMETHING!!!)
+
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -108,7 +111,7 @@ programcýklar içerir.
 %patch7 -p0
 %patch8 -p1
 %patch9 -p1
-%patch10 -p1
+%{!?_with_chroot:#}%patch10 -p1
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
