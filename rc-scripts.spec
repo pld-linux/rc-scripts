@@ -4,7 +4,7 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.0.3
+Version:	0.0.7
 Copyright:	GPL
 Group:		Base
 Group(pl):	Podstawowe
