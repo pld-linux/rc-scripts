@@ -1,11 +1,11 @@
-# $Id: rc-scripts.spec,v 1.18 1999-09-27 16:13:08 wiget Exp $
+# $Id: rc-scripts.spec,v 1.19 1999-09-28 15:38:54 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.0.10
+Version:	0.0.11
 Release:	1
 Copyright:	GPL
 Group:		Base
@@ -168,36 +168,3 @@ fi
 %{_mandir}/man1/*
 
 %lang(pl) %{localedir}/pl/LC_MESSAGES/*.mo
-
-%changelog
-* Thu Apr 29 1999 PLD Team <bugs@pld.org.pl>
-  [0.0.5-1]
-- automake/autoconf support
-
-* Wed Apr 28 1999 PLD Team <bugs@pld.org.pl>
-  [0.0.4-1]
-- added ipchains-setup  
-
-* Thu Apr 22 1999 PLD Team <bugs@pld.org.pl>
-  [0.0.3-1]
-- split into two packages: rc-scripts & net-scripts  
-- directory structure changed - only config in /etc
-
-* Tue Mar 23 1999 PLD Team <bugs@pld.org.pl>
-  [0.0.2-1]
-- be more verbose while upgrading when /etc/inittab.rpmsave is found,
-- added seting NETWORK="no" variable to when /etc/sysconfig/network is not present
-  or when NETWORK in this file is not defined.
-
-* Sun Mar 21 1999 PLD Team <bugs@pld.org.pl>
-  [0.0.1-1]
-- added /etc/sysconfig/system,
-- removed man group from man pages,
-- added in %post not replacing /etc/inittab on upgrade from initscripts,
-- removed %config from scripts.
-
-* Fri Mar 19 1999 PLD Team <bugs@pld.org.pl>
-- Modified handling ppp links. Added new features to ifcfg-ppp
-  and changed syntax of chat scripts for ppp.
-- First Release.
-- Package based on RedHat's initscripts-3.78.
