@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.69 2001-06-04 23:04:14 klakier Exp $
+# $Id: rc-scripts.spec,v 1.70 2001-07-15 07:54:23 gotar Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -16,32 +16,32 @@ Patch0:		%{name}-shared.patch
 Patch1:		%{name}-typo.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
-BuildRequires:	popt-devel
+BuildRequires:	gettext-devel
 BuildRequires:	glib-devel
 %{!?_without_static:BuildRequires:	glib-static}
-BuildRequires:	gettext-devel
+BuildRequires:	popt-devel
+Requires:	/bin/awk
+Requires:	/bin/basename
+Requires:	/bin/gettext
+Requires:	/bin/nice
+Requires:	/bin/ps
+Requires:	SysVinit
+Requires:	bdflush
+Requires:	e2fsprogs >= 1.15
+Requires:	fileutils
+Requires:	findutils
+Requires:	gettext
 Requires:	grep
+Requires:	iproute2
 Requires:	mingetty
 Requires:	mktemp
 Requires:	modutils >= 2.1.121
-Requires:	fileutils
-Requires:	textutils
-Requires:	findutils
-Requires:	sh-utils
-Requires:	/bin/nice
-Requires:	/bin/basename
-Requires:	/bin/awk
-Requires:	procps
-Requires:	/bin/ps
-Requires:	SysVinit
-Requires:	iproute2
-Requires:	/bin/gettext
-Requires:	gettext
-Requires:	e2fsprogs >= 1.15
 Requires:	mount >= 2.10
-Requires:	bdflush
-Requires:	utempter
 Requires:	net-tools
+Requires:	procps
+Requires:	sh-utils
+Requires:	textutils
+Requires:	utempter
 Requires:	util-linux
 Obsoletes:	initscripts
 Provides:	initscripts
@@ -70,7 +70,7 @@ inetrfaces réseau.
 
 %description -l pl
 Pakiet zawiera skrypty uruchamiane przy starcie i zamykaniu systemu, a
-tak¿e przy zmianie poziomu uruchomienia.
+tak¿e przy zmianie jego poziomu pracy.
 
 %description -l tr
 Bu paket, sistem açmak, çalýþma düzeylerini deðiþtirmek ve sistemi
@@ -96,8 +96,8 @@ autoconf
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/var/run/netreport
 
-%{__make} install  \
-	DESTDIR=$RPM_BUILD_ROOT 
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 for i in 0 1 2 3 4 5 6; do
 	install -d $RPM_BUILD_ROOT/etc/rc.d/rc$i.d
@@ -151,32 +151,32 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 
 %files
 %defattr(644,root,root,755)
+%doc doc/net-scripts.txt.gz
 %doc doc/sysconfig.txt.gz
+%doc sysconfig/interfaces/data/chat-ppp*
 %doc sysconfig/interfaces/ifc*
 %doc sysconfig/interfaces/tnl*
-%doc sysconfig/interfaces/data/chat-ppp*
-%doc doc/net-scripts.txt.gz
 %doc rc.d/init.d/template.init.gz
 
 %attr(755,root,root) %dir %{_sysconfdir}/rc.d
-%attr(755,root,root) %dir %{_sysconfdir}/rc.d/rc?.d
 %attr(755,root,root) %dir %{_sysconfdir}/rc.d/init.d
+%attr(755,root,root) %dir %{_sysconfdir}/rc.d/rc?.d
 
 %{_sysconfdir}/rc.d/init.d/functions
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/allowlogin
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/killall
+%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/network
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/random
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/single
 %attr(754,root,root) %{_sysconfdir}/rc.d/init.d/timezone
-%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/network
 
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc.sysinit
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc
-%attr(754,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/rc.d/rc.local
+%attr(754,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rc.d/rc.local
+%attr(754,root,root) %{_sysconfdir}/rc.d/rc.sysinit
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc.shutdown
-%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??local
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??allowlogin
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??killall
+%attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??local
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??network
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??random
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??single
@@ -190,50 +190,50 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %attr(755,root,root) %{_sysconfdir}/profile.d/lang.sh
 
 %attr(755,root,root) %{_bindir}/doexec
-%attr(755,root,root) %{_bindir}/usleep
 %attr(755,root,root) %{_bindir}/ipcalc
 %attr(755,root,root) %{_bindir}/resolvesymlink
 %attr(755,root,root) %{_bindir}/run-parts
+%attr(755,root,root) %{_bindir}/usleep
 
-%attr(755,root,root) %{_sbindir}/setsysfont
 %attr(755,root,root) %{_sbindir}/initlog
 %attr(755,root,root) %{_sbindir}/loglevel
-%attr(755,root,root) %{_sbindir}/usernetctl
 %attr(755,root,root) %{_sbindir}/netreport
+%attr(755,root,root) %{_sbindir}/setsysfont
+%attr(755,root,root) %{_sbindir}/usernetctl
 
 %attr(755,root,root) %{_sbindir}/if*
 %attr(755,root,root) %{_sbindir}/tnl*
 
 %attr(755,root,root) %{_sbindir}/getkey
 
-%attr(750,root,root) %dir /var/run/netreport
+%attr(755,root,root) %dir %{_sysconfdir}/ppp
+%attr(755,root,root) %{_sysconfdir}/ppp/*
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig/interfaces
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig/interfaces/data
-%attr(755,root,root) %dir %{_sysconfdir}/ppp
-%attr(755,root,root) %{_sysconfdir}/ppp/*
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig/network-scripts
 %attr(755,root,root) %{_sysconfdir}/sysconfig/network-scripts/if*
 %{_sysconfdir}/sysconfig/network-scripts/.functions
-%dir %{_sysconfdir}/sysconfig/interfaces/up.d
 %dir %{_sysconfdir}/sysconfig/interfaces/down.d
-%dir %{_sysconfdir}/sysconfig/interfaces/up.d/*
 %dir %{_sysconfdir}/sysconfig/interfaces/down.d/*
-%attr(755,root,root) %{_sysconfdir}/sysconfig/interfaces/up.d/ppp/logger
+%dir %{_sysconfdir}/sysconfig/interfaces/up.d
+%dir %{_sysconfdir}/sysconfig/interfaces/up.d/*
 %attr(755,root,root) %{_sysconfdir}/sysconfig/interfaces/down.d/ppp/logger
+%attr(755,root,root) %{_sysconfdir}/sysconfig/interfaces/up.d/ppp/logger
+%attr(750,root,root) %dir /var/run/netreport
 
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/i18n
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/network
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/static-routes
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/static-nat
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/timezone
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/clock
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/inittab
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/system
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/adjtime
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/inittab
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/clock
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/i18n
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/network
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/static-nat
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/static-routes
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/timezone
+%attr(640,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/system
 
 %{_mandir}/man1/*
 
 %dir %{localedir}
-%lang(pl) %{localedir}/pl
 %lang(de) %{localedir}/de
+%lang(pl) %{localedir}/pl
