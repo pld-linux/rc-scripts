@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.105 2002-11-08 23:25:40 alchemyx Exp $
+# $Id: rc-scripts.spec,v 1.105.2.1 2003-07-11 12:04:01 eothane Exp $
 #
 # _with_chroot		make the thing chroot safe (CAN BRAKE SOMETHING!!!)
 
