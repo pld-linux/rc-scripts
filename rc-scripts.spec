@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.62 2001-02-16 17:21:19 qboosh Exp $
+# $Id: rc-scripts.spec,v 1.63 2001-02-23 20:52:49 aflinta Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -13,6 +13,7 @@ Group(de):	Gründsätzlich
 Group(pl):	Podstawowe
 Source0:	%{name}-%{version}.tar.gz
 Patch0:		%{name}-shared.patch
+Patch1:		%{name}-typo.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 BuildRequires:	popt-devel
@@ -77,7 +78,9 @@ programcýklar içerir.
 
 %prep
 %setup -q
-%{!?bcond_off_static:#}%patch0 -p1
+%{!?bcond_off_static:#}
+%patch0 -p1
+%patch1 -p1
 
 %build
 %configure \
