@@ -1,4 +1,8 @@
-# $Id: rc-scripts.spec,v 1.127 2003-10-08 14:56:09 havner Exp $
+# $Id: rc-scripts.spec,v 1.128 2003-10-12 19:05:30 qboosh Exp $
+#
+# Conditional build:
+%bcond_without	static	# link binaries with glib dynamically
+#
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -13,12 +17,15 @@ Group:		Base
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	1b5e2d3a0cb8f699ed54321404f64cba
 URL:		http://cvs.pld-linux.org/rc-scripts/
-Patch0:		rc-scripts-sysfs.patch
+Patch0:		%{name}-sysfs.patch
+Patch1:		%{name}-killgnu.patch
+Patch2:		%{name}-acct.patch
+Patch3:		%{name}-ulimits.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	glib-devel
-%{!?_without_static:BuildRequires:	glib-static}
+%{?with_static:BuildRequires:	glib-static}
 BuildRequires:	popt-devel
 Requires(post):	fileutils
 Requires:	/bin/awk
@@ -84,6 +91,9 @@ programcýklar içerir.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 %{__aclocal}
@@ -92,7 +102,7 @@ programcýklar içerir.
 %configure \
 	--with-localedir=%{localedir}
 %{__make} \
-	%{?_without_static:ppp_watch_LDADD="-lglib" ppp_watch_DEPENDENCIES=}
+	%{!?with_static:ppp_watch_LDADD="-lglib" ppp_watch_DEPENDENCIES=}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -100,7 +110,7 @@ install -d $RPM_BUILD_ROOT/var/{run/netreport,log}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	%{?_without_static:ppp_watch_LDADD="-lglib" ppp_watch_DEPENDENCIES=}
+	%{!?with_static:ppp_watch_LDADD="-lglib" ppp_watch_DEPENDENCIES=}
 
 for i in 0 1 2 3 4 5 6; do
 	install -d $RPM_BUILD_ROOT/etc/rc.d/rc$i.d

@@ -1,13 +1,13 @@
-diff -Nur rc-scripts-0.3.1.orig/rc.d/init.d/functions rc-scripts-0.3.1/rc.d/init.d/functions
---- rc-scripts-0.3.1.orig/rc.d/init.d/functions	2002-01-13 04:40:42.000000000 +0100
-+++ rc-scripts-0.3.1/rc.d/init.d/functions	2003-08-12 23:35:08.555241552 +0200
-@@ -238,13 +238,18 @@
+diff -Nur rc-scripts-0.4.0.2.orig/rc.d/init.d/functions rc-scripts-0.4.0.2/rc.d/init.d/functions
+--- rc-scripts-0.4.0.2.orig/rc.d/init.d/functions	2003-10-02 20:46:49.000000000 +0200
++++ rc-scripts-0.4.0.2/rc.d/init.d/functions	2003-10-12 15:50:17.035580952 +0200
+@@ -263,13 +263,18 @@
  	return $exit_code
  }
  
 -# A function to start a program (now it's usefull on read-only filesystem too)
 +# A function to start a program (now it's useful on read-only filesystem too)
- daemon() 
+ daemon()
  {
 -	typeset errors="" prog=""
 +	typeset errors="" prog="" limits=""
@@ -22,8 +22,8 @@ diff -Nur rc-scripts-0.3.1.orig/rc.d/init.d/functions rc-scripts-0.3.1/rc.d/init
 +	# Test syntax. Don't use -o instead || here - this will break ksh --misiek
  	while [ "$1" != "${1##-}" ] || [ "$1" != "${1##+}" ]; do
  		case $1 in
- 		'')	msg_usage " daemon [--user user] [+/-nicelevel] {program}"
-@@ -273,20 +279,19 @@
+ 		  '')
+@@ -299,20 +304,18 @@
  		prog="$prog $*"
  	fi
  
@@ -44,7 +44,6 @@ diff -Nur rc-scripts-0.3.1.orig/rc.d/init.d/functions rc-scripts-0.3.1/rc.d/init
 +		limits="${SERVICE_LIMITS:-$DEFAULT_SERVICE_LIMITS}"
  #	elif [ -n "`$SH -c 'echo ${.sh.version}' 2>/dev/null`" ]; then
  	fi
-+	# soft limits first - it's impossible to set hard limit lower than existing soft
 +	while echo "$limits" | grep -q '[^ ]'; do
 +		ulimit `echo ${limits} | sed -e 's/^ *\(-[^-]*\)\(-.*\)\?$/\1/'`
 +		limits="`echo ${limits} | sed -e 's/^ *\(-[^-]*\)\(-.*\)\?$/\2/'`"
@@ -52,9 +51,9 @@ diff -Nur rc-scripts-0.3.1.orig/rc.d/init.d/functions rc-scripts-0.3.1/rc.d/init
  
  	# And start it up.
  	busy
-diff -Nur rc-scripts-0.3.1.orig/sysconfig/system rc-scripts-0.3.1/sysconfig/system
---- rc-scripts-0.3.1.orig/sysconfig/system	2001-05-15 18:05:59.000000000 +0200
-+++ rc-scripts-0.3.1/sysconfig/system	2003-08-12 23:32:38.022126064 +0200
+diff -Nur rc-scripts-0.4.0.2.orig/sysconfig/system rc-scripts-0.4.0.2/sysconfig/system
+--- rc-scripts-0.4.0.2.orig/sysconfig/system	2003-10-02 20:46:49.000000000 +0200
++++ rc-scripts-0.4.0.2/sysconfig/system	2003-10-12 15:50:53.502037208 +0200
 @@ -17,6 +17,17 @@
  # $SERVICE_RUN_NICE_LEVEL is not defined in /etc/sysconfig/<service>
  DEFAULT_SERVICE_RUN_NICE_LEVEL=0
@@ -70,6 +69,6 @@ diff -Nur rc-scripts-0.3.1.orig/sysconfig/system rc-scripts-0.3.1/sysconfig/syst
 +# users' limits are set via pam_limits.
 +DEFAULT_SERVICE_LIMITS="-u unlimited -c 0"
 +
- # Run isapnp at system startup ?
- RUN_ISAPNP=yes
- 
+ # Setup PNP using userspace tools?
+ RUN_USERPNP=yes
+ # Setup kernel space PNP (2.4.x)
