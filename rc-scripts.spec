@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.53 2000-09-25 13:46:34 saq Exp $
+# $Id: rc-scripts.spec,v 1.54 2000-10-04 01:13:54 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -6,9 +6,10 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.2.7
-Release:	1
+Release:	2
 License:	GPL
 Group:		Base
+Group(de):	Gründsätzlich
 Group(pl):	Podstawowe
 Source0:	%{name}-%{version}.tar.gz
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
@@ -76,7 +77,6 @@ programcýklar içerir.
 %setup -q
 
 %build
-LDFLAGS="-s"; export LDFLAGS
 %configure \
 	--with-localedir=%{localedir}
 %{__make}
@@ -120,8 +120,7 @@ for i in 0 1 6; do
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K01allowlogin
 done
 
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man*/* \
-	doc/*.txt rc.d/init.d/template.init
+gzip -9nf doc/*.txt rc.d/init.d/template.init
 
 %clean
 rm -rf $RPM_BUILD_ROOT
