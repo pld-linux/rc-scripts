@@ -159,7 +159,7 @@ chown root:root /var/log/dmesg
 chmod 640 /var/log/dmesg
 cat << EOF
 
-Take a look at color examples in /etc/sysconfig/colors.*
+Take a look at color examples in /etc/sysconfig/init-colors.*
 
 EOF
 
@@ -255,8 +255,8 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/initlog.conf
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysctl.conf
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/clock
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/colors.gentoo
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/colors.plddefault
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/init-colors.gentoo
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/init-colors.plddefault
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/hwprof
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/i18n
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/network
