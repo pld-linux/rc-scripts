@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.117.2.1 2003-07-14 22:29:21 adamg Exp $
+# $Id: rc-scripts.spec,v 1.117.2.2 2003-07-14 22:47:04 adamg Exp $
 #
 # _with_chroot		make the thing chroot-safe (CAN BRAKE SOMETHING!!!)
 
@@ -30,7 +30,7 @@ Patch11:	%{name}-onlink.patch
 Patch12:	%{name}-pl.po_typo.patch
 Patch13:	%{name}-reboot.patch
 Patch14:	%{name}-pl.po_duplicate.patch
-Patch15:	%{name}-timezone-posix.patch
+#Patch15:	%{name}-timezone-posix.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -116,7 +116,7 @@ programcýklar içerir.
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
-%patch15 -p1
+#%patch15 -p1
 
 %build
 %{__aclocal}
