@@ -1,0 +1,12 @@
+diff -urN rc-scripts.orig/rc.d/rc.sysinit rc-scripts-0.4.0.4/rc.d/rc.sysinit
+--- rc-scripts.orig/rc.d/rc.sysinit	2003-10-31 00:43:58.000000000 +0100
++++ rc-scripts-0.4.0.4/rc.d/rc.sysinit	2003-10-31 16:14:30.126407224 +0100
+@@ -266,7 +266,7 @@
+ # Enter root, /proc, /sys, devfs and other into mtab.
+ mount -f /
+ mount -f /proc
+-mount -f /dev/pts
++#mount -f /dev/pts
+ [ -f /proc/bus/usb/devices ] && mount -f -t usbdevfs usbdevfs /proc/bus/usb
+ [ -e /dev/.devfsd ] && mount -f -t devfs devfs /dev
+ 
