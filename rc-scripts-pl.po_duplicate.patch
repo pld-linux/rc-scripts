@@ -1,0 +1,21 @@
+--- rc-scripts-0.3.1/po/pl.po~	Sun Jan 12 13:20:14 2003
++++ rc-scripts-0.3.1/po/pl.po	Sun Jan 12 13:23:05 2003
+@@ -235,10 +235,6 @@
+ msgid "Remounting encrypted filesystems back in rw mode"
+ msgstr "Przelaczanie zaszyfrowanych systemów plików w tryb zapis/odczyt"
+ 
+-#: ./rc.d/rc.sysinit:387
+-msgid "Automatic reboot in progress"
+-msgstr "Automatyczny restart w toku"
+-
+ #: ./rc.d/init.d/functions:125
+ msgid "Stopping %s service"
+ msgstr "Zatrzymywanie uslugi %s"
+@@ -526,6 +522,7 @@
+ msgstr "Uzycie: %s"
+ 
+ #: ./rc.d/rc.sysinit:195
++#: ./rc.d/rc.sysinit:387
+ #: ./rc.d/rc.sysinit:423
+ #: ./rc.d/rc.sysinit:484
+ msgid "Automatic reboot in progress"
