@@ -9,12 +9,13 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.0.9
-Release:	1
+Release:	2
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	6c6f8838755dfd6777009a51580a224c
+Patch0:         %{name}-color.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -85,6 +86,7 @@ programcýklar içerir.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__aclocal}
@@ -155,6 +157,11 @@ touch /var/log/dmesg
 chmod 000 /var/log/dmesg
 chown root:root /var/log/dmesg
 chmod 640 /var/log/dmesg
+cat << EOF
+
+Take a look at color examples in /etc/sysconfig/colors.*
+
+EOF
 
 # move network interfaces description files to new location
 %triggerpostun -- initscripts
@@ -248,6 +255,8 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/initlog.conf
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysctl.conf
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/clock
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/colors.gentoo
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/colors.plddefault
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/hwprof
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/i18n
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/network
