@@ -111,7 +111,7 @@ diff -urN rc-scripts-0.4.0.9-orig/rc.d/init.d/functions rc-scripts-0.4.0.9/rc.d/
  fail()
  {
 -	progress "FAIL" 1
-+	progress "FAIL" "$CRED"
++	progress "FAIL" "$CFAIL"
  	echo
  	return 1
  }
@@ -119,7 +119,7 @@ diff -urN rc-scripts-0.4.0.9-orig/rc.d/init.d/functions rc-scripts-0.4.0.9/rc.d/
  died()
  {
 -	progress "DIED" 1
-+	progress "DIED" "$CRED"
++	progress "DIED" "$CFAIL"
  	echo
  	return 1
  }
