@@ -8,14 +8,13 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.0.9
-Release:	3
+Version:	0.4.0.10
+Release:	1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	6c6f8838755dfd6777009a51580a224c
-Patch0:		%{name}-color.patch
+# Source0-md5:	8376c0fffd5a8610cc523792e5464af2
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -86,7 +85,6 @@ programcýklar içerir.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__aclocal}
@@ -140,8 +138,6 @@ done
 install sysconfig/interfaces/ifcfg-eth0 $RPM_BUILD_ROOT/etc/sysconfig/interfaces
 > $RPM_BUILD_ROOT/var/log/dmesg
 
-ln -s rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -157,11 +153,6 @@ touch /var/log/dmesg
 chmod 000 /var/log/dmesg
 chown root:root /var/log/dmesg
 chmod 640 /var/log/dmesg
-cat << EOF
-
-Take a look at color examples in /etc/sysconfig/init-colors.*
-
-EOF
 
 # move network interfaces description files to new location
 %triggerpostun -- initscripts
@@ -173,6 +164,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %doc sysconfig/interfaces/data/chat-ppp*
 %doc sysconfig/interfaces/ifc*
 %doc sysconfig/interfaces/tnl*
+%doc sysconfig/init-colors*
 
 %attr(755,root,root) %dir /etc/rc.d
 %attr(755,root,root) %dir /etc/rc.d/init.d
@@ -255,8 +247,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/initlog.conf
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysctl.conf
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/clock
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/init-colors.gentoo
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/init-colors.plddefault
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/init-colors
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/hwprof
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/i18n
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/network
