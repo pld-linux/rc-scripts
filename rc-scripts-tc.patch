@@ -1,0 +1,91 @@
+diff -uNr rc-scripts-0.3.1.orig/sysconfig/network-scripts/ifdown-post rc-scripts-0.3.1/sysconfig/network-scripts/ifdown-post
+--- rc-scripts-0.3.1.orig/sysconfig/network-scripts/ifdown-post	Tue May 15 18:06:00 2001
++++ rc-scripts-0.3.1/sysconfig/network-scripts/ifdown-post	Wed Feb 11 13:40:29 2004
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ #
+-#	$Id$
++#	$Id$
+ #
+ # This should be called whenever an interface goes down, not just when
+ # it is brought down explicitly.
+@@ -20,9 +20,23 @@
+ # set REALDEVICE
+ get_ppp_device_and_pid
+ 
+-# Delete root queueing discipline
+-if [ -n "$QDISC" ]; then
+-	tc qdisc del dev "$REALDEVICE" root $QDISC
++# (QoS) Delete root queueing discipline
++if [ -n "${BANDWIDTH_OUT}" ]; then
++    if [ "${QDISC_CLASS}" = "htb" -o "${QDISC_CLASS}" = "cbq" ]; then
++	tc qdisc del dev ${REALDEVICE} root
++    elif [ -z "${QDISC}" -o "${QDISC}" = "tbf" ]; then
++	tc qdisc del dev ${REALDEVICE} root
++    elif [ -n "${QDISC}" ]; then
++	tc qdisc del dev ${REALDEVICE} root
++    fi
++else
++    if [ -n "${QDISC}" ]; then
++	tc qdisc add dev ${REALDEVICE} root
++    fi
++fi
++
++if [ -n "${BANDWIDTH_IN}" ]; then
++    tc qdisc del dev ${REALDEVICE} ingress
+ fi
+ 
+ # execute run_down() function (if available in device configuration file)
+diff -uNr rc-scripts-0.3.1.orig/sysconfig/network-scripts/ifup-post rc-scripts-0.3.1/sysconfig/network-scripts/ifup-post
+--- rc-scripts-0.3.1.orig/sysconfig/network-scripts/ifup-post	Wed Feb 11 13:38:21 2004
++++ rc-scripts-0.3.1/sysconfig/network-scripts/ifup-post	Wed Feb 11 13:40:29 2004
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ #
+-#	$Id$
++#	$Id$
+ #
+ 
+ run_up() { :; }
+@@ -19,10 +19,37 @@
+ # set REALDEVICE
+ get_ppp_device_and_pid
+ 
+-if [ -n "$QDISC" ]; then
+-# Set the queuing discipline
+-#    eg: sfq for better link sharing or teql0 for link equalizer
+-	tc qdisc add dev "$REALDEVICE" root $QDISC
++# Simple QoS support (bandwidth limit)
++if [ -n "${BANDWIDTH_OUT}" ]; then
++    if [ "${QDISC_CLASS}" = "htb" -o "${QDISC_CLASS}" = "cbq" ]; then
++        case "${QDISC_CLASS}" in
++            htb)
++                tc qdisc add dev ${REALDEVICE} root handle 1: htb default 10
++                tc class add dev ${REALDEVICE} parent 1: classid 1:10 htb rate ${BANDWIDTH_OUT}kbit ceil ${BANDWIDTH_OUT}kbit
++                [ -n "${QDISC}" ] && tc qdisc add dev ${REALDEVICE} parent 1:10 ${QDISC}
++                ;;
++            cbq)
++		# FIXME: hardcoded ethernet speed (bandwidth)
++                tc qdisc add dev ${REALDEVICE} root handle 1: cbq bandwidth 100000kbit cell 8 avpkt 1000 mpu 64
++                tc class add dev ${REALDEVICE} parent 1: classid 1:10 cbq bandwidth 100000kbit rate ${BANDWIDTH_OUT}kbit maxburst 5 avpkt 1000 allot 1514 bounded
++                [ -n "${QDISC}" ] && tc qdisc add dev ${REALDEVICE} parent 1:10 ${QDISC}
++		tc filter add dev ${REALDEVICE} protocol ip parent 1: u32 match ip src 0.0.0.0/0 flowid 1:10
++                ;;
++        esac
++    elif [ -z "${QDISC}" -o "${QDISC}" = "tbf" ]; then
++	tc qdisc add dev ${REALDEVICE} root tbf rate ${BANDWIDTH_OUT}kbit latency 50ms burst 51200
++    elif [ -n "${QDISC}" ]; then
++	tc qdisc add dev ${REALDEVICE} root ${QDISC}
++    fi
++else
++    if [ -n "${QDISC}" ]; then
++	tc qdisc add dev ${REALDEVICE} root ${QDISC}
++    fi
++fi
++
++if [ -n "${BANDWIDTH_IN}" ]; then
++    tc qdisc add dev ${REALDEVICE} handle ffff: ingress
++    tc filter add dev ${REALDEVICE} parent ffff: protocol ip prio 50 u32 match ip src 0.0.0.0/0 police rate ${BANDWIDTH_IN}kbit burst 10k drop flowid :3
+ fi
+ 
+ /etc/sysconfig/network-scripts/ifup-aliases ${CONFIG}
