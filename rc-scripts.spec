@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.37 2000-04-05 21:44:11 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.38 2000-04-15 14:10:10 zagrodzki Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -36,6 +36,7 @@ Requires:	e2fsprogs >= 1.15
 Requires:	mount >= 2.10
 Requires:	bdflush
 Requires:	utempter
+Requires:	net-tools
 Obsoletes:	initscripts
 Provides:	initscripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
