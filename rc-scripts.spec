@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.109 2002-12-07 14:33:52 ankry Exp $
+# $Id: rc-scripts.spec,v 1.110 2002-12-07 23:49:19 ankry Exp $
 #
 # _with_chroot		make the thing chroot safe (CAN BRAKE SOMETHING!!!)
 
@@ -219,7 +219,7 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %attr(754,root,root) /etc/rc.d/rc?.d/K??random
 %attr(754,root,root) /etc/rc.d/rc?.d/K??single
 
-%attr(755,root,root) %{_sysconfdir}/profile.d/lang.*sh
+%attr(755,root,root) /etc/profile.d/lang.*sh
 
 %attr(755,root,root) %{_bindir}/doexec
 %attr(755,root,root) %{_bindir}/ipcalc
