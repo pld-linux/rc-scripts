@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.16 1999-09-15 21:51:16 wiget Exp $
+# $Id: rc-scripts.spec,v 1.17 1999-09-17 15:05:12 pius Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -105,6 +105,9 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del nfsfs
 	/sbin/chkconfig --del network
 fi
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,754)
