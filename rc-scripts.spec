@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.77 2001-11-04 21:32:22 gotar Exp $
+# $Id: rc-scripts.spec,v 1.78 2001-11-05 12:54:50 gotar Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -213,7 +213,7 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %attr(755,root,root) %{_sbindir}/getkey
 
 %attr(755,root,root) %dir %{_sysconfdir}/ppp
-%attr(754,root,root) %config(noreplace,missingok) %verify(not md5 size mtime) %{_sysconfdir}/ppp/*
+%attr(754,root,root) %{_sysconfdir}/ppp/*
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig/interfaces
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig/interfaces/data
