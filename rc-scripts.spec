@@ -160,27 +160,3 @@ fi
 %{_mandir}/man1/netreport.1.gz
 %{_mandir}/man1/usernetctl.1.gz
 %{_mandir}/man1/ipcalc.1.gz
-
-%changelog
-* Thu Apr 22 1999 Jacek Konieczny <jajcus@zeus.polsl.gliwice.pl>
-  [0.0.3-1]
-- split into two packages: rc-scripts & net-scripts  
-- directory structure changed - only config in /etc
-
-* Tue Mar 23 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [0.0.2-1]
-- be more verbose while upgrading when /etc/inittab.rpmsave is found,
-- added seting NETWORK="no" variable to when /etc/sysconfig/network is not present
-  or when NETWORK in this file is not defined.
-
-* Sun Mar 21 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [0.0.1-1]
-- added /etc/sysconfig/system,
-- removed man group from man pages,
-- added in %post not replacing /etc/inittab on upgrade from initscripts,
-- removed %config from scripts.
-
-* Fri Mar 19 1999 PLD Team <bugs@pld.org.pl>
-- Full changelog in PLD's CVS.
-- First Release.
-- Package based on RedHat's initscripts-3.78.
