@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.117.2.5 2003-12-10 20:51:37 ankry Exp $
+# $Id: rc-scripts.spec,v 1.117.2.6 2003-12-21 18:24:39 arekm Exp $
 #
 # _with_chroot		make the thing chroot-safe (CAN BRAKE SOMETHING!!!)
 
@@ -9,7 +9,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.3.1
-Release:	15
+Release:	16
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 Group:		Base
@@ -33,6 +33,7 @@ Patch14:	%{name}-pl.po_duplicate.patch
 Patch15:	%{name}-dm.patch
 #Patch15:	%{name}-timezone-posix.patch
 Patch16:	%{name}-ups.patch
+Patch17:	%{name}-run-parts.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -120,6 +121,7 @@ programcýklar içerir.
 %patch14 -p1
 %patch15 -p1
 %patch16 -p1
+%patch17 -p1
 
 %build
 %{__aclocal}
