@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	static		# link binaries with glib dynamically
-%bcond_with	devalias 	# with dev_alias patch
+%bcond_without	devalias 	# without dev_alias patch
 #
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
