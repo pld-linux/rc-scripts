@@ -1,0 +1,79 @@
+diff -urN rc-scripts-0.3.1.rg/run-parts rc-scripts-0.3.1/run-parts
+--- rc-scripts-0.3.1.rg/run-parts	2003-12-21 19:21:15.843804656 +0100
++++ rc-scripts-0.3.1/run-parts	2003-10-28 02:10:55.000000000 +0100
+@@ -2,29 +2,65 @@
+ 
+ # run-parts - concept taken from Debian
+ #
+-# modified for PLD by Pawel Wilk <siefca@pld.org.pl>
+-# be ware: run-parts is now able to get arguments!
+-#          first argument is always set to the name of 
+-#          invoked directory
++# modified for PLD by Pawel Wilk <siefca@pld-linux.org>
++#
++# NOTE:
++#	1.) run-parts is now able to get arguments!
++#	2.) relative pathname of the invoked directory can be
++#	    obtained by reading RUNPARTS_DIR env. variable
++#	3.) absolute pathname of the invoked directory can be
++#	    obtained by reading RUNPARTS_ADIR env. variable
++#
+ 
+ # keep going when something fails
+ set +e
+ 
++# std checks
+ if [ $# -lt 1 ]; then
+ 	echo "Usage: run-parts <dir> <args...>"
+ 	exit 1
+ fi
+ 
+ if [ ! -d $1 ]; then
+-	echo "Not a directory: $1"
++	echo "Is not a directory: $1"
++	echo "Usage: run-parts <dir> <args...>"
+ 	exit 1
+ fi
+ 
+-for i in $1/* ; do
+-	[ -d $i ] && continue
+-	if [ -x $i ]; then
+-		$i $*
+-	fi
++# assign passed dir name
++RUNPARTS_DIR=$1
++
++# assign absolute dir name
++olddir=`pwd`
++cd $RUNPARTS_DIR
++RUNPARTS_ADIR=`pwd`
++cd $olddir
++unset olddir
++
++# export directories for our descendants
++export RUNPARTS_ADIR RUNPARTS_DIR
++
++# shift args
++shift
++
++# Ignore *~ and *, scripts
++for i in $RUNPARTS_DIR/*[!~,] ; do
++        [ -d $i ] && continue
++        # Don't run *.{rpmsave,rpmorig,rpmnew,swp} scripts
++        [ "${i%.rpmsave}" != "${i}" ] && continue
++        [ "${i%.rpmorig}" != "${i}" ] && continue
++        [ "${i%.rpmnew}" != "${i}" ] && continue
++        [ "${i%.swp}" != "${i}" ] && continue
++        [ "${i%,v}" != "${i}" ] && continue
++
++        if [ -x $i ]; then
++                $i $* 2>&1 | awk -v "progname=$i" \
++                              'progname {
++                                   print progname ":\n"
++                                   progname="";
++                               }
++                               { print; }'
++        fi
+ done
+ 
+ exit 0
