@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.68 2001-05-23 12:54:15 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.69 2001-06-04 23:04:14 klakier Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -42,6 +42,7 @@ Requires:	mount >= 2.10
 Requires:	bdflush
 Requires:	utempter
 Requires:	net-tools
+Requires:	util-linux
 Obsoletes:	initscripts
 Provides:	initscripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
