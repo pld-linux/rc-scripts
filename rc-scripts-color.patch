@@ -1,0 +1,213 @@
+diff -urN rc-scripts-0.4.0.9-orig/rc.d/init.d/functions rc-scripts-0.4.0.9/rc.d/init.d/functions
+--- rc-scripts-0.4.0.9-orig/rc.d/init.d/functions	2004-02-06 23:36:29.000000000 +0100
++++ rc-scripts-0.4.0.9/rc.d/init.d/functions	2004-04-27 21:32:26.109973680 +0200
+@@ -9,6 +9,7 @@
+ #		Marek Obuchowicz <elephant@pld-linux.org>
+ #		Arkadiusz Mi¶kiewicz <misiek@pld-linux.org>
+ #		Micha³ Kochanowicz <mkochano@pld-linux.org>
++#		£ukasz Pawelczyk <havner@pld-linux.org>
+ 
+ # First set up a default search path.
+ export PATH="/sbin:/usr/sbin:/bin:/usr/bin:/usr/X11R6/bin"
+@@ -16,7 +17,32 @@
+ # Set defaults
+ INIT_COL=67
+ 
++# Set colors
++RED=1
++GREEN=2
++YELLOW=3
++BLUE=4
++MAGENTA=5
++CYAN=6
++WHITE=7
++NORMAL=9
++# Bold definition (second parameter to termput setaf)
++BOLD=1
++NOBOLD=0
++# Default colors
++CBRACKETS="$CYAN"	# brackets [ ] color
++CDONE="$GREEN"		# DONE and WORK color
++CBUSY="$MAGENTA"	# BUSY color
++CFAIL="$RED"		# FAIL and DIED color
++CPOWEREDBY="$CYAN"	# "Powered by" color
++CPLD="$GREEN"		# "PLD Linux Distribution" color
++CI="$RED"		# Capital I color (press I to enter interactive startup)
++CRESMAN="$GREEN"	# "Resource Manager" color
++CHARS=""		# Characters displayed on the begining of show line
++CCHARS="$NORMAL"	# Color of these characters (look at /etc/sysconfig/colors.gentoo example)
++
+ # Source configuration if available - may override default values
++[ -r /etc/sysconfig/colors ] && . /etc/sysconfig/colors
+ [ -r /etc/sysconfig/system ] && . /etc/sysconfig/system
+ [ -r /etc/sysconfig/bootsplash ] && . /etc/sysconfig/bootsplash
+ 
+@@ -116,10 +142,12 @@
+ 			echo -ne "\033[0K"
+ 			;;
+ 		  setaf)
+-			is_yes "$COLOR_INIT" && echo -ne "\033[0;3${2}m"
++			typeset ISBOLD
++			if [ -n "$3" ]; then ISBOLD="$3"; else ISBOLD="$NOBOLD"; fi
++			is_yes "$COLOR_INIT" && echo -ne "\033[${ISBOLD};3${2}m"
+ 			;;
+ 		  op)
+-			termput setaf 9
++			termput setaf $NORMAL
+ 			;;
+ 		esac
+ 	else
+@@ -131,10 +159,11 @@
+ 			tput "$@"
+ 			;;
+ 		  setaf)
+-			is_yes "$COLOR_INIT" && tput "$@"
++			if [ "$3" == "1" ]; then tput bold; else tput sgr0; fi
++			is_yes "$COLOR_INIT" && tput setaf "$2"
+ 			;;
+ 		  op)
+-			tput setaf 9
++			termput setaf $NORMAL
+ 			;;
+ 		esac
+ 	fi
+@@ -256,10 +285,16 @@
+ 	if is_yes "$FASTRC"; then
+ 		echo -n "$INIT_DOTS"
+ 		termput hpa 0
++		if [ -n "$CHARS" ]; then
++	                termput setaf $CCHARS ; echo -n "$CHARS"; termput op
++		fi
+ 		printf "$@"
+ 		termput hpa $INIT_COL
+ 	else
+ 		text=$(nls "$@")
++		if [ -n "$CHARS" ]; then
++	                termput setaf $CCHARS ; echo -n "$CHARS"; termput op
++		fi
+ 		echo -n "$text"
+ 		awk "BEGIN { for (j=length(\"$text\"); j<$INIT_COL; j++) printf \".\" }"
+ 	fi
+@@ -272,14 +307,14 @@
+ progress()
+ {
+ 	typeset COLOR
+-	if [ -n "$2" ]; then COLOR="$2"; else COLOR="2"; fi
++	if [ -n "$2" ]; then COLOR="$2"; else COLOR="$CDONE"; fi
+ 	deltext
+-	echo -n "$(termput setaf 6)[$(termput setaf "$COLOR") $(nls --nls-domain rc-scripts "$1") $(termput setaf 6)]$(termput op)"
++	echo -n "$(termput setaf $CBRACKETS)[$(termput setaf $COLOR) $(nls --nls-domain rc-scripts "$1") $(termput setaf $CBRACKETS)]$(termput op)"
+ }
+ 
+ busy()
+ {
+-	progress "BUSY" 5
++	progress "BUSY" "$CBUSY"
+ }
+ 
+ ok()
+@@ -296,14 +331,14 @@
+ 
+ fail()
+ {
+-	progress "FAIL" 1
++	progress "FAIL" "$CRED"
+ 	echo
+ 	return 1
+ }
+ 
+ died()
+ {
+-	progress "DIED" 1
++	progress "DIED" "$CRED"
+ 	echo
+ 	return 1
+ }
+diff -urN rc-scripts-0.4.0.9-orig/rc.d/rc rc-scripts-0.4.0.9/rc.d/rc
+--- rc-scripts-0.4.0.9-orig/rc.d/rc	2004-02-06 23:36:29.000000000 +0100
++++ rc-scripts-0.4.0.9/rc.d/rc	2004-04-27 20:52:23.076606016 +0200
+@@ -142,9 +142,9 @@
+ 
+ 
+ # Say something ;)
+-af2=$(termput setaf 2)
+-af6=$(termput setaf 6)
+-af7=$(termput setaf 7)
++af2=$(termput setaf $CRESMAN)
++af6=$(termput setaf $CBRACKETS)
++af7=$(termput op)
+ text="$(termput op)$(nls '%sResource Manager: %sEntering runlevel number' "$af2" "$af7")"
+ text_size="$(nls '%sResource Manager: %sEntering runlevel number' "" "")"
+ resp_size="$(nls 'DONE')"
+diff -urN rc-scripts-0.4.0.9-orig/rc.d/rc.sysinit rc-scripts-0.4.0.9/rc.d/rc.sysinit
+--- rc-scripts-0.4.0.9-orig/rc.d/rc.sysinit	2004-02-06 23:36:29.000000000 +0100
++++ rc-scripts-0.4.0.9/rc.d/rc.sysinit	2004-04-27 20:52:31.874268568 +0200
+@@ -85,9 +85,9 @@
+ [ -e /proc/splash ] && is_no "$BOOT_SPLASH" && echo "0" > /proc/splash
+ 				    
+ # Print welcome message
+-nls "\t\t\t%sPowered by %sPLD Linux Distribution%s" "$(termput setaf 6)" "$(termput setaf 2)" "$(termput setaf 7)"
++nls "\t\t\t%sPowered by %sPLD Linux Distribution%s" "$(termput setaf $CPOWEREDBY)" "$(termput setaf $CPLD)" "$(termput op)"
+ if is_yes "$PROMPT"; then
+-	nls -n "\t\t  Press %sI%s to enter interactive startup" "$(termput setaf 1)" "$(termput setaf 7)"
++	nls -n "\t\t  Press %sI%s to enter interactive startup" "$(termput setaf $CI)" "$(termput op)"
+ 	echo
+ 	sleep 1
+ fi
+diff -urN rc-scripts-0.4.0.9-orig/sysconfig/colors.gentoo rc-scripts-0.4.0.9/sysconfig/colors.gentoo
+--- rc-scripts-0.4.0.9-orig/sysconfig/colors.gentoo	1970-01-01 01:00:00.000000000 +0100
++++ rc-scripts-0.4.0.9/sysconfig/colors.gentoo	2004-04-27 21:46:17.426512448 +0200
+@@ -0,0 +1,12 @@
++# Gentoo colors, copy this file as: /etc/sysconfig/colors, or just make a symlink
++
++CBRACKETS="$BLUE $BOLD"		# brackets [ ] color
++CDONE="$GREEN $BOLD"		# DONE and WORK color
++CBUSY="$MAGENTA $BOLD"		# BUSY color
++CFAIL="$RED $BOLD"		# FAIL and DIED color
++CPOWEREDBY="$BLUE $BOLD"	# "Powered by" color
++CPLD="$GREEN $BOLD"		# "PLD Linux Distribution" color
++CI="$RED $BOLD"			# Capital I color (press I to enter interactive startup)
++CRESMAN="$GREEN $BOLD"		# "Resource Manager" color
++CHARS=" * "			# Characters displayed on the begining of show line
++CCHARS="$GREEN $BOLD"		# Color of these characters
+diff -urN rc-scripts-0.4.0.9-orig/sysconfig/colors.plddefault rc-scripts-0.4.0.9/sysconfig/colors.plddefault
+--- rc-scripts-0.4.0.9-orig/sysconfig/colors.plddefault	1970-01-01 01:00:00.000000000 +0100
++++ rc-scripts-0.4.0.9/sysconfig/colors.plddefault	2004-04-27 21:46:28.010903376 +0200
+@@ -0,0 +1,13 @@
++# Default PLD colors. You don't need to copy it as /etc/sysconfig/colors,
++# they are included in /etc/rc.d/init.d/functions
++
++CBRACKETS="$CYAN"	# brackets [ ] color
++CDONE="$GREEN"		# DONE and WORK color
++CBUSY="$MAGENTA"	# BUSY color
++CFAIL="$RED"		# FAIL and DIED color
++CPOWEREDBY="$CYAN"	# "Powered by" color
++CPLD="$GREEN"		# "PLD Linux Distribution" color
++CI="$RED"		# Capital I color (press I to enter interactive startup)
++CRESMAN="$GREEN"	# "Resource Manager" color
++CHARS=""		# Characters displayed on the begining of show line
++CCHARS="$NORMAL"	# Color of these characters (look at /etc/sysconfig/colors.gentoo example)
+diff -urN rc-scripts-0.4.0.9-orig/sysconfig/Makefile.am rc-scripts-0.4.0.9/sysconfig/Makefile.am
+--- rc-scripts-0.4.0.9-orig/sysconfig/Makefile.am	2004-02-06 23:36:31.000000000 +0100
++++ rc-scripts-0.4.0.9/sysconfig/Makefile.am	2004-04-27 21:47:04.776314184 +0200
+@@ -6,6 +6,8 @@
+ 
+ sysconfig_DATA = \
+ 	clock \
++	colors.gentoo \
++	colors.plddefault \
+ 	hwprof \
+ 	system \
+ 	network \
+diff -urN rc-scripts-0.4.0.9-orig/sysconfig/Makefile.in rc-scripts-0.4.0.9/sysconfig/Makefile.in
+--- rc-scripts-0.4.0.9-orig/sysconfig/Makefile.in	2004-02-06 23:37:17.000000000 +0100
++++ rc-scripts-0.4.0.9/sysconfig/Makefile.in	2004-04-27 21:46:48.872731896 +0200
+@@ -147,6 +147,8 @@
+ SUBDIRS = network-scripts interfaces hwprofiles
+ sysconfig_DATA = \
+ 	clock \
++	colors.gentoo \
++	colors.plddefault \
+ 	hwprof \
+ 	system \
+ 	network \
