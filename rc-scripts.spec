@@ -6,7 +6,7 @@ Group:		Base
 Group(pl):	Bazowe	
 Release:	2d
 Source:		%{name}-%{version}.tar.bz2
-Buildroot:	/tmp/%{name}-%{version}-root 
+Buildroot:	/tmp/buildroot-%{name}-%{version}
 Requires:	mingetty
 Requires:	mktemp
 Requires:	bash >= 2.02.1
