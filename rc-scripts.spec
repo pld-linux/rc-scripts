@@ -138,6 +138,8 @@ done
 install sysconfig/interfaces/ifcfg-eth0 $RPM_BUILD_ROOT/etc/sysconfig/interfaces
 > $RPM_BUILD_ROOT/var/log/dmesg
 
+ln -s rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -168,6 +170,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %dir /etc/rc.d
 %attr(755,root,root) %dir /etc/rc.d/init.d
 %attr(755,root,root) %dir /etc/rc.d/rc?.d
+/etc/init.d
 
 /etc/rc.d/init.d/functions
 %attr(754,root,root) /etc/rc.d/init.d/allowlogin
