@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.55 2000-11-06 19:38:58 baggins Exp $
+# $Id: rc-scripts.spec,v 1.56 2000-11-16 14:48:31 baggins Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -18,6 +18,7 @@ BuildRequires:	popt-devel
 BuildRequires:	glib-devel
 BuildRequires:	glib-static
 BuildRequires:	gettext-devel
+Requires:	grep
 Requires:	mingetty
 Requires:	mktemp
 Requires:	modutils >= 2.1.121
