@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.48 2000-08-07 12:12:31 zagrodzki Exp $
+# $Id: rc-scripts.spec,v 1.49 2000-08-08 18:04:50 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -130,9 +130,9 @@ rm -rf $RPM_BUILD_ROOT
 if [ -f /etc/inittab.rpmsave ]; then
 	echo "**** Found old /etc/inittab.rpmsave ****"
 	echo "/etc/inittab renamed to /etc/inittab.rpmnew"
-	mv /etc/inittab /etc/inittab.rpmnew
+	mv -f /etc/inittab /etc/inittab.rpmnew
 	echo "/etc/inittab.rpmsave renamed to /etc/inittab."
-	mv /etc/inittab.rpmsave /etc/inittab
+	mv -f /etc/inittab.rpmsave /etc/inittab
 fi
 
 %files
