@@ -1,0 +1,12 @@
+diff -urN rc-scripts-0.4.0.4.org/rc.d/rc.sysinit rc-scripts-0.4.0.4/rc.d/rc.sysinit
+--- rc-scripts-0.4.0.4.org/rc.d/rc.sysinit	2003-10-31 02:14:46.000000000 +0100
++++ rc-scripts-0.4.0.4/rc.d/rc.sysinit	2003-10-31 02:15:07.000000000 +0100
+@@ -379,7 +379,7 @@
+ fi
+ 
+ # Load firewire devices
+-if ! grep -iq "nofirewire" ; then
++if ! grep -iq "nofirewire" /proc/cmdline 2>/dev/null ; then
+ 	aliases=$(/sbin/modprobe -c | awk '/^alias ieee1394-controller/ { print	$3 }')
+ 	if [ -n "$aliases" -a "$aliases" != "off" ] ; then
+ 	    for alias in $aliases ; do
