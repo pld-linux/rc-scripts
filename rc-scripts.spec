@@ -7,7 +7,7 @@ Name:		rc-scripts
 Version:	0.0.3
 Copyright:	GPL
 Group:		Base
-Group(pl):	Bazowe	
+Group(pl):	Podstawowe
 Release:	1
 Source:		%{name}-%{version}.tar.gz
 Buildroot:	/tmp/buildroot-%{name}-%{version}
@@ -46,7 +46,7 @@ arayüzlerini etkinleþtiren ya da edilginleþtiren programcýklar içerir.
 Summary:	network startup scripts
 Summary(pl):	skrypty startowe sieci
 Group:		Base
-Group(pl):	Bazowe	
+Group(pl):	Podstawowe	
 Requires:	rc-scripts = %{version}
 Requires:	modutils >= 2.1.121
 Provides:	initscripts
