@@ -1,11 +1,11 @@
-# $Id: rc-scripts.spec,v 1.14 1999-07-28 00:09:58 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.15 1999-08-18 14:13:04 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.0.7
+Version:	0.0.8
 Release:	1
 Copyright:	GPL
 Group:		Base
@@ -24,8 +24,8 @@ Requires:	procps
 Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	sed
-Requires:	net-tools
 Requires:	iproute2
+Requires:	/bin/gettext
 Prereq:		/sbin/chkconfig
 Obsoletes:	initscripts
 Provides:	initscripts
@@ -34,6 +34,7 @@ Buildroot:	/tmp/%{name}-%{version}-root
 %define		_prefix		/usr
 %define		_exec_prefix	/
 %define		_sysconfdir	/etc
+%define		localedir	/etc/sysconfig/locale
 
 %description
 This package contains the scripts use to boot a system, change run
@@ -65,7 +66,7 @@ arayüzlerini etkinleþtiren ya da edilginleþtiren programcýklar içerir.
 
 %build
 LDFLAGS="-s"; export LDFLAGS
-%configure 
+%configure --with-localedir=%{localedir}
 make
 
 %install
@@ -80,7 +81,7 @@ gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man*/* \
 	doc/*.txt 
 
 %post
-for i in  halt random reboot single  network nfsfs allowlogin
+for i in  halt random reboot single network nfsfs allowlogin killall
 	do /sbin/chkconfig --add $i
 done 
 if [ -f /etc/inittab.rpmsave ]; then
@@ -90,12 +91,6 @@ if [ -f /etc/inittab.rpmsave ]; then
 	echo "/etc/inittab.rpmsave renamed to /etc/inittab."
 	mv /etc/inittab.rpmsave /etc/inittab
 fi
-for l in /etc/sysconfig/network-scripts/ifcfg-* ; do 
-  if [ -f "$l" ] ; then
-    NEWNAME=`basename $l | sed -e 's/^ifcfg-//'`
-    [ -f /etc/sysconfig/interfaces/$NEWNAME ] || cp $l /etc/sysconfig/interfaces/$NEWNAME
-  fi
-done
 
 %preun
 if [ "$1" = "0" ]; then
@@ -150,12 +145,14 @@ fi
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig/network-scripts
 %attr(755,root,root) %{_sysconfdir}/sysconfig/network-scripts/if*
 
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/i18n
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/network
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/static-routes
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/static-nat
-%config            %verify(not size mtime md5) %{_sysconfdir}/sysconfig/interfaces/ifcfg-lo
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/inittab
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/system
 
 %{_mandir}/man1/*
+
+%lang(pl) %{localedir}/pl/LC_MESSAGES/*.mo
