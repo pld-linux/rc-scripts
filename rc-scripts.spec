@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.82 2001-12-10 21:07:51 qrczak Exp $
+# $Id: rc-scripts.spec,v 1.83 2001-12-10 22:31:18 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -48,6 +48,7 @@ Requires:	utempter
 Requires:	util-linux
 Obsoletes:	initscripts
 Provides:	initscripts
+Requires(post):	fileutils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr
@@ -133,7 +134,7 @@ for i in 0 1 6; do
 done
 
 install sysconfig/interfaces/ifcfg-eth0 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/interfaces
-touch $RPM_BUILD_ROOT/var/log/dmesg
+> $RPM_BUILD_ROOT/var/log/dmesg
 
 gzip -9nf doc/*.txt rc.d/init.d/template.init
 
@@ -148,6 +149,8 @@ if [ -f /etc/inittab.rpmsave ]; then
 	echo "/etc/inittab.rpmsave renamed to /etc/inittab."
 	mv -f /etc/inittab.rpmsave /etc/inittab
 fi
+touch /var/log/dmesg
+chmod 640 /var/log/dmesg
 
 # move network interfaces description files to new location
 %triggerpostun -- initscripts
@@ -227,7 +230,7 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %dir %{_sysconfdir}/sysconfig/interfaces/up.d/*
 %attr(755,root,root) %{_sysconfdir}/sysconfig/interfaces/down.d/ppp/logger
 %attr(755,root,root) %{_sysconfdir}/sysconfig/interfaces/up.d/ppp/logger
-%attr(640,root,root) /var/log/dmesg
+%attr(640,root,root) %ghost /var/log/dmesg
 %attr(750,root,root) %dir /var/run/netreport
 
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/adjtime
