@@ -1,9 +1,9 @@
-diff -ur rc-scripts-0.4.0.16.orig/rc.d/rc.sysinit rc-scripts-0.4.0.16/rc.d/rc.sysinit
---- rc-scripts-0.4.0.16.orig/rc.d/rc.sysinit	2004-09-24 01:45:26.000000000 +0200
-+++ rc-scripts-0.4.0.16/rc.d/rc.sysinit	2005-01-05 09:58:48.469438712 +0100
-@@ -19,6 +19,14 @@
- # Read functions
- . /etc/rc.d/init.d/functions
+diff -ur rc-scripts-0.4.0.17.orig/rc.d/rc.sysinit rc-scripts-0.4.0.17/rc.d/rc.sysinit
+--- rc-scripts-0.4.0.17.orig/rc.d/rc.sysinit	2004-11-13 13:54:33.000000000 +0100
++++ rc-scripts-0.4.0.17/rc.d/rc.sysinit	2005-01-06 23:01:08.734661784 +0100
+@@ -32,6 +32,14 @@
+     mount -n -o gid=17 -t selinuxfs selinuxfs /selinux
+ fi
  
 +if [ $(kernelverser) = "002006" ]; then
 +	MODULES_CONF=/etc/modprobe.conf
@@ -13,10 +13,10 @@ diff -ur rc-scripts-0.4.0.16.orig/rc.d/rc.sysinit rc-scripts-0.4.0.16/rc.d/rc.sy
 +	MODULES_CONF=/etc/conf.modules
 +fi
 +
- # we need /proc mounted before everything
- mount -n -o gid=17 -t proc /proc /proc
- 
-@@ -428,7 +436,7 @@
+ # PLD LiveCD support
+ if [ -x /etc/rc.d/rc.live ]; then
+ 	/etc/rc.d/rc.live
+@@ -459,7 +467,7 @@
  fi    
      
  # Load sound modules if they need persistent DMA buffers
@@ -25,3 +25,4 @@ diff -ur rc-scripts-0.4.0.16.orig/rc.d/rc.sysinit rc-scripts-0.4.0.16/rc.d/rc.sy
  	RETURN=0
  	alias=$(/sbin/modprobe -c | egrep -s "^alias[[:space:]]+sound[[:space:]]+" | awk '{ print $3 }')
  	if [ -n "$alias" -a "$alias" != "off" ] ; then
+Only in rc-scripts-0.4.0.17/rc.d: rc.sysinit.orig
