@@ -9,7 +9,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.0.9
-Release:	0.1
+Release:	0.2
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
@@ -40,7 +40,7 @@ Requires:	iproute2
 Requires:	mingetty
 Requires:	mktemp
 Requires:	module-init-tools
-Requires:	mount >= 2.10
+Requires:	mount >= 2.12
 Requires:	net-tools
 Requires:	procps
 Requires:	sh-utils
