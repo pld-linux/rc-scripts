@@ -19,6 +19,7 @@ URL:		http://svn.pld-linux.org/cgi-bin/svnview/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
+BuildRequires:	glib-devel
 BuildRequires:	glib2-devel
 %{?with_static:BuildRequires:	glib2-static}
 BuildRequires:	popt-devel
