@@ -8,18 +8,17 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.0.8
-Release:	0.2
+Version:	0.4.0.9
+Release:	0.1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	18a75ddaaee60930c09f52b769a2e277
+# Source0-md5:	6c6f8838755dfd6777009a51580a224c
 URL:		http://svn.pld-linux.org/cgi-bin/svnview/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
-BuildRequires:	glib-devel
 BuildRequires:	glib2-devel
 %{?with_static:BuildRequires:	glib2-static}
 BuildRequires:	popt-devel
