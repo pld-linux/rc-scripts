@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.135 2003-12-19 13:56:26 jajcus Exp $
+# $Id: rc-scripts.spec,v 1.136 2003-12-19 14:40:46 arekm Exp $
 #
 # Conditional build:
 %bcond_without	static	# link binaries with glib dynamically
@@ -32,7 +32,6 @@ Requires:	/bin/nice
 Requires:	/bin/ps
 Requires:	FHS >= 2.2-6
 Requires:	SysVinit
-Requires:	bdflush
 Requires:	e2fsprogs >= 1.15
 Requires:	fileutils
 Requires:	findutils
