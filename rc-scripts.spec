@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.128 2003-10-12 19:05:30 qboosh Exp $
+# $Id: rc-scripts.spec,v 1.129 2003-10-25 23:44:22 arekm Exp $
 #
 # Conditional build:
 %bcond_without	static	# link binaries with glib dynamically
@@ -9,18 +9,14 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.0.2
-Release:	0.2
+Version:	0.4.0.3
+Release:	0.1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	1b5e2d3a0cb8f699ed54321404f64cba
+# Source0-md5:	f3691d271ababa5284822ac2b09bdf2a
 URL:		http://cvs.pld-linux.org/rc-scripts/
-Patch0:		%{name}-sysfs.patch
-Patch1:		%{name}-killgnu.patch
-Patch2:		%{name}-acct.patch
-Patch3:		%{name}-ulimits.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
@@ -90,10 +86,6 @@ programcýklar içerir.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 %{__aclocal}
