@@ -1,15 +1,17 @@
-Index: functions
+Index: rc.d/init.d/functions
 ===================================================================
---- rc-scripts/rc.d/init.d/functions	(revision 3049)
-+++ rc-scripts/rc.d/init.d/functions	(working copy)
-@@ -399,8 +399,8 @@
+--- rc.d/init.d/functions	(revision 3049)
++++ rc.d/init.d/functions	(revision 3062)
+@@ -398,10 +398,8 @@
+ 		limits="${SERVICE_LIMITS:-$DEFAULT_SERVICE_LIMITS}"
  #	elif [ -n "`$SH -c 'echo ${.sh.version}' 2>/dev/null`" ]; then
  	fi
- 	while echo "$limits" | grep -q '[^ ]'; do
+-	while echo "$limits" | grep -q '[^ ]'; do
 -		ulimit `echo ${limits} | awk '/^ *-[^-]*-.*$/ {sub(/^[^-]*-/,"");sub(/-.*$/,"");sub(/^.*$/,"-&");}{print;}'
 -		limits="`echo ${limits} | awk '/^ *-[^-]*-.*$/ {sub(/^[^-]*-[^-]*/,"");}{print;}'
-+		ulimit `echo ${limits} | sed -e 's/^ *\(-[^-]*\)\(-.*\)\?$/\1/'`
-+		limits="`echo ${limits} | sed -e 's/^ *\(-[^-]*\)\(-.*\)\?$/\2/'`"
- 	done
+-	done
++	
++	echo $limits|awk 'BEGIN {RS="-";} !/^$/ {system ("ulimit -" $0);}'
  
  	# And start it up.
+ 	busy

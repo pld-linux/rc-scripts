@@ -9,7 +9,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.0.6
-Release:	0.2
+Release:	0.3
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
@@ -86,7 +86,7 @@ programcýklar içerir.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch0 -p0
 
 %build
 %{__aclocal}
