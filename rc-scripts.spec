@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.119 2003-08-04 11:35:58 qboosh Exp $
+# $Id: rc-scripts.spec,v 1.120 2003-08-12 21:42:00 qboosh Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -6,15 +6,14 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.3.1
-Release:	13
+Release:	14
 License:	GPL
-Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
+Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5: c032946a4ea2c81b92c70b26f65b18d9
-Patch0:		%{name}-shared.patch
 Patch1:		%{name}-ipx_fix.patch
-Patch2:		%{name}-ulimitc.patch
+Patch2:		%{name}-ulimits.patch
 Patch3:		%{name}-killgnu.patch
 Patch4:		%{name}-wlan.patch
 Patch5:		%{name}-arp-any.patch
@@ -28,13 +27,15 @@ Patch12:	%{name}-pl.po_typo.patch
 Patch13:	%{name}-reboot.patch
 Patch14:	%{name}-pl.po_duplicate.patch
 Patch15:	%{name}-timezone-posix.patch
-URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
+Patch16:	%{name}-acct.patch
+URL:		http://cvs.pld-linux.org/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	glib-devel
 %{!?_without_static:BuildRequires:	glib-static}
 BuildRequires:	popt-devel
+Requires(post):	fileutils
 Requires:	/bin/awk
 Requires:	/bin/basename
 Requires:	/bin/gettext
@@ -59,11 +60,12 @@ Requires:	sh-utils
 Requires:	textutils
 Requires:	utempter
 Requires:	util-linux
-Obsoletes:	initscripts
 Provides:	initscripts
-Requires(post):	fileutils
+Obsoletes:	initscripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	LPRng < 3.8.0-2
+Conflicts:	psacct < 6.3.5-10
+Conflicts:	openssh-server < 2:3.6.1p2-4
 
 %define		_prefix		/usr
 %define		_exec_prefix	/
@@ -98,7 +100,6 @@ programcýklar içerir.
 
 %prep
 %setup -q
-%{!?_without_static:#}%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -114,6 +115,7 @@ programcýklar içerir.
 %patch13 -p1
 %patch14 -p1
 %patch15 -p1
+%patch16 -p1
 
 %build
 %{__aclocal}
@@ -121,7 +123,8 @@ programcýklar içerir.
 %{__autoconf}
 %configure \
 	--with-localedir=%{localedir}
-%{__make}
+%{__make} \
+	%{?_without_static:ppp_watch_LDADD="-lglib"}
 
 %install
 rm -rf $RPM_BUILD_ROOT

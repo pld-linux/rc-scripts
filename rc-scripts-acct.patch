@@ -1,0 +1,29 @@
+diff -Nur rc-scripts-0.3.1.orig/rc.d/rc.shutdown rc-scripts-0.3.1/rc.d/rc.shutdown
+--- rc-scripts-0.3.1.orig/rc.d/rc.shutdown	2002-01-27 03:13:29.000000000 +0100
++++ rc-scripts-0.3.1/rc.d/rc.shutdown	2003-08-12 22:10:22.520436368 +0200
+@@ -29,8 +29,9 @@
+ halt -w
+ 
+ # Turn off swap, then unmount file systems.
+-run_cmd "Turning off swap and accounting" swapoff -a
+-[ -x /sbin/accton ] && LC_ALL=C /sbin/accton 2>&1 | grep -v "not implemented"
++run_cmd "Turning off swap" swapoff -a
++
++[ -x /etc/rc.d/rc.acct ] && /etc/rc.d/rc.acct stop
+ 
+ if [ -x /sbin/quotaoff ]; then
+ 	run_cmd "Turning off quotas for local filesystems" /sbin/quotaoff -a
+diff -Nur rc-scripts-0.3.1.orig/rc.d/rc.sysinit rc-scripts-0.3.1/rc.d/rc.sysinit
+--- rc-scripts-0.3.1.orig/rc.d/rc.sysinit	2003-08-12 22:06:07.000000000 +0200
++++ rc-scripts-0.3.1/rc.d/rc.sysinit	2003-08-12 22:08:49.104637728 +0200
+@@ -550,8 +550,8 @@
+ fi
+ 
+ # Turn on process accounting
+-if [ -x /sbin/accton ] ; then
+-        run_cmd "Turning on process accounting" /sbin/accton /var/log/pacct
++if [ -x /etc/rc.d/rc.acct ] ; then
++	/etc.rc.d/rc.acct start
+ fi
+ 
+ # Set the clock if timezone definition wasn't available (eg. /usr not mounted)
