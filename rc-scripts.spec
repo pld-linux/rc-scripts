@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.101 2002-09-15 11:15:35 areq Exp $
+# $Id: rc-scripts.spec,v 1.102 2002-10-09 13:14:45 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -98,7 +98,7 @@ programcýklar içerir.
 %patch7 -p0
 
 %build
-aclocal
+%{__aclocal}
 %{__automake}
 %{__autoconf}
 %configure \
