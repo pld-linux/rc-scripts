@@ -1,33 +1,17 @@
-# $Id: rc-scripts.spec,v 1.123 2003-09-02 15:23:45 qboosh Exp $
+# $Id: rc-scripts.spec,v 1.124 2003-09-03 20:12:46 arekm Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.3.1
-Release:	16
+Version:	0.4.0
+Release:	0.1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5: c032946a4ea2c81b92c70b26f65b18d9
-Patch1:		%{name}-ipx_fix.patch
-Patch2:		%{name}-ulimits.patch
-Patch3:		%{name}-killgnu.patch
-Patch4:		%{name}-wlan.patch
-Patch5:		%{name}-arp-any.patch
-Patch6:		%{name}-pppshutdownsleep.patch
-Patch7:		%{name}-chat-ppp0.tpsa.patch
-Patch8:		%{name}-via.patch
-Patch9:		%{name}-static-nat.patch
-Patch10:	%{name}-chroot_safe.patch
-Patch11:	%{name}-onlink.patch
-Patch12:	%{name}-pl.po_typo.patch
-Patch13:	%{name}-reboot.patch
-Patch14:	%{name}-pl.po_duplicate.patch
-Patch15:	%{name}-timezone-posix.patch
-Patch16:	%{name}-acct.patch
+# Source0-md5:	6d804a5da745ccd56fba56683dff2e35
 URL:		http://cvs.pld-linux.org/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -98,22 +82,6 @@ programcýklar içerir.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p0
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
 
 %build
 %{__aclocal}
@@ -209,6 +177,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc
 %attr(754,root,root) %config(noreplace) %verify(not md5 size mtime) /etc/rc.d/rc.local
 %attr(754,root,root) %config(noreplace) %verify(not md5 size mtime) /etc/rc.d/rc.modules
+%attr(754,root,root) /etc/rc.d/rc.init
 %attr(754,root,root) /etc/rc.d/rc.sysinit
 %attr(754,root,root) /etc/rc.d/rc.shutdown
 %attr(754,root,root) /etc/rc.d/rc?.d/S??allowlogin
@@ -232,6 +201,8 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_bindir}/run-parts
 %attr(755,root,root) %{_bindir}/usleep
 
+%attr(755,root,root) %{_sbindir}/hwprofile
+%attr(755,root,root) %{_sbindir}/service
 %attr(755,root,root) %{_sbindir}/consoletype
 %attr(755,root,root) %{_sbindir}/initlog
 %attr(755,root,root) %{_sbindir}/loglevel
@@ -250,15 +221,17 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %dir /etc/sysconfig
 %attr(755,root,root) %dir /etc/sysconfig/interfaces
 %attr(755,root,root) %dir /etc/sysconfig/interfaces/data
+%attr(755,root,root) %dir /etc/sysconfig/isapnp
 %attr(755,root,root) %dir /etc/sysconfig/network-scripts
 %attr(755,root,root) /etc/sysconfig/network-scripts/if*
-/etc/sysconfig/network-scripts/.functions
+/etc/sysconfig/network-scripts/functions.network
 %dir /etc/sysconfig/interfaces/down.d
 %dir /etc/sysconfig/interfaces/down.d/*
 %dir /etc/sysconfig/interfaces/up.d
 %dir /etc/sysconfig/interfaces/up.d/*
 %attr(755,root,root) /etc/sysconfig/interfaces/down.d/ppp/logger
 %attr(755,root,root) /etc/sysconfig/interfaces/up.d/ppp/logger
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/isapnp/isapnp-kernel.conf
 %attr(640,root,root) %ghost /var/log/dmesg
 %attr(750,root,root) %dir /var/run/netreport
 
@@ -268,8 +241,10 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/initlog.conf
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysctl.conf
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/clock
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/hwprof
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/i18n
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/network
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/static-arp
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/static-nat
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/static-routes
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/timezone
@@ -279,5 +254,5 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %{_mandir}/man1/*
 
 %dir %{localedir}
-#%lang(de) %{localedir}/de
+%lang(de) %{localedir}/de
 %lang(pl) %{localedir}/pl
