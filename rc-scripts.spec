@@ -1,7 +1,11 @@
 #
+# TODO:
+# - fix devalias patch (or better drop it since it never
+#   be supported in svn rc-scripts) and turn back bcond
+
 # Conditional build:
 %bcond_without	static		# link binaries with glib dynamically
-%bcond_without	devalias 	# without dev_alias patch
+%bcond_with	devalias 	# without dev_alias patch
 #
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
@@ -9,16 +13,14 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.0.17
-Release:	4
+Version:	0.4.0.18
+Release:	0.1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	ftp://ftp.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
-# Source0-md5:	db83f12cf4ef34e9af106b7156de05b1
+# Source0-md5:	723b91ef18860b42195326850f644600
 Patch0:		%{name}-dev_alias.patch
-Patch1:		%{name}-modules.patch
-Patch2:		%{name}-functions.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -91,8 +93,6 @@ programcýklar içerir.
 %prep
 %setup -q
 %{?with_devalias:%patch0 -p0}
-%patch1 -p1
-%patch2 -p1
 
 %build
 %{__aclocal}
@@ -216,6 +216,8 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_bindir}/run-parts
 %attr(755,root,root) %{_bindir}/usleep
 
+%attr(755,root,root) %{_sbindir}/minilogd
+%attr(755,root,root) %{_sbindir}/start-stop-daemon
 %attr(755,root,root) %{_sbindir}/genhostid
 %attr(755,root,root) %{_sbindir}/hwprofile
 %attr(755,root,root) %{_sbindir}/service
@@ -268,7 +270,13 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/interfaces/ifcfg-eth0
 %attr(640,root,root) %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/system
 
-%{_mandir}/man1/*
+%{_mandir}/man?/*
+%lang(de) %{_mandir}/de/man?/*
+%lang(es) %{_mandir}/es/man?/*
+%lang(fr) %{_mandir}/fr/man?/*
+%lang(ja) %{_mandir}/ja/man?/*
+%lang(ru) %{_mandir}/ru/man?/*
+%lang(sv) %{_mandir}/sv/man?/*
 
 %dir %{localedir}
 %lang(de) %{localedir}/de
