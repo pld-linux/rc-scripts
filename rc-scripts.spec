@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.50 2000-08-25 00:14:17 mis Exp $
+# $Id: rc-scripts.spec,v 1.51 2000-08-28 14:14:44 zagrodzki Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -6,7 +6,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.2.5
-Release:	2
+Release:	3
 License:	GPL
 Group:		Base
 Group(pl):	Podstawowe
@@ -37,6 +37,7 @@ Requires:	mount >= 2.10
 Requires:	bdflush
 Requires:	utempter
 Requires:	net-tools
+Requires:	/usr/bin/xargs
 Obsoletes:	initscripts
 Provides:	initscripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
