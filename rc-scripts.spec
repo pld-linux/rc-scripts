@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.111 2003-01-12 13:30:42 radek Exp $
+# $Id: rc-scripts.spec,v 1.112 2003-05-25 06:26:14 misi3k Exp $
 #
 # _with_chroot		make the thing chroot safe (CAN BRAKE SOMETHING!!!)
 
