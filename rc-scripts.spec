@@ -10,7 +10,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.0.17
-Release:	3
+Release:	4
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
@@ -18,6 +18,7 @@ Source0:	ftp://ftp.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 # Source0-md5:	db83f12cf4ef34e9af106b7156de05b1
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-modules.patch
+Patch2:		%{name}-functions.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -91,6 +92,7 @@ programcýklar içerir.
 %setup -q
 %{?with_devalias:%patch0 -p0}
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__aclocal}
