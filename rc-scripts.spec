@@ -14,7 +14,7 @@ License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	b84ecd1b8e240e426684b147a176db4a
+# Source0-md5:	1371e0f118e5d6d883cfc0e3a3e1c999
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
