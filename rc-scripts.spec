@@ -1,6 +1,7 @@
 #
 # Conditional build:
-%bcond_without	static	# link binaries with glib dynamically
+%bcond_without	static		# link binaries with glib dynamically
+%bcond_with	devalias 	# with dev_alias patch
 #
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
@@ -9,7 +10,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.0.16
-Release:	0.1
+Release:	1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
@@ -86,7 +87,7 @@ programcýklar içerir.
 
 %prep
 %setup -q
-#%patch0 -p0
+%{?with_devalias:%patch0 -p0}
 
 %build
 %{__aclocal}
