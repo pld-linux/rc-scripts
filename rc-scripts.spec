@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.117.2.6 2003-12-21 18:24:39 arekm Exp $
+# $Id: rc-scripts.spec,v 1.117.2.7 2003-12-21 21:07:32 adamg Exp $
 #
 # _with_chroot		make the thing chroot-safe (CAN BRAKE SOMETHING!!!)
 
@@ -11,7 +11,7 @@ Name:		rc-scripts
 Version:	0.3.1
 Release:	16
 License:	GPL
-Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
+Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5: c032946a4ea2c81b92c70b26f65b18d9
@@ -34,7 +34,7 @@ Patch15:	%{name}-dm.patch
 #Patch15:	%{name}-timezone-posix.patch
 Patch16:	%{name}-ups.patch
 Patch17:	%{name}-run-parts.patch
-URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
+URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
