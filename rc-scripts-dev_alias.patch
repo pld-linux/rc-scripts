@@ -1,0 +1,66 @@
+--- ./rc.d/init.d/network.org	Fri Aug 20 14:16:03 2004
++++ ./rc.d/init.d/network	Thu Sep 16 13:48:42 2004
+@@ -122,7 +122,7 @@
+ 	. /etc/rc.d/init.d/functions; \
+ 	cd /etc/sysconfig/interfaces && ls -1 ifcfg* | \
+ 	egrep -v '(ifcfg-lo|ifcfg-sit|ifcfg-atm|ifcfg-lec|ifcfg-nas|ifcfg-br)' | \
+-	egrep 'ifcfg-[a-z0-9\.]+$' | \
++	egrep 'ifcfg-[a-z0-9\.:]+$' | \
+ 	for i in `cat`; do \
+ 	    ONBOOT=""; . /etc/sysconfig/interfaces/"$i"; is_yes "$ONBOOT" && echo "$i"; \
+ 	done | \
+--- ./sysconfig/network-scripts/ifdown.org	Sun Jul  4 17:18:07 2004
++++ ./sysconfig/network-scripts/ifdown	Thu Sep 16 13:51:01 2004
+@@ -109,8 +109,12 @@
+ 	ip link set ${DEVICE} down
+     fi
+ else
+-    ip addr flush dev ${DEVICE} 2>&1 | grep -v "Nothing to flush"
+-    ip link set ${DEVICE} down
++    if [ -n "${SUBDEVICE}" ]; then
++	ip addr del ${IP4ADDR} label ${SUBDEVICE} dev ${DEVICE}
++    else
++	ip addr flush dev ${DEVICE} 2>&1 | grep -v "Nothing to flush"
++	ip link set ${DEVICE} down
++    fi
+ fi    
+ 
+ if [ "$HANDLING" = "4" ]; then
+--- ./sysconfig/network-scripts/functions.network.org	Sun Jul  4 19:22:50 2004
++++ ./sysconfig/network-scripts/functions.network	Thu Sep 16 13:49:12 2004
+@@ -148,7 +148,7 @@
+ {
+ # detect network device type (ie. dummy, eth for dummy0, eth0 ..)
+ if [ -z "$DEVICETYPE" ]; then
+-	DEVICETYPE=$(echo $DEVICE | awk ' { gsub(/[0-9]*\.?[0-9]*$/,NUL); print $0 } ')
++	DEVICETYPE=$(echo $DEVICE | awk ' { gsub(/[0-9]*\.?:?[0-9]*$/,NUL); print $0 } ')
+ fi
+ 
+ # Setup DEVICETYPE for special cases.
+@@ -157,6 +157,7 @@
+ fi
+ 
+ # real name of device (ie. is eth0 for eth0,eth0:1,eth0:alias)
++SUBDEVICE=$(echo "$DEVICE" | egrep "([0-9]+:[0-9]+)" )
+ DEVICE=$(echo $DEVICE | awk ' { gsub(/:.*$/,NUL); print $0 } ')
+ 
+ eval IP4ADDR="\$IPADDR${IP4_PRIM_IF:-}"
+--- ./sysconfig/network-scripts/ifup.org	Sun Jul  4 17:18:08 2004
++++ ./sysconfig/network-scripts/ifup	Thu Sep 16 13:55:01 2004
+@@ -170,10 +170,14 @@
+ 	    IP4ADDROPT="brd + ${IP4ADDROPT}"
+ 	fi
+ 
++	if [ -n "${SUBDEVICE}" ]; then
++	    ALIAS="label ${SUBDEVICE}"
++	fi
++
+ 	if [ -n "$REMIP" ]; then
+-	    ip addr add ${IP4ADDR} peer ${REMIP} dev ${DEVICE} ${IP4ADDROPT}
++	    ip addr add ${IP4ADDR} peer ${REMIP} ${ALIAS} dev ${DEVICE} ${IP4ADDROPT}
+ 	else
+-	    ip addr add ${IP4ADDR} dev ${DEVICE} ${IP4ADDROPT}
++	    ip addr add ${IP4ADDR} ${ALIAS} dev ${DEVICE} ${IP4ADDROPT}
+ 	fi
+     fi
+ 
