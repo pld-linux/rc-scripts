@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.76 2001-10-11 19:00:28 baggins Exp $
+# $Id: rc-scripts.spec,v 1.77 2001-11-04 21:32:22 gotar Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -175,7 +175,7 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc
 %attr(754,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rc.d/rc.local
-%attr(754,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/rc.d/rc.modules
+%attr(754,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rc.d/rc.modules
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc.sysinit
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc.shutdown
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??allowlogin
@@ -213,7 +213,7 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %attr(755,root,root) %{_sbindir}/getkey
 
 %attr(755,root,root) %dir %{_sysconfdir}/ppp
-%attr(755,root,root) %{_sysconfdir}/ppp/*
+%attr(754,root,root) %config(noreplace,missingok) %verify(not md5 size mtime) %{_sysconfdir}/ppp/*
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig/interfaces
 %attr(755,root,root) %dir %{_sysconfdir}/sysconfig/interfaces/data
