@@ -1,12 +1,12 @@
-# $Id: rc-scripts.spec,v 1.72 2001-08-30 12:18:49 gotar Exp $
+# $Id: rc-scripts.spec,v 1.73 2001-10-02 20:15:07 baggins Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.2.11
-Release:	2
+Version:	0.3.0
+Release:	0.8
 License:	GPL
 Group:		Base
 Group(de):	Gründsätzlich
@@ -174,6 +174,7 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc
 %attr(754,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rc.d/rc.local
+%attr(754,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/rc.d/rc.modules
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc.sysinit
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc.shutdown
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/S??allowlogin
@@ -189,7 +190,7 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/K??random
 %attr(754,root,root) %{_sysconfdir}/rc.d/rc?.d/K??single
 
-%attr(755,root,root) %{_sysconfdir}/profile.d/lang.sh
+%attr(755,root,root) %{_sysconfdir}/profile.d/lang.*sh
 
 %attr(755,root,root) %{_bindir}/doexec
 %attr(755,root,root) %{_bindir}/ipcalc
@@ -197,8 +198,10 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %attr(755,root,root) %{_bindir}/run-parts
 %attr(755,root,root) %{_bindir}/usleep
 
+%attr(755,root,root) %{_sbindir}/consoletype
 %attr(755,root,root) %{_sbindir}/initlog
 %attr(755,root,root) %{_sbindir}/loglevel
+%attr(755,root,root) %{_sbindir}/ppp-watch
 %attr(755,root,root) %{_sbindir}/netreport
 %attr(755,root,root) %{_sbindir}/setsysfont
 %attr(755,root,root) %{_sbindir}/usernetctl
@@ -226,6 +229,9 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/adjtime
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/inittab
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/modules
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/initlog.conf
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysctl.conf
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/clock
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/i18n
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/network
@@ -238,5 +244,5 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %{_mandir}/man1/*
 
 %dir %{localedir}
-%lang(de) %{localedir}/de
+#%lang(de) %{localedir}/de
 %lang(pl) %{localedir}/pl
