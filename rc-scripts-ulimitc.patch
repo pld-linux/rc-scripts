@@ -1,0 +1,17 @@
+--- rc-scripts-0.3.1/rc.d/init.d/functions.orig	Sun Jan 13 04:40:42 2002
++++ rc-scripts-0.3.1/rc.d/init.d/functions	Wed Jun 26 12:07:57 2002
+@@ -275,7 +275,13 @@
+ 
+ 	# make sure it doesn't core dump anywhere; while this could mask
+ 	# problems with the daemon, it also closes some security problems
+-	ulimit -c 0
++
++	# use ULIMIT_C variable - allow to use other limit for some daemons
++	# (e.g. for sshd with privsep or for debugging purposes)
++	if [ "$ULIMIT_C" = "" ]; then
++		ULIMIT_C="-c 0"
++	fi
++	ulimit $ULIMIT_C
+ 
+ 	# Make sure daemons will be able to fork.
+ 	# Limits are set via pam_limits.
