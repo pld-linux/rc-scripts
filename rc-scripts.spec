@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.38 2000-04-15 14:10:10 zagrodzki Exp $
+# $Id: rc-scripts.spec,v 1.39 2000-05-05 15:06:00 mis Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -9,7 +9,7 @@ Version:	0.2.1
 Release:	1
 License:	GPL
 Group:		Base
-Group(pl):	Bazowe	
+Group(pl):	Podstawowe
 Source:		%{name}-%{version}.tar.gz
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
