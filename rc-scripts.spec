@@ -1,4 +1,7 @@
-# $Id: rc-scripts.spec,v 1.103 2002-10-30 17:42:31 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.104 2002-11-04 20:53:52 mmazur Exp $
+#
+# _with_chroot		make the thing chroot safe (CAN BRAKE SOMETHING!!!)
+
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -21,6 +24,7 @@ Patch6:		%{name}-pppshutdownsleep.patch
 Patch7:		%{name}-chat-ppp0.tpsa.patch
 Patch8:		%{name}-via.patch
 Patch9:		%{name}-static-nat-example.patch
+Patch10:	%{name}-chroot_safe.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -100,6 +104,7 @@ programcýklar içerir.
 %patch7 -p0
 %patch8 -p1
 %patch9 -p1
+%{!?_with_chroot:#}%patch10 -p1
 
 %build
 %{__aclocal}
