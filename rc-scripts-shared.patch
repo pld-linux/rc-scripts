@@ -1,0 +1,11 @@
+--- rc-scripts-0.2.10/src/Makefile.am~	Mon Apr  3 16:49:40 2000
++++ rc-scripts-0.2.10/src/Makefile.am	Wed Dec 27 03:32:07 2000
+@@ -47,7 +47,7 @@
+ getkey_SOURCES = getkey.c
+ 
+ ppp_watch_SOURCES = ppp-watch.c shvar.c shvar.h
+-ppp_watch_LDADD = /usr/lib/libglib.a
++ppp_watch_LDADD = -lglib
+ INCLUDES = `glib-config --cflags`
+ 
+ consoletype_SOURCES = consoletype.c
