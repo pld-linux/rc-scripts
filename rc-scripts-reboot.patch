@@ -8,7 +8,7 @@ diff -ru rc-scripts-0.3.1/rc.d/rc.sysinit rc-scripts-0.3.1-AlchemyX/rc.d/rc.sysi
 -	# A return of 2 or higher means there were serious problems.
 -	if [ $rc -gt 1 ]; then
 +	# A return of 4 or higher means there were serious problems.
-+	if [ $rc -gt 4 ]; then
++	if [ $rc -gt 3 ]; then
  		# don't use '\n' in nls macro !
  		echo
  		echo
