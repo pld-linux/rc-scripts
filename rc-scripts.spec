@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.40 2000-05-31 17:51:10 zagrodzki Exp $
+# $Id: rc-scripts.spec,v 1.41 2000-06-09 07:23:58 kloczek Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -84,7 +84,7 @@ make
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/var/run/netreport
 
-make install  \
+%{__make} install  \
 	DESTDIR=$RPM_BUILD_ROOT 
 
 for i in 0 1 2 3 4 5 6; do
