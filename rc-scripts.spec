@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.79 2001-11-06 00:26:09 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.80 2001-11-30 20:23:11 gotar Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -6,7 +6,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.3.0
-Release:	1
+Release:	2
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 Group:		Base
@@ -133,6 +133,7 @@ for i in 0 1 6; do
 done
 
 install sysconfig/interfaces/ifcfg-eth0 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/interfaces
+touch /var/log/dmesg
 
 gzip -9nf doc/*.txt rc.d/init.d/template.init
 
@@ -226,6 +227,7 @@ mv /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces/
 %dir %{_sysconfdir}/sysconfig/interfaces/up.d/*
 %attr(755,root,root) %{_sysconfdir}/sysconfig/interfaces/down.d/ppp/logger
 %attr(755,root,root) %{_sysconfdir}/sysconfig/interfaces/up.d/ppp/logger
+%attr(640,root,root) /var/log/dmesg
 %attr(750,root,root) %dir /var/run/netreport
 
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/adjtime
