@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.115 2003-06-13 14:30:58 mmazur Exp $
+# $Id: rc-scripts.spec,v 1.116 2003-06-16 20:22:07 blues Exp $
 
 
 Summary:	inittab and /etc/rc.d scripts
@@ -41,6 +41,7 @@ Requires:	/bin/basename
 Requires:	/bin/gettext
 Requires:	/bin/nice
 Requires:	/bin/ps
+Requires:	FHS >= 2.2-6
 Requires:	SysVinit
 Requires:	bdflush
 Requires:	e2fsprogs >= 1.15
