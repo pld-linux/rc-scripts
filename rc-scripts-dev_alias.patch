@@ -1,14 +1,14 @@
 --- ./rc.d/init.d/network.org	Fri Aug 20 14:16:03 2004
 +++ ./rc.d/init.d/network	Thu Sep 16 13:48:42 2004
-@@ -122,7 +122,7 @@
- 	. /etc/rc.d/init.d/functions; \
- 	cd /etc/sysconfig/interfaces && ls -1 ifcfg* | \
- 	egrep -v '(ifcfg-lo|ifcfg-sit|ifcfg-atm|ifcfg-lec|ifcfg-nas|ifcfg-br)' | \
--	egrep 'ifcfg-[a-z0-9\.]+$' | \
-+	egrep 'ifcfg-[a-z0-9\.:]+$' | \
- 	for i in `cat`; do \
- 	    ONBOOT=""; . /etc/sysconfig/interfaces/"$i"; is_yes "$ONBOOT" && echo "$i"; \
- 	done | \
+@@ -133,7 +133,7 @@
+ 		. /etc/rc.d/init.d/functions; \
+ 		cd /etc/sysconfig/interfaces && ls -1 ifcfg* | \
+ 		egrep -v '(ifcfg-lo|ifcfg-sit|ifcfg-atm|ifcfg-lec|ifcfg-nas|ifcfg-br|ifcfg-(.*)\.(.*))' | \
+-		egrep 'ifcfg-[a-z0-9\.]+$' | \
++		egrep 'ifcfg-[a-z0-9\.:]+$' | \
+ 		for i in `cat`; do \
+ 		    ONBOOT=""; . /etc/sysconfig/interfaces/"$i"; is_yes "$ONBOOT" && echo "$i"; \
+ 		done | \
 --- ./sysconfig/network-scripts/ifdown.org	Sun Jul  4 17:18:07 2004
 +++ ./sysconfig/network-scripts/ifdown	Thu Sep 16 13:51:01 2004
 @@ -109,8 +109,12 @@
