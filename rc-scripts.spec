@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.49 2000-08-08 18:04:50 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.50 2000-08-25 00:14:17 mis Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -144,6 +144,7 @@ fi
 %doc doc/net-scripts.txt.gz
 %doc rc.d/init.d/template.init.gz
 
+%attr(755,root,root) %dir %{_sysconfdir}/rc.d
 %attr(755,root,root) %dir %{_sysconfdir}/rc.d/rc?.d
 
 %{_sysconfdir}/rc.d/init.d/functions
