@@ -46,6 +46,7 @@ Requires:	module-init-tools
 Requires:	mount >= 2.12
 Requires:	net-tools
 Requires:	procps
+Requires:	psmisc
 Requires:	sh-utils
 Requires:	textutils
 Requires:	utempter
