@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.66 2001-05-13 22:07:18 kloczek Exp $
+# $Id: rc-scripts.spec,v 1.67 2001-05-22 09:06:51 wiget Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -18,7 +18,7 @@ URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 BuildRequires:	popt-devel
 BuildRequires:	glib-devel
-%{!?bcond_off_static:BuildRequires:	glib-static}
+%{!?_without_static:BuildRequires:	glib-static}
 BuildRequires:	gettext-devel
 Requires:	grep
 Requires:	mingetty
@@ -79,7 +79,7 @@ programcýklar içerir.
 
 %prep
 %setup -q
-%{!?bcond_off_static:#}
+%{!?_without_static:#}
 %patch0 -p1
 %patch1 -p1
 
