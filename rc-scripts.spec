@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.60 2000-12-14 09:33:17 jajcus Exp $
+# $Id: rc-scripts.spec,v 1.61 2000-12-28 15:18:30 baggins Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -12,11 +12,12 @@ Group:		Base
 Group(de):	Gründsätzlich
 Group(pl):	Podstawowe
 Source0:	%{name}-%{version}.tar.gz
+Patch0:		%{name}-shared.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 BuildRequires:	popt-devel
 BuildRequires:	glib-devel
-BuildRequires:	glib-static
+%{!?bcond_off_static:BuildRequires:	glib-static}
 BuildRequires:	gettext-devel
 Requires:	grep
 Requires:	mingetty
@@ -76,6 +77,7 @@ programcýklar içerir.
 
 %prep
 %setup -q
+%{!?bcond_off_static:#}%patch0 -p1
 
 %build
 %configure \
@@ -206,7 +208,7 @@ fi
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/static-routes
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/static-nat
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/timezone
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/clock
+#%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/clock
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/inittab
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/sysconfig/system
