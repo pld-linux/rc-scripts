@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.99 2002-08-20 12:19:30 pawelk Exp $
+# $Id: rc-scripts.spec,v 1.100 2002-08-23 16:17:03 qboosh Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -6,7 +6,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.3.1
-Release:	7
+Release:	8
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
 Group:		Base
@@ -17,6 +17,7 @@ Patch2:		%{name}-ulimitc.patch
 Patch3:		%{name}-killgnu.patch
 Patch4:		%{name}-wlan.patch
 Patch5:		%{name}-arp-any.patch
+Patch6:		%{name}-pppshutdownsleep.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -92,6 +93,7 @@ programcýklar içerir.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 aclocal

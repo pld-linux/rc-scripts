@@ -1,0 +1,38 @@
+diff -Nur rc-scripts-0.3.1.orig/sysconfig/interfaces/ifcfg-description rc-scripts-0.3.1/sysconfig/interfaces/ifcfg-description
+--- rc-scripts-0.3.1.orig/sysconfig/interfaces/ifcfg-description	Sat Jul 21 21:18:46 2001
++++ rc-scripts-0.3.1/sysconfig/interfaces/ifcfg-description	Fri Aug 23 17:56:05 2002
+@@ -80,6 +80,7 @@
+     		DISCONNECTTIMEOUT=<number of seconds, default currently 5>
+     		RETRYTIMEOUT=<number of seconds, default currently 60>
+     		INITSCRIPT=<modem command>
++		SHUTDOWNSLEEP=<seconds to wait for pppd shutdown before giving up, default 2>
+     		DATAFORCHAT=<list of variables>
+     		<anything>=<anything> (for chat script)
+ 		IPV6_PPP=yes|no (use IPv6 for ppp ?)
+diff -Nur rc-scripts-0.3.1.orig/sysconfig/interfaces/ifcfg-ppp0.tpsa rc-scripts-0.3.1/sysconfig/interfaces/ifcfg-ppp0.tpsa
+--- rc-scripts-0.3.1.orig/sysconfig/interfaces/ifcfg-ppp0.tpsa	Thu Aug 16 15:11:20 2001
++++ rc-scripts-0.3.1/sysconfig/interfaces/ifcfg-ppp0.tpsa	Fri Aug 23 17:54:34 2002
+@@ -17,6 +17,7 @@
+ USER=ppp
+ PASSWORD=ppp
+ INITSTRING=ATe0s2=255
++SHUTDOWNSLEEP=10
+ DATAFORCHAT="USER PASSWORD INITSTRING PHONE"
+ 
+ REPORTFILE=/var/log/ppp0.log
+diff -Nur rc-scripts-0.3.1.orig/sysconfig/network-scripts/ifdown-ppp rc-scripts-0.3.1/sysconfig/network-scripts/ifdown-ppp
+--- rc-scripts-0.3.1.orig/sysconfig/network-scripts/ifdown-ppp	Tue May 15 18:06:00 2001
++++ rc-scripts-0.3.1/sysconfig/network-scripts/ifdown-ppp	Fri Aug 23 17:52:21 2002
+@@ -38,7 +38,11 @@
+   /etc/sysconfig/network-scripts/ifdown-post $1
+   exit 0
+ fi
+-sleep 2
++if [ -n "$SHUTDOWNSLEEP" ]; then
++  sleep $SHUTDOWNSLEEP
++else
++  sleep 2
++fi
+ if [ ! -d /proc/$PID ]; then
+   /etc/sysconfig/network-scripts/ifdown-post $1
+   exit 0
