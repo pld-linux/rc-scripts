@@ -1,6 +1,6 @@
 diff -urN rc-scripts-0.4.0.9-orig/rc.d/init.d/functions rc-scripts-0.4.0.9/rc.d/init.d/functions
 --- rc-scripts-0.4.0.9-orig/rc.d/init.d/functions	2004-02-06 23:36:29.000000000 +0100
-+++ rc-scripts-0.4.0.9/rc.d/init.d/functions	2004-04-27 21:32:26.109973680 +0200
++++ rc-scripts-0.4.0.9/rc.d/init.d/functions	2004-04-27 22:21:37.842160272 +0200
 @@ -9,6 +9,7 @@
  #		Marek Obuchowicz <elephant@pld-linux.org>
  #		Arkadiusz Mi¶kiewicz <misiek@pld-linux.org>
@@ -35,10 +35,10 @@ diff -urN rc-scripts-0.4.0.9-orig/rc.d/init.d/functions rc-scripts-0.4.0.9/rc.d/
 +CI="$RED"		# Capital I color (press I to enter interactive startup)
 +CRESMAN="$GREEN"	# "Resource Manager" color
 +CHARS=""		# Characters displayed on the begining of show line
-+CCHARS="$NORMAL"	# Color of these characters (look at /etc/sysconfig/colors.gentoo example)
++CCHARS="$NORMAL"	# Color of these characters (look at /etc/sysconfig/init-colors.gentoo example)
 +
  # Source configuration if available - may override default values
-+[ -r /etc/sysconfig/colors ] && . /etc/sysconfig/colors
++[ -r /etc/sysconfig/init-colors ] && . /etc/sysconfig/init-colors
  [ -r /etc/sysconfig/system ] && . /etc/sysconfig/system
  [ -r /etc/sysconfig/bootsplash ] && . /etc/sysconfig/bootsplash
  
@@ -154,11 +154,11 @@ diff -urN rc-scripts-0.4.0.9-orig/rc.d/rc.sysinit rc-scripts-0.4.0.9/rc.d/rc.sys
  	echo
  	sleep 1
  fi
-diff -urN rc-scripts-0.4.0.9-orig/sysconfig/colors.gentoo rc-scripts-0.4.0.9/sysconfig/colors.gentoo
---- rc-scripts-0.4.0.9-orig/sysconfig/colors.gentoo	1970-01-01 01:00:00.000000000 +0100
-+++ rc-scripts-0.4.0.9/sysconfig/colors.gentoo	2004-04-27 21:46:17.426512448 +0200
+diff -urN rc-scripts-0.4.0.9-orig/sysconfig/init-colors.gentoo rc-scripts-0.4.0.9/sysconfig/init-colors.gentoo
+--- rc-scripts-0.4.0.9-orig/sysconfig/init-colors.gentoo	1970-01-01 01:00:00.000000000 +0100
++++ rc-scripts-0.4.0.9/sysconfig/init-colors.gentoo	2004-04-27 22:22:11.272078152 +0200
 @@ -0,0 +1,12 @@
-+# Gentoo colors, copy this file as: /etc/sysconfig/colors, or just make a symlink
++# Gentoo colors, copy this file as: /etc/sysconfig/init-colors, or just make a symlink
 +
 +CBRACKETS="$BLUE $BOLD"		# brackets [ ] color
 +CDONE="$GREEN $BOLD"		# DONE and WORK color
@@ -170,11 +170,11 @@ diff -urN rc-scripts-0.4.0.9-orig/sysconfig/colors.gentoo rc-scripts-0.4.0.9/sys
 +CRESMAN="$GREEN $BOLD"		# "Resource Manager" color
 +CHARS=" * "			# Characters displayed on the begining of show line
 +CCHARS="$GREEN $BOLD"		# Color of these characters
-diff -urN rc-scripts-0.4.0.9-orig/sysconfig/colors.plddefault rc-scripts-0.4.0.9/sysconfig/colors.plddefault
---- rc-scripts-0.4.0.9-orig/sysconfig/colors.plddefault	1970-01-01 01:00:00.000000000 +0100
-+++ rc-scripts-0.4.0.9/sysconfig/colors.plddefault	2004-04-27 21:46:28.010903376 +0200
+diff -urN rc-scripts-0.4.0.9-orig/sysconfig/init-colors.plddefault rc-scripts-0.4.0.9/sysconfig/init-colors.plddefault
+--- rc-scripts-0.4.0.9-orig/sysconfig/init-colors.plddefault	1970-01-01 01:00:00.000000000 +0100
++++ rc-scripts-0.4.0.9/sysconfig/init-colors.plddefault	2004-04-27 22:25:10.501831088 +0200
 @@ -0,0 +1,13 @@
-+# Default PLD colors. You don't need to copy it as /etc/sysconfig/colors,
++# Default PLD colors. You don't need to copy it as /etc/sysconfig/init-colors
 +# they are included in /etc/rc.d/init.d/functions
 +
 +CBRACKETS="$CYAN"	# brackets [ ] color
@@ -186,28 +186,28 @@ diff -urN rc-scripts-0.4.0.9-orig/sysconfig/colors.plddefault rc-scripts-0.4.0.9
 +CI="$RED"		# Capital I color (press I to enter interactive startup)
 +CRESMAN="$GREEN"	# "Resource Manager" color
 +CHARS=""		# Characters displayed on the begining of show line
-+CCHARS="$NORMAL"	# Color of these characters (look at /etc/sysconfig/colors.gentoo example)
++CCHARS="$NORMAL"	# Color of these characters (look at /etc/sysconfig/init-colors.gentoo example)
 diff -urN rc-scripts-0.4.0.9-orig/sysconfig/Makefile.am rc-scripts-0.4.0.9/sysconfig/Makefile.am
 --- rc-scripts-0.4.0.9-orig/sysconfig/Makefile.am	2004-02-06 23:36:31.000000000 +0100
-+++ rc-scripts-0.4.0.9/sysconfig/Makefile.am	2004-04-27 21:47:04.776314184 +0200
++++ rc-scripts-0.4.0.9/sysconfig/Makefile.am	2004-04-27 22:26:53.496173568 +0200
 @@ -6,6 +6,8 @@
  
  sysconfig_DATA = \
  	clock \
-+	colors.gentoo \
-+	colors.plddefault \
++	init-colors.gentoo \
++	init-colors.plddefault \
  	hwprof \
  	system \
  	network \
 diff -urN rc-scripts-0.4.0.9-orig/sysconfig/Makefile.in rc-scripts-0.4.0.9/sysconfig/Makefile.in
 --- rc-scripts-0.4.0.9-orig/sysconfig/Makefile.in	2004-02-06 23:37:17.000000000 +0100
-+++ rc-scripts-0.4.0.9/sysconfig/Makefile.in	2004-04-27 21:46:48.872731896 +0200
++++ rc-scripts-0.4.0.9/sysconfig/Makefile.in	2004-04-27 22:27:11.472440760 +0200
 @@ -147,6 +147,8 @@
  SUBDIRS = network-scripts interfaces hwprofiles
  sysconfig_DATA = \
  	clock \
-+	colors.gentoo \
-+	colors.plddefault \
++	init-colors.gentoo \
++	init-colors.plddefault \
  	hwprof \
  	system \
  	network \
