@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.73 2001-10-02 20:15:07 baggins Exp $
+# $Id: rc-scripts.spec,v 1.74 2001-10-10 12:36:46 qboosh Exp $
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
@@ -10,12 +10,16 @@ Release:	0.8
 License:	GPL
 Group:		Base
 Group(de):	Gründsätzlich
+Group(es):	Base
 Group(pl):	Podstawowe
+Group(pt_BR):	Base
 Source0:	%{name}-%{version}.tar.gz
 Patch0:		%{name}-shared.patch
 Patch1:		%{name}-typo.patch
 URL:		http://cvs.pld.org.pl/index.cgi/rc-scripts/
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld.org.pl>
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	glib-devel
 %{!?_without_static:BuildRequires:	glib-static}
