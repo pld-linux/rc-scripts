@@ -1,4 +1,4 @@
-# $Id: rc-scripts.spec,v 1.133 2003-12-07 16:02:45 arekm Exp $
+# $Id: rc-scripts.spec,v 1.134 2003-12-07 16:06:44 wolf Exp $
 #
 # Conditional build:
 %bcond_without	static	# link binaries with glib dynamically
@@ -40,7 +40,7 @@ Requires:	grep
 Requires:	iproute2
 Requires:	mingetty
 Requires:	mktemp
-Requires:	modutils >= 2.1.121
+Requires:	module-init-tools
 Requires:	mount >= 2.10
 Requires:	net-tools
 Requires:	procps
