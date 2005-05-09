@@ -190,8 +190,8 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/init.d/timezone
 
 %attr(754,root,root) /etc/rc.d/rc
-%attr(754,root,root) %config(noreplace) %verify(not md5 size mtime) /etc/rc.d/rc.local
-%attr(754,root,root) %config(noreplace) %verify(not md5 size mtime) /etc/rc.d/rc.modules
+%attr(754,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/rc.d/rc.local
+%attr(754,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/rc.d/rc.modules
 %attr(754,root,root) /etc/rc.d/rc.init
 %attr(754,root,root) /etc/rc.d/rc.sysinit
 %attr(754,root,root) /etc/rc.d/rc.shutdown
@@ -249,26 +249,26 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %dir /etc/sysconfig/interfaces/up.d/*
 %attr(755,root,root) /etc/sysconfig/interfaces/down.d/ppp/logger
 %attr(755,root,root) /etc/sysconfig/interfaces/up.d/ppp/logger
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/isapnp/isapnp-kernel.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/isapnp/isapnp-kernel.conf
 %attr(640,root,root) %ghost /var/log/dmesg
 %attr(750,root,root) %dir /var/run/netreport
 
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/adjtime
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/inittab
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/modules
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/initlog.conf
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysctl.conf
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/clock
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/init-colors
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/hwprof
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/i18n
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/network
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/static-arp
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/static-nat
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/static-routes
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/timezone
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/interfaces/ifcfg-eth0
-%attr(640,root,root) %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/system
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/inittab
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/modules
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/initlog.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/sysctl.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/clock
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/init-colors
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hwprof
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/i18n
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/network
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-arp
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-nat
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-routes
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/timezone
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/interfaces/ifcfg-eth0
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/system
 
 %{_mandir}/man?/*
 %lang(de) %{_mandir}/de/man?/*
