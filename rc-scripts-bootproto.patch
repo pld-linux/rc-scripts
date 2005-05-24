@@ -1,0 +1,13 @@
+Index: ifup
+===================================================================
+--- ./sysconfig/network-scripts/ifup	(revision 5367)
++++ ./sysconfig/network-scripts/ifup	(working copy)
+@@ -107,7 +107,7 @@
+ 	exit 0
+ fi
+ 
+-if [ -n "$BOOTPROTO" -a "$BOOTPROTO" != "none" ]; then
++if [ -n "$BOOTPROTO" -a "$BOOTPROTO" != "none" -a "$BOOTPROTO" != "static" ]; then
+ 
+     if is_yes "$IPV4_NETWORKING"; then
+ 	if [ "$BOOTPROTO" = "bootp" -o "$BOOTPROTO" = "pump" ]; then
