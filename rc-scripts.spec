@@ -96,7 +96,7 @@ programcýklar içerir.
 %setup -q
 %{?with_devalias:%patch0 -p0}
 %ifarch sparc sparc64
-%patch0 -p1
+%patch1 -p1
 %endif
 
 %build
