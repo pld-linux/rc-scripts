@@ -1,0 +1,11 @@
+--- rc-scripts-0.4.0.19/inittab.orig	2005-06-15 19:55:54.862429768 +0200
++++ rc-scripts-0.4.0.19/inittab	2005-06-15 19:56:09.442213304 +0200
+@@ -45,6 +45,8 @@
+ # If power was restored before the shutdown kicked in, cancel it.
+ pr:12345:powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"
+ 
++# Run gett on serial port
++0:12345:respawn:/sbin/agetty 9600 ttyS0 vt100
+ 
+ # Run gettys in standard runlevels
+ 1:12345:respawn:/sbin/mingetty --noclear tty1
