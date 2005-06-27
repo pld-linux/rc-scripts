@@ -18,6 +18,7 @@ Source0:	ftp://ftp.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 # Source0-md5:	a6a4fd3de31247819f755a5c798c5816
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-con_serial_sparc.patch
+Patch2:		%{name}-plusgsm_example.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -98,6 +99,7 @@ programcýklar içerir.
 %ifarch sparc sparc64
 %patch1 -p1
 %endif
+%patch2 -p1
 
 %build
 %{__aclocal}
