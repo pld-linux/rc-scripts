@@ -129,6 +129,7 @@ for i in 2 3 4 5; do
 	ln -s ../init.d/network $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10network
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99allowlogin
 	ln -s ../init.d/timezone $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10timezone
+	ln -s ../init.d/sys-chroots $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99sys-chroots
 done
 
 for i in 1 2 3 4 5; do
@@ -150,6 +151,7 @@ done
 for i in 0 1 6; do
 	ln -s ../init.d/network $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K90network
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K01allowlogin
+	ln -s ../init.d/sys-chroots $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K01sys-chroots
 done
 
 install sysconfig/interfaces/ifcfg-eth0 $RPM_BUILD_ROOT/etc/sysconfig/interfaces
@@ -211,11 +213,13 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc?.d/S??random
 %attr(754,root,root) /etc/rc.d/rc?.d/S??single
 %attr(754,root,root) /etc/rc.d/rc?.d/S??timezone
+%attr(754,root,root) /etc/rc.d/rc?.d/S??sys-chroots
 %attr(754,root,root) /etc/rc.d/rc?.d/K??allowlogin
 %attr(754,root,root) /etc/rc.d/rc?.d/K??killall
 %attr(754,root,root) /etc/rc.d/rc?.d/K??network
 %attr(754,root,root) /etc/rc.d/rc?.d/K??random
 %attr(754,root,root) /etc/rc.d/rc?.d/K??single
+%attr(754,root,root) /etc/rc.d/rc?.d/K??sys-chroots
 
 %attr(755,root,root) /etc/profile.d/lang.*sh
 
