@@ -9,17 +9,15 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.0.19
-Release:	3
+Version:	0.4.0.20
+Release:	0.1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	ftp://ftp.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
-# Source0-md5:	a6a4fd3de31247819f755a5c798c5816
+# Source0-md5:	d67b427da40f42b6b2fc5f562dc9286d
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-con_serial_sparc.patch
-Patch2:		%{name}-plusgsm_example.patch
-Patch3:		%{name}-az-locale.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -100,8 +98,6 @@ programcýklar içerir.
 %ifarch sparc sparc64
 %patch1 -p1
 %endif
-%patch2 -p1
-%patch3 -p1
 
 %build
 %{__aclocal}
@@ -134,6 +130,7 @@ done
 
 for i in 1 2 3 4 5; do
 	ln -s ../init.d/killall $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S00killall
+	ln -s ../init.d/cpusets $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S01cpusets
 	ln -s ../init.d/random $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S20random
 done
 
@@ -144,6 +141,7 @@ done
 ln -s ../init.d/single $RPM_BUILD_ROOT/etc/rc.d/rc1.d/S00single
 
 for i in 0 6; do
+	ln -s ../init.d/cpusets $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K99cpusets
 	ln -s ../init.d/killall $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K90killall
 	ln -s ../init.d/random $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K80random
 done
@@ -193,6 +191,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 
 /etc/rc.d/init.d/functions
 %attr(754,root,root) /etc/rc.d/init.d/allowlogin
+%attr(754,root,root) /etc/rc.d/init.d/cpusets
 %attr(754,root,root) /etc/rc.d/init.d/killall
 %attr(754,root,root) /etc/rc.d/init.d/network
 %attr(754,root,root) /etc/rc.d/init.d/random
@@ -207,6 +206,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc.sysinit
 %attr(754,root,root) /etc/rc.d/rc.shutdown
 %attr(754,root,root) /etc/rc.d/rc?.d/S??allowlogin
+%attr(754,root,root) /etc/rc.d/rc?.d/S??cpusets
 %attr(754,root,root) /etc/rc.d/rc?.d/S??killall
 %attr(754,root,root) /etc/rc.d/rc?.d/S??local
 %attr(754,root,root) /etc/rc.d/rc?.d/S??network
@@ -215,6 +215,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc?.d/S??timezone
 %attr(754,root,root) /etc/rc.d/rc?.d/S??sys-chroots
 %attr(754,root,root) /etc/rc.d/rc?.d/K??allowlogin
+%attr(754,root,root) /etc/rc.d/rc?.d/K??cpusets
 %attr(754,root,root) /etc/rc.d/rc?.d/K??killall
 %attr(754,root,root) /etc/rc.d/rc?.d/K??network
 %attr(754,root,root) /etc/rc.d/rc?.d/K??random
@@ -250,6 +251,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %dir %{_sysconfdir}/ppp
 %attr(754,root,root) %{_sysconfdir}/ppp/*
 %attr(755,root,root) %dir /etc/sysconfig
+%attr(755,root,root) %dir /etc/sysconfig/cpusets
 %attr(755,root,root) %dir /etc/sysconfig/interfaces
 %attr(755,root,root) %dir /etc/sysconfig/interfaces/data
 %attr(755,root,root) %dir /etc/sysconfig/isapnp
@@ -281,6 +283,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-routes
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/timezone
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/interfaces/ifcfg-eth0
+%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/cpusets/cpuset-test
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/system
 
 %{_mandir}/man?/*
