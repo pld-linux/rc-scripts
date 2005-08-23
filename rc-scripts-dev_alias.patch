@@ -4,8 +4,8 @@
  		. /etc/rc.d/init.d/functions; \
  		cd /etc/sysconfig/interfaces && ls -1 ifcfg* | \
  		egrep -v '(ifcfg-lo|ifcfg-sit|ifcfg-atm|ifcfg-lec|ifcfg-nas|ifcfg-br|ifcfg-(.*)\.(.*))' | \
--		egrep 'ifcfg-[a-z0-9\.]+$' | \
-+		egrep 'ifcfg-[a-z0-9\.:]+$' | \
+-		LC_ALL=C egrep 'ifcfg-[a-z0-9\.]+$' | \
++		LC_ALL=C egrep 'ifcfg-[a-z0-9\.:]+$' | \
  		for i in `cat`; do \
  		    ONBOOT=""; . /etc/sysconfig/interfaces/"$i"; is_yes "$ONBOOT" && echo "$i"; \
  		done | \
