@@ -1,0 +1,48 @@
+Index: rc.d/init.d/cpusets
+===================================================================
+--- rc.d/init.d/cpusets	(wersja 6332)
++++ rc.d/init.d/cpusets	(kopia robocza)
+@@ -18,7 +18,7 @@
+ # Source function library.
+ . /etc/rc.d/init.d/functions
+ 
+-if is_yes ${CPUSETS} ; then
++if is_yes "${CPUSETS}" ; then
+     if ! grep -q "/dev/cpuset" /proc/mounts ; then
+ 	nls "ERROR: CPUSET support not enabled in kernel or /dev/cpuset not mounted" >&2
+     fi
+Index: rc.d/init.d/functions
+===================================================================
+--- rc.d/init.d/functions	(wersja 6332)
++++ rc.d/init.d/functions	(kopia robocza)
+@@ -498,7 +498,7 @@
+ 	# And start it up.
+ 	busy
+ 	cd /
+-	is_yes $CPUSETS && [ -n "$SERVICE_CPUSET" ] && echo $$ >/dev/cpuset/${SERVICE_CPUSET}/tasks
++	is_yes "$CPUSETS" && [ -n "$SERVICE_CPUSET" ] && echo $$ > "/dev/cpuset/${SERVICE_CPUSET}/tasks"
+ 	if errors=$(umask ${SERVICE_UMASK:-$DEFAULT_SERVICE_UMASK}; USER=root HOME=/tmp TMPDIR=/tmp nice -n ${SERVICE_RUN_NICE_LEVEL:-$DEFAULT_SERVICE_RUN_NICE_LEVEL} initlog -c "$prog" 2>&1); then
+ 		if [ -n "$waitname" -a -n "$waittime" ]; then
+ 			# Save basename.
+@@ -690,8 +690,8 @@
+ 
+ 	if [ "$pid" != "" ]; then
+ 		cpuset_msg="..."
+-		if is_yes $CPUSETS && [ -n "$SERVICE_CPUSET" ]; then
+-			if $(grep -q "$pid" /dev/cpuset/${SERVICE_CPUSET}/tasks); then
++		if is_yes "$CPUSETS" && [ -n "$SERVICE_CPUSET" ]; then
++			if $(grep -q "$pid" "/dev/cpuset/${SERVICE_CPUSET}/tasks"); then
+ 				cpuset_msg=$(nls " in cpuset %s..." "$SERVICE_CPUSET")
+ 			else
+ 				cpuset_msg=$(nls " outside of configured cpuset %s..." "$SERVICE_CPUSET")
+@@ -706,8 +706,8 @@
+ #		          ((prog ":") == $5)) { print $1 ; exit 0 } }' $1`
+ #		if [ "$pid" != "" ]; then
+ #			cpuset_msg="..."
+-#			if is_yes $CPUSETS && [ -n "$SERVICE_CPUSET" ]; then
+-#				if $(grep -q "$pid" /dev/cpuset/${SERVICE_CPUSET}/tasks); then
++#			if is_yes "$CPUSETS" && [ -n "$SERVICE_CPUSET" ]; then
++#				if $(grep -q "$pid" "/dev/cpuset/${SERVICE_CPUSET}/tasks"); then
+ #					cpuset_msg=$(nls " in cpuset %s..." "$SERVICE_CPUSET")
+ #				else
+ #					cpuset_msg=$(nls " outside of configured cpuset %s..." "$SERVICE_CPUSET")
