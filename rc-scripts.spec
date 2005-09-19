@@ -19,7 +19,6 @@ Source0:	ftp://ftp.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-con_serial_sparc.patch
 Patch2:		%{name}-cpuset.patch
-Patch3:		%{name}-utf8.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -101,7 +100,6 @@ programcýklar içerir.
 %patch1 -p1
 %endif
 %patch2 -p0
-%patch3 -p1
 
 %build
 %{__aclocal}
