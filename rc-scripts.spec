@@ -10,7 +10,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.0.20
-Release:	4
+Release:	4.1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
@@ -157,6 +157,9 @@ done
 install sysconfig/interfaces/ifcfg-eth0 $RPM_BUILD_ROOT/etc/sysconfig/interfaces
 > $RPM_BUILD_ROOT/var/log/dmesg
 
+# make /etc/init.d symlink relative
+ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -185,6 +188,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %doc sysconfig/interfaces/ifc*
 %doc sysconfig/interfaces/tnl*
 %doc sysconfig/init-colors*
+%doc doc/sysvinitfiles
 
 %attr(755,root,root) %dir /etc/rc.d
 %attr(755,root,root) %dir /etc/rc.d/init.d
