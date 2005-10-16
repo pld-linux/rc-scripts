@@ -1,0 +1,2 @@
+- make /etc/init.d symlink relative (useful when browsing files inside chroot)
+- add sysvinitfiles to %doc
