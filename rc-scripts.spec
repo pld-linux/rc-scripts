@@ -58,6 +58,7 @@ Requires:	utempter
 Requires:	util-linux
 Provides:	initscripts
 Obsoletes:	initscripts
+Obsoletes:	vserver-rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	LPRng < 3.8.0-2
 Conflicts:	psacct < 6.3.5-10
