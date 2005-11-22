@@ -7,60 +7,60 @@
 -		LC_ALL=C egrep 'ifcfg-[a-z0-9\.]+$' | \
 +		LC_ALL=C egrep 'ifcfg-[a-z0-9\.:]+$' | \
  		for i in `cat`; do \
- 		    ONBOOT=""; . /etc/sysconfig/interfaces/"$i"; is_yes "$ONBOOT" && echo "$i"; \
- 		done | \
+ 			ONBOOT=""; . /etc/sysconfig/interfaces/"$i"; \
+ 			is_yes "$ONBOOT" && echo "$i"; \
 --- ./sysconfig/network-scripts/ifdown.org	2005-03-29 20:07:36.559401832 +0200
 +++ ./sysconfig/network-scripts/ifdown	2005-03-29 20:09:44.281985048 +0200
 @@ -109,8 +109,12 @@
- 	ip link set ${DEVICE} down
-     fi
+ 		ip link set ${DEVICE} down
+ 	fi
  else
--    ip addr flush dev ${DEVICE} 2>&1 | grep -v "Nothing to flush"
--    ip link set ${DEVICE} down
-+    if [ -n "${SUBDEVICE}" ]; then
-+	ip addr del ${IP4ADDR} label ${SUBDEVICE} dev ${DEVICE}
-+    else
-+	ip addr flush dev ${DEVICE} 2>&1 | grep -v "Nothing to flush"
-+	ip link set ${DEVICE} down
-+    fi
- fi    
+-	ip addr flush dev ${DEVICE} 2>&1 | grep -v "Nothing to flush"
+-	ip link set ${DEVICE} down
++	if [ -n "${SUBDEVICE}" ]; then
++		ip addr del ${IP4ADDR} label ${SUBDEVICE} dev ${DEVICE}
++	else
++		ip addr flush dev ${DEVICE} 2>&1 | grep -v "Nothing to flush"
++		ip link set ${DEVICE} down
++	fi
+ fi
  
  if [ "$HANDLING" = "4" ]; then
 --- ./sysconfig/network-scripts/functions.network.org	2005-03-29 20:10:14.405405592 +0200
 +++ ./sysconfig/network-scripts/functions.network	2005-03-29 20:13:29.813699016 +0200
 @@ -148,7 +148,7 @@
  {
- # detect network device type (ie. dummy, eth for dummy0, eth0 ..)
- if [ -z "$DEVICETYPE" ]; then
--    DEVICETYPE=$(echo $DEVICE | awk ' { gsub(/[0-9]*\.?[0-9]*$/,NUL); print $0 } ')
-+    DEVICETYPE=$(echo $DEVICE | awk ' { gsub(/[0-9]*\.?:?[0-9]*$/,NUL); print $0 } ')
- fi
+ 	# detect network device type (ie. dummy, eth for dummy0, eth0 ..)
+ 	if [ -z "$DEVICETYPE" ]; then
+-		DEVICETYPE=$(echo $DEVICE | awk ' { gsub(/[0-9]*\.?[0-9]*$/,NUL); print $0 } ')
++		DEVICETYPE=$(echo $DEVICE | awk ' { gsub(/[0-9]*\.?:?[0-9]*$/,NUL); print $0 } ')
+ 	fi
  
  # Setup DEVICETYPE for special cases.
 @@ -157,6 +157,7 @@
  fi
  
- # real name of device (ie. is eth0 for eth0,eth0:1,eth0:alias)
-+SUBDEVICE=$(echo "$DEVICE" | egrep "([0-9]+:[0-9]+)" )
- DEVICE=$(echo $DEVICE | awk ' { gsub(/:.*$/,NUL); print $0 } ')
+ 	# real name of device (ie. is eth0 for eth0,eth0:1,eth0:alias)
++	SUBDEVICE=$(echo "$DEVICE" | egrep "([0-9]+:[0-9]+)" )
+ 	DEVICE=$(echo $DEVICE | awk ' { gsub(/:.*$/,NUL); print $0 } ')
  
- eval IP4ADDR="\$IPADDR${IP4_PRIM_IF:-}"
+ 	eval IP4ADDR="\$IPADDR${IP4_PRIM_IF:-}"
 --- ./sysconfig/network-scripts/ifup.org	2005-03-29 20:14:19.329171520 +0200
 +++ ./sysconfig/network-scripts/ifup	2005-03-29 20:16:31.832028024 +0200
 @@ -176,10 +176,14 @@
- 	    IP4ADDROPT="brd + ${IP4ADDROPT}"
- 	fi
+ 			IP4ADDROPT="brd + ${IP4ADDROPT}"
+ 		fi
  
-+	if [ -n "${SUBDEVICE}" ]; then
-+	    ALIAS="label ${SUBDEVICE}"
-+	fi
++		if [ -n "${SUBDEVICE}" ]; then
++			ALIAS="label ${SUBDEVICE}"
++		fi
 +
- 	if [ -n "$REMIP" ]; then
--	    ip addr add ${IP4ADDR} peer ${REMIP} dev ${DEVICE} ${IP4ADDROPT}
-+	    ip addr add ${IP4ADDR} peer ${REMIP} ${ALIAS} dev ${DEVICE} ${IP4ADDROPT}
- 	else
--	    ip addr add ${IP4ADDR} dev ${DEVICE} ${IP4ADDROPT}
-+	    ip addr add ${IP4ADDR} ${ALIAS} dev ${DEVICE} ${IP4ADDROPT}
+ 		if [ -n "$REMIP" ]; then
+-			ip addr add ${IP4ADDR} peer ${REMIP} dev ${DEVICE} ${IP4ADDROPT}
++			ip addr add ${IP4ADDR} peer ${REMIP} ${ALIAS} dev ${DEVICE} ${IP4ADDROPT}
+ 		else
+-			ip addr add ${IP4ADDR} dev ${DEVICE} ${IP4ADDROPT}
++			ip addr add ${IP4ADDR} ${ALIAS} dev ${DEVICE} ${IP4ADDROPT}
+ 		fi
  	fi
-     fi
  
