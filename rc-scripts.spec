@@ -26,8 +26,8 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
 %{?with_static:BuildRequires:	glib2-static}
-BuildRequires:	popt-devel
 BuildRequires:	pkgconfig
+BuildRequires:	popt-devel
 Requires(post):	fileutils
 %ifarch sparc sparc64
 Requires:	agetty
@@ -292,7 +292,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-routes
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/timezone
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/interfaces/ifcfg-eth0
-%config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/cpusets/cpuset-test
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/cpusets/cpuset-test
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/system
 
 %{_mandir}/man?/*
