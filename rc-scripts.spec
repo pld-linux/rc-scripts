@@ -14,7 +14,7 @@ Release:	1
 License:	GPL
 Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
-Source0:	ftp://ftp.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 # Source0-md5:	10e708a4fc93f1d0cc837d6ab712ec08
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-con_serial_sparc.patch
