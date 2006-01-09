@@ -1,0 +1,11 @@
+diff -ur rc-scripts-0.4.0.24.org/sysconfig/network-scripts/functions.network rc-scripts-0.4.0.24/sysconfig/network-scripts/functions.network
+--- rc-scripts-0.4.0.24.org/sysconfig/network-scripts/functions.network	2006-01-07 16:57:30.000000000 +0100
++++ rc-scripts-0.4.0.24/sysconfig/network-scripts/functions.network	2006-01-09 18:25:12.159955250 +0100
+@@ -493,6 +493,7 @@
+ 
+ 	if is_yes "$(eval echo \$${prefix}WLAN_COMMIT)"; then
+ 		iwconfig ${device} commit
++	fi
+ }
+ 
+ check_mii_tool ()
