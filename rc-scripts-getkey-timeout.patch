@@ -1,0 +1,12 @@
+diff -ur rc-scripts-0.4.0.25/rc.d/rc.sysinit rc-scripts/rc.d/rc.sysinit
+--- rc-scripts-0.4.0.25/rc.d/rc.sysinit	2006-01-15 13:01:16.000000000 +0100
++++ rc-scripts/rc.d/rc.sysinit	2006-01-20 19:02:47.000000000 +0100
+@@ -863,7 +863,7 @@
+ kill -TERM $(/sbin/pidof getkey) >/dev/null 2>&1
+ } &
+ if is_yes "$PROMPT"; then
+-	/sbin/getkey i && touch /var/run/confirm
++	/sbin/getkey -c 5 i && touch /var/run/confirm
+ fi
+ wait
+ echo
