@@ -17,7 +17,7 @@ Group:		Base
 Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 # Source0-md5:	7abb2bb88e547e45ff81b6693fd5ef3a
 Patch0:		%{name}-dev_alias.patch
-Patch1		%{name}-getkey-timeout.patch
+Patch1:		%{name}-getkey-timeout.patch
 Patch2:		%{name}-vserver-is-chroot.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
