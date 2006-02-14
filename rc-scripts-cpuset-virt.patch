@@ -1,0 +1,26 @@
+Index: rc.d/init.d/cpusets
+===================================================================
+--- rc.d/init.d/cpusets	(revision 6971)
++++ rc.d/init.d/cpusets	(working copy)
+@@ -38,6 +38,7 @@
+ 		[ -n "$CPU_EXCLUSIVE" ] && echo "$CPU_EXCLUSIVE" >/dev/cpuset/"$NAME"/cpu_exclusive
+ 		[ -n "$MEM_EXCLUSIVE" ] && echo "$MEM_EXCLUSIVE" >/dev/cpuset/"$NAME"/mem_exclusive
+ 		[ -n "$NOTIFY_ON_RELEASE" ] && echo "$NOTIFY_ON_RELEASE" >/dev/cpuset/"$NAME"/notify_on_release
++		[ -n "$VIRTUALIZE" ] && echo "$VIRTUALIZE" >/dev/cpuset/"$NAME"/virtualize
+ 		[ -n "$TASKS" ] && echo "$TASKS" >/dev/cpuset/"$NAME"/tasks
+ 		return 0
+ 	fi
+Index: sysconfig/cpusets/cpuset-test
+===================================================================
+--- sysconfig/cpusets/cpuset-test	(revision 6971)
++++ sysconfig/cpusets/cpuset-test	(working copy)
+@@ -19,6 +19,9 @@
+ # 
+ #NOTIFY_ON_RELEASE=0
+ 
++#
++#VIRTUALIZE=1
++
+ # PIDs of tasks in this cpuset
+ #TASKS=
+ 
