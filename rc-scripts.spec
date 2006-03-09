@@ -1,7 +1,7 @@
 
 # Conditional build:
 %bcond_without	static		# link binaries with glib dynamically
-%bcond_without	devalias 	# without dev_alias patch
+%bcond_with	devalias 	# with incomplete dev_alias patch
 #
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
@@ -9,17 +9,14 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.0.25
-Release:	3
+Version:	0.4.0.26
+Release:	1
 License:	GPL
-Vendor:		PLD rc-scripts Team <pld-rc-scripts@pld-linux.org>
 Group:		Base
 Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
-# Source0-md5:	7abb2bb88e547e45ff81b6693fd5ef3a
+# Source0-md5:	95e6a02311c6abc434614872434e0715
 Patch0:		%{name}-dev_alias.patch
-Patch1:		%{name}-getkey-timeout.patch
-Patch2:		%{name}-vserver-is-chroot.patch
-Patch3:		%{name}-cpuset-virt.patch
+Patch1:		%{name}-branch.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -59,10 +56,10 @@ Requires:	util-linux
 Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	LPRng < 3.8.0-2
-Conflicts:	psacct < 6.3.5-10
 Conflicts:	openssh-server < 2:3.6.1p2-6
+Conflicts:	psacct < 6.3.5-10
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix	/
 %define		localedir	/etc/sysconfig/locale
@@ -98,9 +95,7 @@ programcýklar içerir.
 %prep
 %setup -q
 %{?with_devalias:%patch0 -p0}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p0
+%patch1 -p0
 
 %build
 %{__aclocal}
@@ -160,6 +155,8 @@ install sysconfig/interfaces/ifcfg-eth0 $RPM_BUILD_ROOT/etc/sysconfig/interfaces
 
 # make /etc/init.d symlink relative
 ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
+
+rm -rf $RPM_BUILD_ROOT%{_prefix}/doc/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
