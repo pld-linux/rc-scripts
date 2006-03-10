@@ -1,7 +1,7 @@
 
 # Conditional build:
 %bcond_without	static		# link binaries with glib dynamically
-%bcond_with	devalias 	# with incomplete dev_alias patch
+%bcond_without	devalias 	# without dev_alias patch
 #
 Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
@@ -10,7 +10,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.0.26
-Release:	1
+Release:	2
 License:	GPL
 Group:		Base
 Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
