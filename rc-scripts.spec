@@ -15,8 +15,8 @@ License:	GPL
 Group:		Base
 Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 # Source0-md5:	95e6a02311c6abc434614872434e0715
-Patch0:		%{name}-dev_alias.patch
-Patch1:		%{name}-branch.patch
+Patch0:		%{name}-branch.patch
+Patch1:		%{name}-dev_alias.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -94,8 +94,8 @@ programcýklar içerir.
 
 %prep
 %setup -q
-%{?with_devalias:%patch0 -p0}
-%patch1 -p0
+%patch0 -p0
+%{?with_devalias:%patch1 -p0}
 
 %build
 %{__aclocal}
