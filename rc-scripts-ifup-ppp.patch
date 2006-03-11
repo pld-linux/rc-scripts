@@ -1,0 +1,11 @@
+--- rc-scripts-0.4.0.26/sysconfig/network-scripts/ifup-ppp.orig	2006-01-21 13:19:11.000000000 +0100
++++ rc-scripts-0.4.0.26/sysconfig/network-scripts/ifup-ppp	2006-03-11 18:42:26.000000000 +0100
+@@ -89,7 +89,7 @@
+ 		MODEMMODE="pty"
+ 		MODEMPORT="pppoa3 -v1 -c -vpi ${PPPOA_VPI} -vci ${PPPOA_VCI} ${PPPOA_OPT}"
+ 	fi
+-else is_yes "${PPPOA}"; then
++elif is_yes "${PPPOA}"; then
+ 	MODEMMODE="plugin pppoatm.so"
+ 	MODEMPORT="${PPPOA_VPI}.${PPPOA_VCI}"
+ else
