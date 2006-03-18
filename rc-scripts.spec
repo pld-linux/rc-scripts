@@ -18,6 +18,7 @@ Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.g
 Patch0:		%{name}-branch.patch
 Patch1:		%{name}-dev_alias.patch
 Patch2:		%{name}-ifup-ppp.patch
+Patch3:		%{name}-chat-plusgsm.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -98,6 +99,7 @@ programcýklar içerir.
 %patch0 -p0
 %{?with_devalias:%patch1 -p0}
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__aclocal}
