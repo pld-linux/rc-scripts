@@ -1,0 +1,10 @@
+diff -urN rc-scripts-0.4.0.26/sysconfig/interfaces/data/chat-ppp0.gprs-plusgsm rc-scripts-0.4.0.26.dziki/sysconfig/interfaces/data/chat-ppp0.gprs-plusgsm
+--- rc-scripts-0.4.0.26/sysconfig/interfaces/data/chat-ppp0.gprs-plusgsm	2005-08-23 18:28:49.000000000 +0200
++++ rc-scripts-0.4.0.26.dziki/sysconfig/interfaces/data/chat-ppp0.gprs-plusgsm	2006-03-18 15:11:25.000000000 +0100
+@@ -5,5 +5,6 @@
+ ABORT "NO ANSWER"
+ ABORT "Username/Password Incorrect"
+ "" AT
++OK AT+CGDCONT=1,"IP","www.plusgsm.pl"
+ OK-AT-OK ATDT"$PHONE"
+ CONNECT
