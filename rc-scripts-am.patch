@@ -1,0 +1,112 @@
+--- rc-scripts-0.4.0.26/sysconfig/Makefile.am	2005-08-11 19:03:52.000000000 +0300
++++ rc-scripts-0.4.0.26.noinst/sysconfig/Makefile.am	2006-03-24 23:19:38.000000000 +0200
+@@ -7,7 +7,6 @@
+ sysconfig_DATA = \
+ 	clock \
+ 	init-colors \
+-	init-colors.gentoo \
+ 	hwprof \
+ 	system \
+ 	network \
+@@ -17,4 +16,7 @@
+ 	i18n \
+ 	timezone
+ 
+-EXTRA_DIST = $(sysconfig_DATA)
++noinst_DATA = \
++	init-colors.gentoo
++
++EXTRA_DIST = $(sysconfig_DATA) $(noinst_DATA)
+--- rc-scripts-0.4.0.26/sysconfig/interfaces/Makefile.am	2006-01-19 10:51:36.000000000 +0200
++++ rc-scripts-0.4.0.26.noinst/sysconfig/interfaces/Makefile.am	2006-03-24 23:16:10.000000000 +0200
+@@ -4,10 +4,11 @@
+ 
+ interfacesdir = @sysconfigdir@/interfaces
+ 
+-interfaces_DATA = \
++interfaces_DATA = ifcfg-eth0
++
++noinst_DATA = \
+ 	ifcfg-br0 \
+ 	ifcfg-description \
+-	ifcfg-eth0 \
+ 	ifcfg-eth0.1 \
+ 	ifcfg-irda0 \
+ 	ifcfg-irlan0 \
+@@ -24,4 +25,4 @@
+ 	tnlcfg-icm 
+ 
+ 
+-EXTRA_DIST = $(interfaces_DATA)
++EXTRA_DIST = $(interfaces_DATA) $(noinst_DATA)
+--- rc-scripts-0.4.0.26/sysconfig/interfaces/data/Makefile.am	2003-10-28 03:11:09.000000000 +0200
++++ rc-scripts-0.4.0.26.noinst/sysconfig/interfaces/data/Makefile.am	2006-03-24 23:17:17.000000000 +0200
+@@ -2,10 +2,12 @@
+ 
+ interfacesdatadir = @sysconfigdir@/interfaces/data
+ 
+-interfacesdata_DATA = \
++interfacesdata_DATA = 
++
++noinst_DATA = \
+ 	chat-ppp0.callback \
+ 	chat-ppp0.leased1 \
+ 	chat-ppp0.tpsa \
+ 	chat-ppp0.gprs-plusgsm
+ 
+-EXTRA_DIST = $(interfacesdata_DATA)
++EXTRA_DIST = $(interfacesdata_DATA) $(noinst_DATA)
+diff -ur rc-scripts-0.4.0.26/sysconfig/interfaces/down.d/all/Makefile.am rc-scripts-0.4.0.26.noinst/sysconfig/interfaces/down.d/all/Makefile.am
+--- rc-scripts-0.4.0.26/sysconfig/interfaces/down.d/all/Makefile.am	2003-10-28 03:11:06.000000000 +0200
++++ rc-scripts-0.4.0.26.noinst/sysconfig/interfaces/down.d/all/Makefile.am	2006-03-24 23:17:56.000000000 +0200
+@@ -2,6 +2,7 @@
+ 
+ alldowndir= @downdir@/all
+ 
+-alldown_SCRIPTS = thetouch
++alldown_SCRIPTS =
++noinst_SCRIPTS =  thetouch
+ 
+-EXTRA_DIST = $(alldown_SCRIPTS)
++EXTRA_DIST = $(alldown_SCRIPTS) $(noinst_SCRIPTS)
+--- rc-scripts-0.4.0.26/doc/Makefile.am~	2005-01-24 16:09:29.000000000 +0200
++++ rc-scripts-0.4.0.26/doc/Makefile.am	2006-03-24 23:44:17.000000000 +0200
+@@ -2,9 +2,10 @@
+ 
+ docdir = @docdir@
+ 
+-doc_DATA = \
++doc_DATA = 
++noinst_DATA = \
+ 	net-scripts.txt \
+ 	sysconfig.txt \
+ 	sysvinitfiles
+ 
+-EXTRA_DIST = $(doc_DATA)
++EXTRA_DIST = $(doc_DATA) $(noinst_DATA)
+--- rc-scripts-0.4.0.26/sysconfig/hwprofiles/Makefile.am~	2003-10-28 03:11:05.000000000 +0200
++++ rc-scripts-0.4.0.26/sysconfig/hwprofiles/Makefile.am	2006-03-24 23:46:17.000000000 +0200
+@@ -2,7 +2,8 @@
+ 
+ hwprofilesdir = @sysconfigdir@/hwprofiles
+ 
+-hwprofiles_DATA = \
+-		  files
++hwprofiles_DATA = 
++noinst_DATA = \
++	files
+ 			  
+-EXTRA_DIST = $(hwprofiles_DATA)
++EXTRA_DIST = $(hwprofiles_DATA) $(noinst_DATA)
+--- rc-scripts-0.4.0.26/sysconfig/interfaces/up.d/all/Makefile.am~	2003-10-28 03:11:08.000000000 +0200
++++ rc-scripts-0.4.0.26/sysconfig/interfaces/up.d/all/Makefile.am	2006-03-24 23:48:56.000000000 +0200
+@@ -2,6 +2,7 @@
+ 
+ allupdir = @updir@/all
+ 
+-allup_SCRIPTS = thetouch
++allup_SCRIPTS = 
++noinst_SCRIPTS = thetouch
+ 
+-EXTRA_DIST = $(allup_SCRIPTS)
++EXTRA_DIST = $(allup_SCRIPTS) $(noinst_SCRIPTS)
