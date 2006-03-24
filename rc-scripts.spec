@@ -10,7 +10,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.0.26
-Release:	3
+Release:	3.1
 License:	GPL
 Group:		Base
 Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
@@ -19,6 +19,8 @@ Patch0:		%{name}-branch.patch
 Patch1:		%{name}-dev_alias.patch
 Patch2:		%{name}-ifup-ppp.patch
 Patch3:		%{name}-chat-plusgsm.patch
+Patch4:		%{name}-shutdown-speedup.patch
+Patch5:		%{name}-am.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -49,7 +51,7 @@ Requires:	mktemp
 Requires:	module-init-tools
 Requires:	mount >= 2.12
 Requires:	net-tools
-Requires:	procps
+Requires:	procps >= 1:3.2.6-1.1
 Requires:	psmisc
 Requires:	sh-utils
 Requires:	textutils
@@ -100,6 +102,8 @@ programcýklar içerir.
 %{?with_devalias:%patch1 -p0}
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 %{__aclocal}
@@ -154,13 +158,10 @@ for i in 0 1 6; do
 	ln -s ../init.d/sys-chroots $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K01sys-chroots
 done
 
-install sysconfig/interfaces/ifcfg-eth0 $RPM_BUILD_ROOT/etc/sysconfig/interfaces
 > $RPM_BUILD_ROOT/var/log/dmesg
 
 # make /etc/init.d symlink relative
 ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
-
-rm -rf $RPM_BUILD_ROOT%{_prefix}/doc/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
