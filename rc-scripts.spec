@@ -271,8 +271,8 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %dir /etc/sysconfig/interfaces/down.d/*
 %dir /etc/sysconfig/interfaces/up.d
 %dir /etc/sysconfig/interfaces/up.d/*
-%attr(755,root,root) /etc/sysconfig/interfaces/down.d/ppp/logger
-%attr(755,root,root) /etc/sysconfig/interfaces/up.d/ppp/logger
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/interfaces/down.d/ppp/logger
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/interfaces/up.d/ppp/logger
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/isapnp/isapnp-kernel.conf
 %attr(640,root,root) %ghost /var/log/dmesg
 %attr(750,root,root) %dir /var/run/netreport
