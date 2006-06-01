@@ -153,6 +153,9 @@ done
 # make /etc/init.d symlink relative
 ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
 
+# in static-routes can be also rules:
+ln -s static-routes $RPM_BUILD_ROOT/etc/sysconfig/static-rules
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -281,6 +284,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-arp
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-nat
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-routes
+%config(noreplace,missingok) %verify(not md5 mtime size) /etc/sysconfig/static-rules
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/timezone
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/interfaces/ifcfg-eth0
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/cpusets/cpuset-test
