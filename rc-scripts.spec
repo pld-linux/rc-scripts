@@ -16,6 +16,7 @@ Group:		Base
 Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 # Source0-md5:	5fbf2907a207945e8c701e86399cd40b
 Patch0:		%{name}-dev_alias.patch
+Patch1:		%{name}-exclude_rm_cups.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -94,6 +95,7 @@ programcýklar içerir.
 %prep
 %setup -q
 %{?with_devalias:%patch0 -p0}
+%patch1 -p1
 
 %build
 %{__aclocal}
