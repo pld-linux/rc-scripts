@@ -256,7 +256,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 
 %attr(755,root,root) %dir %{_sysconfdir}/ppp
 %attr(754,root,root) %{_sysconfdir}/ppp/*
-%attr(755,root,root) %dir /etc/sysconfig
 %attr(755,root,root) %dir /etc/sysconfig/cpusets
 %attr(755,root,root) %dir /etc/sysconfig/hwprofiles
 %attr(755,root,root) %dir /etc/sysconfig/interfaces
