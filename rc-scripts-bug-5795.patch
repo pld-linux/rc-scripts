@@ -1,0 +1,11 @@
+--- /etc/rc.d/init.d/network~	2006-09-08 22:31:20.000000000 +0300
++++ /etc/rc.d/init.d/network	2006-09-08 22:31:22.259621688 +0300
+@@ -198,7 +198,7 @@
+ tunnels=`
+ 	for i in $(network_interface_configs 'tnlcfg-*'); do
+ 		ONBOOT=""; . "$i" 2>/dev/null
+-		is_yes "$ONBOOT" && echo "${i##*/}"
++		is_yes "$ONBOOT" && echo "${i##*/tnlcfg-}"
+ 	done
+ `
+ 
