@@ -17,8 +17,7 @@ Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.g
 # Source0-md5:	5fbf2907a207945e8c701e86399cd40b
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-exclude_rm_cups.patch
-Patch2:		%{name}-fuse.patch
-Patch3:		http://glen.alkohol.ee/pld/%{name}-bug-5795.patch
+Patch2:		http://glen.alkohol.ee/pld/%{name}-bug-5795.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -98,8 +97,7 @@ programcýklar içerir.
 %setup -q
 %{?with_devalias:%patch0 -p0}
 %patch1 -p1
-%patch2 -p1
-%patch3 -p2
+%patch2 -p2
 
 %build
 %{__aclocal}
