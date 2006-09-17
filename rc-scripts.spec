@@ -211,15 +211,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc.init
 %attr(754,root,root) /etc/rc.d/rc.sysinit
 %attr(754,root,root) /etc/rc.d/rc.shutdown
-%attr(754,root,root) /etc/rc.d/rc?.d/S??allowlogin
-%attr(754,root,root) /etc/rc.d/rc?.d/S??cpusets
-%attr(754,root,root) /etc/rc.d/rc?.d/S??killall
-%attr(754,root,root) /etc/rc.d/rc?.d/S??local
-%attr(754,root,root) /etc/rc.d/rc?.d/S??network
-%attr(754,root,root) /etc/rc.d/rc?.d/S??random
-%attr(754,root,root) /etc/rc.d/rc?.d/S??single
-%attr(754,root,root) /etc/rc.d/rc?.d/S??timezone
-%attr(754,root,root) /etc/rc.d/rc?.d/S??sys-chroots
+
 %attr(754,root,root) /etc/rc.d/rc?.d/K??allowlogin
 %attr(754,root,root) /etc/rc.d/rc?.d/K??cpusets
 %attr(754,root,root) /etc/rc.d/rc?.d/K??killall
@@ -227,6 +219,15 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc?.d/K??random
 %attr(754,root,root) /etc/rc.d/rc?.d/K??single
 %attr(754,root,root) /etc/rc.d/rc?.d/K??sys-chroots
+%attr(754,root,root) /etc/rc.d/rc?.d/S??allowlogin
+%attr(754,root,root) /etc/rc.d/rc?.d/S??cpusets
+%attr(754,root,root) /etc/rc.d/rc?.d/S??killall
+%attr(754,root,root) /etc/rc.d/rc?.d/S??local
+%attr(754,root,root) /etc/rc.d/rc?.d/S??network
+%attr(754,root,root) /etc/rc.d/rc?.d/S??random
+%attr(754,root,root) /etc/rc.d/rc?.d/S??single
+%attr(754,root,root) /etc/rc.d/rc?.d/S??sys-chroots
+%attr(754,root,root) /etc/rc.d/rc?.d/S??timezone
 
 %attr(755,root,root) /etc/profile.d/lang.*sh
 
@@ -236,23 +237,21 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_bindir}/run-parts
 %attr(755,root,root) %{_bindir}/usleep
 
-%attr(755,root,root) %{_sbindir}/minilogd
-%attr(755,root,root) %{_sbindir}/start-stop-daemon
-%attr(755,root,root) %{_sbindir}/genhostid
-%attr(755,root,root) %{_sbindir}/hwprofile
-%attr(755,root,root) %{_sbindir}/service
 %attr(755,root,root) %{_sbindir}/consoletype
+%attr(755,root,root) %{_sbindir}/genhostid
+%attr(755,root,root) %{_sbindir}/getkey
+%attr(755,root,root) %{_sbindir}/hwprofile
+%attr(755,root,root) %{_sbindir}/if*
 %attr(755,root,root) %{_sbindir}/initlog
 %attr(755,root,root) %{_sbindir}/loglevel
-%attr(755,root,root) %{_sbindir}/ppp-watch
+%attr(755,root,root) %{_sbindir}/minilogd
 %attr(755,root,root) %{_sbindir}/netreport
+%attr(755,root,root) %{_sbindir}/ppp-watch
+%attr(755,root,root) %{_sbindir}/service
 %attr(755,root,root) %{_sbindir}/setsysfont
-%attr(4755,root,root) %{_sbindir}/usernetctl
-
-%attr(755,root,root) %{_sbindir}/if*
+%attr(755,root,root) %{_sbindir}/start-stop-daemon
 %attr(755,root,root) %{_sbindir}/tnl*
-
-%attr(755,root,root) %{_sbindir}/getkey
+%attr(4755,root,root) %{_sbindir}/usernetctl
 
 %attr(755,root,root) %dir %{_sysconfdir}/ppp
 %attr(754,root,root) %{_sysconfdir}/ppp/*
@@ -275,22 +274,22 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(750,root,root) %dir /var/run/netreport
 
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/initlog.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/inittab
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/modules
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/initlog.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/sysctl.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/clock
-%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/init-colors
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/cpusets/cpuset-test
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hwprof
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/i18n
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/init-colors
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/interfaces/ifcfg-eth0
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/network
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-arp
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-nat
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-routes
-%config(noreplace,missingok) %verify(not md5 mtime size) /etc/sysconfig/static-rules
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/timezone
-%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/interfaces/ifcfg-eth0
-%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/cpusets/cpuset-test
+%config(noreplace,missingok) %verify(not md5 mtime size) /etc/sysconfig/static-rules
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/system
 
 %{_mandir}/man?/*
