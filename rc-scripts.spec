@@ -10,15 +10,15 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.0.27
-Release:	4
+Release:	4.11
 License:	GPL
 Group:		Base
-Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
-# Source0-md5:	5fbf2907a207945e8c701e86399cd40b
+#Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	00087930cdd7dae9456588062b4f2a7e
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-exclude_rm_cups.patch
 Patch2:		%{name}-fuse.patch
-Patch3:		http://glen.alkohol.ee/pld/%{name}-bug-5795.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -99,7 +99,6 @@ programcýklar içerir.
 %{?with_devalias:%patch0 -p0}
 %patch1 -p1
 %patch2 -p1
-%patch3 -p2
 
 %build
 %{__aclocal}
@@ -123,7 +122,7 @@ for i in 0 1 2 3 4 5 6; do
 done
 
 for i in 2 3 4 5; do
-	ln -s ../rc.local $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99local
+	ln -s ../init.d/local $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99local
 	ln -s ../init.d/network $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10network
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99allowlogin
 	ln -s ../init.d/timezone $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10timezone
@@ -152,6 +151,7 @@ for i in 0 1 6; do
 	ln -s ../init.d/network $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K90network
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K01allowlogin
 	ln -s ../init.d/sys-chroots $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K01sys-chroots
+	ln -s ../init.d/local $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K01local
 done
 
 > $RPM_BUILD_ROOT/var/log/dmesg
@@ -161,6 +161,9 @@ ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
 
 # in static-routes can be also rules:
 ln -s static-routes $RPM_BUILD_ROOT/etc/sysconfig/static-rules
+
+# msg cache
+touch $RPM_BUILD_ROOT/etc/rc.d/.rc-scripts.cache
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -174,9 +177,11 @@ if [ -f /etc/inittab.rpmsave ]; then
 	mv -f /etc/inittab.rpmsave /etc/inittab
 fi
 touch /var/log/dmesg
-chmod 000 /var/log/dmesg
 chown root:root /var/log/dmesg
 chmod 640 /var/log/dmesg
+touch /etc/rc.d/.rc-scripts.cache
+chmod 644 /etc/rc.d/.rc-scripts.cache
+chown root:root /etc/rc.d/.rc-scripts.cache
 
 # move network interfaces description files to new location
 %triggerpostun -- initscripts
@@ -201,6 +206,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/init.d/allowlogin
 %attr(754,root,root) /etc/rc.d/init.d/cpusets
 %attr(754,root,root) /etc/rc.d/init.d/killall
+%attr(754,root,root) /etc/rc.d/init.d/local
 %attr(754,root,root) /etc/rc.d/init.d/network
 %attr(754,root,root) /etc/rc.d/init.d/random
 %attr(754,root,root) /etc/rc.d/init.d/single
@@ -213,10 +219,10 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc.init
 %attr(754,root,root) /etc/rc.d/rc.sysinit
 %attr(754,root,root) /etc/rc.d/rc.shutdown
-
 %attr(754,root,root) /etc/rc.d/rc?.d/K??allowlogin
 %attr(754,root,root) /etc/rc.d/rc?.d/K??cpusets
 %attr(754,root,root) /etc/rc.d/rc?.d/K??killall
+%attr(754,root,root) /etc/rc.d/rc?.d/K??local
 %attr(754,root,root) /etc/rc.d/rc?.d/K??network
 %attr(754,root,root) /etc/rc.d/rc?.d/K??random
 %attr(754,root,root) /etc/rc.d/rc?.d/K??single
@@ -230,6 +236,8 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc?.d/S??single
 %attr(754,root,root) /etc/rc.d/rc?.d/S??sys-chroots
 %attr(754,root,root) /etc/rc.d/rc?.d/S??timezone
+
+%ghost /etc/rc.d/.rc-scripts.cache
 
 %attr(755,root,root) /etc/profile.d/lang.*sh
 
