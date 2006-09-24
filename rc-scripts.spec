@@ -9,15 +9,14 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.0.27
-Release:	3
+Version:	0.4.1.0
+Release:	1
 License:	GPL
 Group:		Base
 Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
-# Source0-md5:	5fbf2907a207945e8c701e86399cd40b
+# Source0-md5:	b8d420ad99b81f12d83aa572a7be3778
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-exclude_rm_cups.patch
-Patch2:		http://glen.alkohol.ee/pld/%{name}-bug-5795.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -97,7 +96,6 @@ programcýklar içerir.
 %setup -q
 %{?with_devalias:%patch0 -p0}
 %patch1 -p1
-%patch2 -p2
 
 %build
 %{__aclocal}
@@ -121,7 +119,7 @@ for i in 0 1 2 3 4 5 6; do
 done
 
 for i in 2 3 4 5; do
-	ln -s ../rc.local $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99local
+	ln -s ../init.d/local $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99local
 	ln -s ../init.d/network $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10network
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99allowlogin
 	ln -s ../init.d/timezone $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10timezone
@@ -199,6 +197,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/init.d/allowlogin
 %attr(754,root,root) /etc/rc.d/init.d/cpusets
 %attr(754,root,root) /etc/rc.d/init.d/killall
+%attr(754,root,root) /etc/rc.d/init.d/local
 %attr(754,root,root) /etc/rc.d/init.d/network
 %attr(754,root,root) /etc/rc.d/init.d/random
 %attr(754,root,root) /etc/rc.d/init.d/single
