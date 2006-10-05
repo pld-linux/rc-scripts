@@ -10,15 +10,14 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.1.0
-Release:	0.15
+Release:	1.16
 License:	GPL
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	0dd42263fcd0014fd728a482b26cde18
 Patch0:		%{name}-dev_alias.patch
-Patch1:		%{name}-exclude_rm_cups.patch
-Patch2:		%{name}-fuse.patch
+Patch1:		%{name}-fuse.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -98,7 +97,6 @@ programcýklar içerir.
 %setup -q
 %{?with_devalias:%patch0 -p0}
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__aclocal}
