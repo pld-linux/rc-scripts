@@ -1,0 +1,12 @@
+diff -uNr rc-scripts-0.4.1.0.orig/sysconfig/network-scripts/ifup rc-scripts-0.4.1.0/sysconfig/network-scripts/ifup
+--- rc-scripts-0.4.1.0.orig/sysconfig/network-scripts/ifup	2006-08-31 09:53:06.000000000 +0000
++++ rc-scripts-0.4.1.0/sysconfig/network-scripts/ifup	2006-10-06 03:34:36.000000000 +0000
+@@ -92,7 +92,7 @@
+ fi
+ 
+ if [ -n "$MACADDR" ]; then
+-	ip link set ${DEVICE} address ${MACADDR}
++	ip link set ${DEVICE} address ${MACADDR} && sleep 2
+ fi
+ 
+ ip link set ${DEVICE} multicast ${MULTICAST} ${ARP} down
