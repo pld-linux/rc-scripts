@@ -1,12 +1,17 @@
 diff -uNr rc-scripts-0.4.1.0.orig/sysconfig/network-scripts/ifup rc-scripts-0.4.1.0/sysconfig/network-scripts/ifup
 --- rc-scripts-0.4.1.0.orig/sysconfig/network-scripts/ifup	2006-08-31 09:53:06.000000000 +0000
-+++ rc-scripts-0.4.1.0/sysconfig/network-scripts/ifup	2006-10-06 03:34:36.000000000 +0000
-@@ -92,7 +92,7 @@
++++ rc-scripts-0.4.1.0/sysconfig/network-scripts/ifup	2006-10-07 03:14:56.000000000 +0000
+@@ -91,8 +91,12 @@
+ 	exit 0
  fi
  
++if  [ -z "$SLEEP_SCAN_INT" ]; then
++	SLEEP_SCAN_INT=0
++fi
++
  if [ -n "$MACADDR" ]; then
 -	ip link set ${DEVICE} address ${MACADDR}
-+	ip link set ${DEVICE} address ${MACADDR} && sleep 2
++	ip link set ${DEVICE} address ${MACADDR} && sleep ${SLEEP_SCAN_INT}
  fi
  
  ip link set ${DEVICE} multicast ${MULTICAST} ${ARP} down
