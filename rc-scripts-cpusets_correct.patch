@@ -1,0 +1,21 @@
+diff -uNr rc-scripts-0.4.1.0.orig/rc.d/init.d/cpusets rc-scripts-0.4.1.0/rc.d/init.d/cpusets
+--- rc-scripts-0.4.1.0.orig/rc.d/init.d/cpusets	2006-09-18 08:17:47.000000000 +0000
++++ rc-scripts-0.4.1.0/rc.d/init.d/cpusets	2006-10-09 07:52:53.000000000 +0000
+@@ -25,7 +25,7 @@
+ {
+ 	local CPUS MEMS CPU_EXCLUSIVE MEM_EXCLUSIVE NOTIFY_ON_RELEASE TASKS
+ 
+-	. /etc/sysconfig/cpusets/cpuset-$i
++	. /etc/sysconfig/cpusets/$i
+ 
+ 	if mkdir /dev/cpuset/"$NAME" >/dev/null 2>&1 ; then
+ 		[ -n "$CPUS" ] && echo "$CPUS" >/dev/cpuset/"$NAME"/cpus
+@@ -44,7 +44,7 @@
+ {
+ 	local CPUS MEMS CPU_EXCLUSIVE MEM_EXCLUSIVE NOTIFY_ON_RELEASE TASKS
+ 
+-	. /etc/sysconfig/cpusets/cpuset-$i
++	. /etc/sysconfig/cpusets/$i
+ 
+ 	# This MUST be rmdir (not rm -rf)
+ 	if rmdir /dev/cpuset/"$NAME" >/dev/null 2>&1 ; then
