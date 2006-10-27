@@ -1,4 +1,4 @@
-
+#
 # Conditional build:
 %bcond_without	static		# link binaries with glib dynamically
 %bcond_without	devalias 	# without dev_alias patch
@@ -10,7 +10,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.1.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Base
 Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
@@ -35,8 +35,8 @@ Requires:	/bin/basename
 Requires:	/bin/gettext
 Requires:	/bin/nice
 Requires:	/bin/ps
-Requires:	FHS >= 2.2-6
 Requires:	SysVinit
+Requires:	filesystem >= 3.0-11
 Requires:	fileutils
 Requires:	findutils
 Requires:	fsck
