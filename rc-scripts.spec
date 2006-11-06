@@ -10,13 +10,12 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.0.27
-Release:	3
+Release:	5
 License:	GPL
 Group:		Base
 Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 # Source0-md5:	5fbf2907a207945e8c701e86399cd40b
 Patch0:		%{name}-dev_alias.patch
-Patch1:		%{name}-exclude_rm_cups.patch
 Patch2:		%{name}-fuse.patch
 Patch3:		http://glen.alkohol.ee/pld/%{name}-bug-5795.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
@@ -36,8 +35,8 @@ Requires:	/bin/basename
 Requires:	/bin/gettext
 Requires:	/bin/nice
 Requires:	/bin/ps
-Requires:	FHS >= 2.2-6
 Requires:	SysVinit
+Requires:	filesystem >= 2.0-1
 Requires:	fileutils
 Requires:	findutils
 Requires:	fsck
@@ -97,7 +96,6 @@ programcýklar içerir.
 %prep
 %setup -q
 %{?with_devalias:%patch0 -p0}
-%patch1 -p1
 %patch2 -p1
 %patch3 -p2
 
