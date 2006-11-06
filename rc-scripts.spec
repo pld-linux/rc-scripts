@@ -10,7 +10,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.0.27
-Release:	4
+Release:	5
 License:	GPL
 Group:		Base
 Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
@@ -36,8 +36,8 @@ Requires:	/bin/basename
 Requires:	/bin/gettext
 Requires:	/bin/nice
 Requires:	/bin/ps
-Requires:	FHS >= 2.2-6
 Requires:	SysVinit
+Requires:	filesystem >= 2.0-1
 Requires:	fileutils
 Requires:	findutils
 Requires:	fsck
@@ -258,7 +258,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 
 %attr(755,root,root) %dir %{_sysconfdir}/ppp
 %attr(754,root,root) %{_sysconfdir}/ppp/*
-%attr(755,root,root) %dir /etc/sysconfig
 %attr(755,root,root) %dir /etc/sysconfig/cpusets
 %attr(755,root,root) %dir /etc/sysconfig/hwprofiles
 %attr(755,root,root) %dir /etc/sysconfig/interfaces
