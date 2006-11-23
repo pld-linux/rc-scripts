@@ -36,6 +36,7 @@ Requires:	/bin/gettext
 Requires:	/bin/nice
 Requires:	/bin/ps
 Requires:	SysVinit
+Requires:	blockdev
 Requires:	filesystem >= 3.0-11
 Requires:	fileutils
 Requires:	findutils
