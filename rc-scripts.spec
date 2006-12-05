@@ -9,12 +9,12 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.1.1
-Release:	2
+Version:	0.4.1.2
+Release:	1
 License:	GPL
 Group:		Base
 Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
-# Source0-md5:	3fde634078029bc9f3d5490fee7f87f2
+# Source0-md5:	ef91ee0fd55fe21d3c54cbe8a20b47a9
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-exclude_rm_cups.patch
 Patch2:		%{name}-sleep.patch
