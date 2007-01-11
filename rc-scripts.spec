@@ -9,12 +9,13 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.1.2
+Version:	0.4.1.3
 Release:	1
 License:	GPL
 Group:		Base
-Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
-# Source0-md5:	ef91ee0fd55fe21d3c54cbe8a20b47a9
+#Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	cd89c4f89ec9068d6a7ed020e874353c
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-exclude_rm_cups.patch
 Patch2:		%{name}-sleep.patch
@@ -162,9 +163,6 @@ ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
 # in static-routes can be also rules:
 ln -s static-routes $RPM_BUILD_ROOT/etc/sysconfig/static-rules
 
-# msg cache
-touch $RPM_BUILD_ROOT/etc/rc.d/.rc-scripts.cache
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -179,9 +177,9 @@ fi
 touch /var/log/dmesg
 chown root:root /var/log/dmesg
 chmod 640 /var/log/dmesg
-touch /etc/rc.d/.rc-scripts.cache
-chmod 644 /etc/rc.d/.rc-scripts.cache
-chown root:root /etc/rc.d/.rc-scripts.cache
+touch /var/cache/rc-scripts/msg.cache
+chmod 644 /var/cache/rc-scripts/msg.cache
+chown root:root /var/cache/rc-scripts/msg.cache
 
 # move network interfaces description files to new location
 %triggerpostun -- initscripts
@@ -237,7 +235,8 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc?.d/S??sys-chroots
 %attr(754,root,root) /etc/rc.d/rc?.d/S??timezone
 
-%ghost /etc/rc.d/.rc-scripts.cache
+%dir /var/cache/rc-scripts
+%ghost /var/cache/rc-scripts/msg.cache
 
 %attr(755,root,root) /etc/profile.d/lang.*sh
 
