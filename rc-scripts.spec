@@ -10,7 +10,7 @@ Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.1.3
-Release:	1
+Release:	1.1
 License:	GPL
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
@@ -269,8 +269,28 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %dir /etc/sysconfig/interfaces
 %attr(755,root,root) %dir /etc/sysconfig/interfaces/data
 %attr(755,root,root) %dir /etc/sysconfig/isapnp
-%attr(755,root,root) %dir /etc/sysconfig/network-scripts
-%attr(755,root,root) /etc/sysconfig/network-scripts/if*
+
+%dir %attr(755,root,root) /etc/sysconfig/network-scripts
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-br
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-irda
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-post
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-ppp
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-sl
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-vlan
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-aliases
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-br
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-ipx
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-irda
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-iucv
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-neigh
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-plip
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-plusb
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-post
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-ppp
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-routes
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-sl
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-vlan
+
 /etc/sysconfig/network-scripts/functions.network
 %dir /etc/sysconfig/interfaces/down.d
 %dir /etc/sysconfig/interfaces/down.d/*
