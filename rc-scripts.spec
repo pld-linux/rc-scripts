@@ -4,10 +4,10 @@
 %bcond_without	devalias 	# without dev_alias patch
 #
 Summary:	inittab and /etc/rc.d scripts
-Summary(de.UTF-8):   inittab und /etc/rc.d Scripts
-Summary(fr.UTF-8):   inittab et scripts /etc/rc.d
-Summary(pl.UTF-8):   inittab i skrypty startowe z katalogu /etc/rc.d
-Summary(tr.UTF-8):   inittab ve /etc/rc.d dosyaları
+Summary(de.UTF-8):	inittab und /etc/rc.d Scripts
+Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
+Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
+Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.1.3
 Release:	3
