@@ -4,10 +4,10 @@
 %bcond_without	devalias 	# without dev_alias patch
 #
 Summary:	inittab and /etc/rc.d scripts
-Summary(de):	inittab und /etc/rc.d Scripts
-Summary(fr):	inittab et scripts /etc/rc.d
-Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
-Summary(tr):	inittab ve /etc/rc.d dosyaları
+Summary(de.UTF-8):   inittab und /etc/rc.d Scripts
+Summary(fr.UTF-8):   inittab et scripts /etc/rc.d
+Summary(pl.UTF-8):   inittab i skrypty startowe z katalogu /etc/rc.d
+Summary(tr.UTF-8):   inittab ve /etc/rc.d dosyalarÄ±
 Name:		rc-scripts
 Version:	0.4.1.3
 Release:	3
@@ -73,27 +73,27 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 This package contains the scripts use to boot a system, change run
 levels, and shut the system down cleanly.
 
-%description -l de
-Dieses Paket enthält die Scripts, die zum Hochfahren des Systems,
-Ändern der Betriebsebene und sauberem Herunterfahren des Systems
-erforderlich sind. Außerdem enthält es die Scripts, die
+%description -l de.UTF-8
+Dieses Paket enthÃ¤lt die Scripts, die zum Hochfahren des Systems,
+Ã„ndern der Betriebsebene und sauberem Herunterfahren des Systems
+erforderlich sind. AuÃŸerdem enthÃ¤lt es die Scripts, die
 Netzwerkschnittstellen aktivieren und deaktivieren.
 
-%description -l fr
-Ce package contient les scripts utilisés pour démarrer le systéme,
-changer les niveaux d'exécution, et arréter le systéme proprement. Il
-contient aussi les scripts qui activent et désactivent la plupart des
-inetrfaces réseau.
+%description -l fr.UTF-8
+Ce package contient les scripts utilisÃ©s pour dÃ©marrer le systÃ©me,
+changer les niveaux d'exÃ©cution, et arrÃ©ter le systÃ©me proprement. Il
+contient aussi les scripts qui activent et dÃ©sactivent la plupart des
+inetrfaces rÃ©seau.
 
-%description -l pl
+%description -l pl.UTF-8
 Pakiet zawiera skrypty uruchamiane przy starcie i zamykaniu systemu, a
-tak¿e przy zmianie jego poziomu pracy.
+takÅ¼e przy zmianie jego poziomu pracy.
 
-%description -l tr
-Bu paket, sistem açmak, çalışma düzeylerini değiştirmek ve sistemi
-düzgün bir şekilde kapatmak için gereken dosyaları içerir. Ayrıca pek
-çok bilgisayar ağı arayüzlerini etkinleştiren ya da edilginleştiren
-programcıklar içerir.
+%description -l tr.UTF-8
+Bu paket, sistem aÃ§mak, Ã§alÄ±ÅŸma dÃ¼zeylerini deÄŸiÅŸtirmek ve sistemi
+dÃ¼zgÃ¼n bir ÅŸekilde kapatmak iÃ§in gereken dosyalarÄ± iÃ§erir. AyrÄ±ca pek
+Ã§ok bilgisayar aÄŸÄ± arayÃ¼zlerini etkinleÅŸtiren ya da edilginleÅŸtiren
+programcÄ±klar iÃ§erir.
 
 %prep
 %setup -q
