@@ -7,18 +7,17 @@ Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
-Summary(tr):	inittab ve /etc/rc.d dosyalarý
+Summary(tr):	inittab ve /etc/rc.d dosyalar?
 Name:		rc-scripts
-Version:	0.4.1.3
-Release:	1.2
+Version:	0.4.1.4
+Release:	1
 License:	GPL
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	cd89c4f89ec9068d6a7ed020e874353c
+# Source0-md5:	806501b18ce49aa9ad30b826c1d2b17f
 Patch0:		%{name}-dev_alias.patch
-Patch1:		%{name}-exclude_rm_cups.patch
-Patch2:		%{name}-sleep.patch
+Patch1:		%{name}-sleep.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -62,6 +61,7 @@ Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
+Conflicts:	tzdata < 2007b-1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix	/
@@ -74,32 +74,31 @@ This package contains the scripts use to boot a system, change run
 levels, and shut the system down cleanly.
 
 %description -l de
-Dieses Paket enthält die Scripts, die zum Hochfahren des Systems,
-Ändern der Betriebsebene und sauberem Herunterfahren des Systems
-erforderlich sind. Außerdem enthält es die Scripts, die
+Dieses Paket enth?lt die Scripts, die zum Hochfahren des Systems,
+?ndern der Betriebsebene und sauberem Herunterfahren des Systems
+erforderlich sind. Au?erdem enth?lt es die Scripts, die
 Netzwerkschnittstellen aktivieren und deaktivieren.
 
 %description -l fr
-Ce package contient les scripts utilisés pour démarrer le systéme,
-changer les niveaux d'exécution, et arréter le systéme proprement. Il
-contient aussi les scripts qui activent et désactivent la plupart des
-inetrfaces réseau.
+Ce package contient les scripts utilis?s pour d?marrer le syst?me,
+changer les niveaux d'ex?cution, et arr?ter le syst?me proprement. Il
+contient aussi les scripts qui activent et d?sactivent la plupart des
+inetrfaces r?seau.
 
 %description -l pl
 Pakiet zawiera skrypty uruchamiane przy starcie i zamykaniu systemu, a
-tak¿e przy zmianie jego poziomu pracy.
+tak?e przy zmianie jego poziomu pracy.
 
 %description -l tr
-Bu paket, sistem açmak, çalýþma düzeylerini deðiþtirmek ve sistemi
-düzgün bir þekilde kapatmak için gereken dosyalarý içerir. Ayrýca pek
-çok bilgisayar aðý arayüzlerini etkinleþtiren ya da edilginleþtiren
-programcýklar içerir.
+Bu paket, sistem a?mak, ?al??ma d?zeylerini de?i?tirmek ve sistemi
+d?zg?n bir ?ekilde kapatmak i?in gereken dosyalar? i?erir. Ayr?ca pek
+?ok bilgisayar a?? aray?zlerini etkinle?tiren ya da edilginle?tiren
+programc?klar i?erir.
 
 %prep
 %setup -q
 %{?with_devalias:%patch0 -p0}
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__aclocal}
@@ -126,7 +125,6 @@ for i in 2 3 4 5; do
 	ln -s ../init.d/local $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99local
 	ln -s ../init.d/network $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10network
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99allowlogin
-	ln -s ../init.d/timezone $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10timezone
 	ln -s ../init.d/sys-chroots $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99sys-chroots
 done
 
@@ -195,9 +193,9 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %doc sysconfig/init-colors*
 %doc doc/sysvinitfiles
 
-%attr(755,root,root) %dir /etc/rc.d
-%attr(755,root,root) %dir /etc/rc.d/init.d
-%attr(755,root,root) %dir /etc/rc.d/rc?.d
+%dir /etc/rc.d
+%dir /etc/rc.d/init.d
+%dir /etc/rc.d/rc?.d
 /etc/init.d
 
 /etc/rc.d/init.d/functions
@@ -209,7 +207,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/init.d/random
 %attr(754,root,root) /etc/rc.d/init.d/single
 %attr(754,root,root) /etc/rc.d/init.d/sys-chroots
-%attr(754,root,root) /etc/rc.d/init.d/timezone
 
 %attr(754,root,root) /etc/rc.d/rc
 %attr(754,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/rc.d/rc.local
@@ -233,7 +230,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc?.d/S??random
 %attr(754,root,root) /etc/rc.d/rc?.d/S??single
 %attr(754,root,root) /etc/rc.d/rc?.d/S??sys-chroots
-%attr(754,root,root) /etc/rc.d/rc?.d/S??timezone
 
 %dir /var/cache/rc-scripts
 %ghost /var/cache/rc-scripts/msg.cache
@@ -262,15 +258,15 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_sbindir}/tnl*
 %attr(4755,root,root) %{_sbindir}/usernetctl
 
-%attr(755,root,root) %dir %{_sysconfdir}/ppp
+%dir %{_sysconfdir}/ppp
 %attr(754,root,root) %{_sysconfdir}/ppp/*
-%attr(755,root,root) %dir /etc/sysconfig/cpusets
-%attr(755,root,root) %dir /etc/sysconfig/hwprofiles
-%attr(755,root,root) %dir /etc/sysconfig/interfaces
-%attr(755,root,root) %dir /etc/sysconfig/interfaces/data
-%attr(755,root,root) %dir /etc/sysconfig/isapnp
+%dir /etc/sysconfig/cpusets
+%dir /etc/sysconfig/hwprofiles
+%dir /etc/sysconfig/interfaces
+%dir /etc/sysconfig/interfaces/data
+%dir /etc/sysconfig/isapnp
 
-%dir %attr(755,root,root) /etc/sysconfig/network-scripts
+%dir /etc/sysconfig/network-scripts
 %attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-br
 %attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-irda
 %attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-post
@@ -317,7 +313,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-arp
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-nat
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-routes
-%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/timezone
 %config(noreplace,missingok) %verify(not md5 mtime size) /etc/sysconfig/static-rules
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/system
 
