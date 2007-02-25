@@ -1,4 +1,4 @@
-
+#
 # Conditional build:
 %bcond_without	static		# link binaries with glib dynamically
 %bcond_without	devalias 	# without dev_alias patch
@@ -9,15 +9,15 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.1.0
+Version:	0.4.1.4
 Release:	1
 License:	GPL
 Group:		Base
-Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
-# Source0-md5:	b8d420ad99b81f12d83aa572a7be3778
+#Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	806501b18ce49aa9ad30b826c1d2b17f
 Patch0:		%{name}-dev_alias.patch
-Patch1:		%{name}-exclude_rm_cups.patch
-Patch2:		%{name}-sleep.patch
+Patch1:		%{name}-sleep.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -35,8 +35,9 @@ Requires:	/bin/basename
 Requires:	/bin/gettext
 Requires:	/bin/nice
 Requires:	/bin/ps
-Requires:	FHS >= 2.2-6
 Requires:	SysVinit
+Requires:	blockdev
+Requires:	filesystem >= 2.0-1
 Requires:	fileutils
 Requires:	findutils
 Requires:	fsck
@@ -60,6 +61,7 @@ Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
+Conflicts:	tzdata < 2007b-1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix	/
@@ -97,7 +99,6 @@ programcýklar içerir.
 %setup -q
 %{?with_devalias:%patch0 -p0}
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__aclocal}
@@ -124,7 +125,6 @@ for i in 2 3 4 5; do
 	ln -s ../init.d/local $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99local
 	ln -s ../init.d/network $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10network
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99allowlogin
-	ln -s ../init.d/timezone $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10timezone
 	ln -s ../init.d/sys-chroots $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99sys-chroots
 done
 
@@ -161,9 +161,6 @@ ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
 # in static-routes can be also rules:
 ln -s static-routes $RPM_BUILD_ROOT/etc/sysconfig/static-rules
 
-# msg cache
-touch $RPM_BUILD_ROOT/etc/rc.d/.rc-scripts.cache
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -178,9 +175,9 @@ fi
 touch /var/log/dmesg
 chown root:root /var/log/dmesg
 chmod 640 /var/log/dmesg
-touch /etc/rc.d/.rc-scripts.cache
-chmod 644 /etc/rc.d/.rc-scripts.cache
-chown root:root /etc/rc.d/.rc-scripts.cache
+touch /var/cache/rc-scripts/msg.cache
+chmod 644 /var/cache/rc-scripts/msg.cache
+chown root:root /var/cache/rc-scripts/msg.cache
 
 # move network interfaces description files to new location
 %triggerpostun -- initscripts
@@ -196,9 +193,9 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %doc sysconfig/init-colors*
 %doc doc/sysvinitfiles
 
-%attr(755,root,root) %dir /etc/rc.d
-%attr(755,root,root) %dir /etc/rc.d/init.d
-%attr(755,root,root) %dir /etc/rc.d/rc?.d
+%dir /etc/rc.d
+%dir /etc/rc.d/init.d
+%dir /etc/rc.d/rc?.d
 /etc/init.d
 
 /etc/rc.d/init.d/functions
@@ -210,7 +207,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/init.d/random
 %attr(754,root,root) /etc/rc.d/init.d/single
 %attr(754,root,root) /etc/rc.d/init.d/sys-chroots
-%attr(754,root,root) /etc/rc.d/init.d/timezone
 
 %attr(754,root,root) /etc/rc.d/rc
 %attr(754,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/rc.d/rc.local
@@ -234,9 +230,9 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc?.d/S??random
 %attr(754,root,root) /etc/rc.d/rc?.d/S??single
 %attr(754,root,root) /etc/rc.d/rc?.d/S??sys-chroots
-%attr(754,root,root) /etc/rc.d/rc?.d/S??timezone
 
-%ghost /etc/rc.d/.rc-scripts.cache
+%dir /var/cache/rc-scripts
+%ghost /var/cache/rc-scripts/msg.cache
 
 %attr(755,root,root) /etc/profile.d/lang.*sh
 
@@ -262,15 +258,35 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_sbindir}/tnl*
 %attr(4755,root,root) %{_sbindir}/usernetctl
 
-%attr(755,root,root) %dir %{_sysconfdir}/ppp
+%dir %{_sysconfdir}/ppp
 %attr(754,root,root) %{_sysconfdir}/ppp/*
-%attr(755,root,root) %dir /etc/sysconfig/cpusets
-%attr(755,root,root) %dir /etc/sysconfig/hwprofiles
-%attr(755,root,root) %dir /etc/sysconfig/interfaces
-%attr(755,root,root) %dir /etc/sysconfig/interfaces/data
-%attr(755,root,root) %dir /etc/sysconfig/isapnp
-%attr(755,root,root) %dir /etc/sysconfig/network-scripts
-%attr(755,root,root) /etc/sysconfig/network-scripts/if*
+%dir /etc/sysconfig/cpusets
+%dir /etc/sysconfig/hwprofiles
+%dir /etc/sysconfig/interfaces
+%dir /etc/sysconfig/interfaces/data
+%dir /etc/sysconfig/isapnp
+
+%dir /etc/sysconfig/network-scripts
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-br
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-irda
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-post
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-ppp
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-sl
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-vlan
+/etc/sysconfig/network-scripts/ifup-aliases
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-br
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-ipx
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-irda
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-iucv
+/etc/sysconfig/network-scripts/ifup-neigh
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-plip
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-plusb
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-post
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-ppp
+/etc/sysconfig/network-scripts/ifup-routes
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-sl
+%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-vlan
+
 /etc/sysconfig/network-scripts/functions.network
 %dir /etc/sysconfig/interfaces/down.d
 %dir /etc/sysconfig/interfaces/down.d/*
@@ -297,7 +313,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-arp
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-nat
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-routes
-%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/timezone
 %config(noreplace,missingok) %verify(not md5 mtime size) /etc/sysconfig/static-rules
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/system
 
