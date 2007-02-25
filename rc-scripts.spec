@@ -7,7 +7,7 @@ Summary:	inittab and /etc/rc.d scripts
 Summary(de):	inittab und /etc/rc.d Scripts
 Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
-Summary(tr):	inittab ve /etc/rc.d dosyalar?
+Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
 Version:	0.4.1.4
 Release:	1
@@ -74,26 +74,26 @@ This package contains the scripts use to boot a system, change run
 levels, and shut the system down cleanly.
 
 %description -l de
-Dieses Paket enth?lt die Scripts, die zum Hochfahren des Systems,
-?ndern der Betriebsebene und sauberem Herunterfahren des Systems
-erforderlich sind. Au?erdem enth?lt es die Scripts, die
+Dieses Paket enthält die Scripts, die zum Hochfahren des Systems,
+Ändern der Betriebsebene und sauberem Herunterfahren des Systems
+erforderlich sind. Außerdem enthält es die Scripts, die
 Netzwerkschnittstellen aktivieren und deaktivieren.
 
 %description -l fr
-Ce package contient les scripts utilis?s pour d?marrer le syst?me,
-changer les niveaux d'ex?cution, et arr?ter le syst?me proprement. Il
-contient aussi les scripts qui activent et d?sactivent la plupart des
-inetrfaces r?seau.
+Ce package contient les scripts utilisés pour démarrer le systéme,
+changer les niveaux d'exécution, et arréter le systéme proprement. Il
+contient aussi les scripts qui activent et désactivent la plupart des
+inetrfaces réseau.
 
 %description -l pl
 Pakiet zawiera skrypty uruchamiane przy starcie i zamykaniu systemu, a
-tak?e przy zmianie jego poziomu pracy.
+tak¿e przy zmianie jego poziomu pracy.
 
 %description -l tr
-Bu paket, sistem a?mak, ?al??ma d?zeylerini de?i?tirmek ve sistemi
-d?zg?n bir ?ekilde kapatmak i?in gereken dosyalar? i?erir. Ayr?ca pek
-?ok bilgisayar a?? aray?zlerini etkinle?tiren ya da edilginle?tiren
-programc?klar i?erir.
+Bu paket, sistem açmak, çalýþma düzeylerini deðiþtirmek ve sistemi
+düzgün bir þekilde kapatmak için gereken dosyalarý içerir. Ayrýca pek
+çok bilgisayar aðý arayüzlerini etkinleþtiren ya da edilginleþtiren
+programcýklar içerir.
 
 %prep
 %setup -q
