@@ -195,9 +195,9 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %doc sysconfig/init-colors*
 %doc doc/sysvinitfiles
 
-%attr(755,root,root) %dir /etc/rc.d
-%attr(755,root,root) %dir /etc/rc.d/init.d
-%attr(755,root,root) %dir /etc/rc.d/rc?.d
+%dir /etc/rc.d
+%dir /etc/rc.d/init.d
+%dir /etc/rc.d/rc?.d
 /etc/init.d
 
 /etc/rc.d/init.d/functions
@@ -262,14 +262,14 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_sbindir}/tnl*
 %attr(4755,root,root) %{_sbindir}/usernetctl
 
-%attr(755,root,root) %dir %{_sysconfdir}/ppp
+%dir %{_sysconfdir}/ppp
 %attr(754,root,root) %{_sysconfdir}/ppp/*
-%attr(755,root,root) %dir /etc/sysconfig/cpusets
-%attr(755,root,root) %dir /etc/sysconfig/hwprofiles
-%attr(755,root,root) %dir /etc/sysconfig/interfaces
-%attr(755,root,root) %dir /etc/sysconfig/interfaces/data
-%attr(755,root,root) %dir /etc/sysconfig/isapnp
-%attr(755,root,root) %dir /etc/sysconfig/network-scripts
+%dir /etc/sysconfig/cpusets
+%dir /etc/sysconfig/hwprofiles
+%dir /etc/sysconfig/interfaces
+%dir /etc/sysconfig/interfaces/data
+%dir /etc/sysconfig/isapnp
+%dir /etc/sysconfig/network-scripts
 %attr(755,root,root) /etc/sysconfig/network-scripts/if*
 /etc/sysconfig/network-scripts/functions.network
 %dir /etc/sysconfig/interfaces/down.d
