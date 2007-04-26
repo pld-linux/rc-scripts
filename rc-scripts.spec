@@ -37,8 +37,8 @@ Requires:	/bin/nice
 Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	blockdev
+Requires:	coreutils
 Requires:	filesystem >= 3.0-11
-Requires:	fileutils
 Requires:	findutils
 Requires:	fsck
 Requires:	gettext
@@ -51,8 +51,6 @@ Requires:	mount >= 2.12
 Requires:	net-tools
 Requires:	procps >= 1:3.2.6-1.1
 Requires:	psmisc
-Requires:	sh-utils
-Requires:	textutils
 Requires:	utempter
 Requires:	util-linux
 Provides:	initscripts
