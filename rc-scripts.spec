@@ -18,6 +18,7 @@ Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	5e8b2f41f9ba392054788ffea9197ca4
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-sleep.patch
+Patch2:		%{name}-ppp-fixes.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -97,6 +98,7 @@ programcıklar içerir.
 %setup -q
 %{?with_devalias:%patch0 -p0}
 %patch1 -p1
+%patch2 -p0
 
 %build
 %{__aclocal}
