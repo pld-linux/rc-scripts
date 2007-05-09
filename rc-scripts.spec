@@ -9,13 +9,13 @@ Summary(fr):	inittab et scripts /etc/rc.d
 Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.1.4
+Version:	0.4.1.6
 Release:	1
 License:	GPL
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	806501b18ce49aa9ad30b826c1d2b17f
+# Source0-md5:	1d6819878e14787491d99dd5bdc847b8
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-sleep.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
@@ -37,8 +37,8 @@ Requires:	/bin/nice
 Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	blockdev
+Requires:	coreutils
 Requires:	filesystem >= 2.0-1
-Requires:	fileutils
 Requires:	findutils
 Requires:	fsck
 Requires:	gettext
@@ -51,8 +51,6 @@ Requires:	mount >= 2.12
 Requires:	net-tools
 Requires:	procps >= 1:3.2.6-1.1
 Requires:	psmisc
-Requires:	sh-utils
-Requires:	textutils
 Requires:	utempter
 Requires:	util-linux
 Provides:	initscripts
