@@ -9,13 +9,13 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.1.7
-Release:	2
+Version:	0.4.1.8
+Release:	1
 License:	GPL
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	2f9b11d0ffd63cc2d0e16dc156c2a99a
+# Source0-md5:	f1414f73b91e52e108292ff83cb3e74e
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-sleep.patch
 Patch2:		%{name}-fuser.patch
@@ -58,6 +58,7 @@ Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
+Conflicts:	iputils-arping < 1:s20070202-1
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
