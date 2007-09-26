@@ -4,18 +4,18 @@
 %bcond_without	devalias 	# without dev_alias patch
 #
 Summary:	inittab and /etc/rc.d scripts
-Summary(de.UTF-8):	inittab und /etc/rc.d Scripts
-Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
-Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
-Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyalarÄ±
+Summary(de):	inittab und /etc/rc.d Scripts
+Summary(fr):	inittab et scripts /etc/rc.d
+Summary(pl):	inittab i skrypty startowe z katalogu /etc/rc.d
+Summary(tr):	inittab ve /etc/rc.d dosyalarý
 Name:		rc-scripts
-Version:	0.4.1.6
-Release:	2
+Version:	0.4.1.9
+Release:	1
 License:	GPL
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	1d6819878e14787491d99dd5bdc847b8
+# Source0-md5:	aa0e29d5d74cf806da57728cd49646d7
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-sleep.patch
 Patch2:		%{name}-fuser.patch
@@ -39,7 +39,7 @@ Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	blockdev
 Requires:	coreutils
-Requires:	filesystem >= 3.0-11
+Requires:	filesystem >= 2.0-1
 Requires:	findutils
 Requires:	fsck
 Requires:	gettext
@@ -51,13 +51,14 @@ Requires:	module-init-tools
 Requires:	mount >= 2.12
 Requires:	net-tools
 Requires:	procps >= 1:3.2.6-1.1
-Requires:	psmisc >= 22.5-2
+Requires:	psmisc >= 22.3-2
 Requires:	utempter
 Requires:	util-linux
 Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
+Conflicts:	iputils-arping < 1:ss021109-6
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
@@ -72,27 +73,27 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 This package contains the scripts use to boot a system, change run
 levels, and shut the system down cleanly.
 
-%description -l de.UTF-8
-Dieses Paket enthÃ¤lt die Scripts, die zum Hochfahren des Systems,
-Ã„ndern der Betriebsebene und sauberem Herunterfahren des Systems
-erforderlich sind. AuÃŸerdem enthÃ¤lt es die Scripts, die
+%description -l de
+Dieses Paket enthält die Scripts, die zum Hochfahren des Systems,
+Ändern der Betriebsebene und sauberem Herunterfahren des Systems
+erforderlich sind. Außerdem enthält es die Scripts, die
 Netzwerkschnittstellen aktivieren und deaktivieren.
 
-%description -l fr.UTF-8
-Ce package contient les scripts utilisÃ©s pour dÃ©marrer le systÃ©me,
-changer les niveaux d'exÃ©cution, et arrÃ©ter le systÃ©me proprement. Il
-contient aussi les scripts qui activent et dÃ©sactivent la plupart des
-inetrfaces rÃ©seau.
+%description -l fr
+Ce package contient les scripts utilisés pour démarrer le systéme,
+changer les niveaux d'exécution, et arréter le systéme proprement. Il
+contient aussi les scripts qui activent et désactivent la plupart des
+inetrfaces réseau.
 
-%description -l pl.UTF-8
+%description -l pl
 Pakiet zawiera skrypty uruchamiane przy starcie i zamykaniu systemu, a
-takÅ¼e przy zmianie jego poziomu pracy.
+tak¿e przy zmianie jego poziomu pracy.
 
-%description -l tr.UTF-8
-Bu paket, sistem aÃ§mak, Ã§alÄ±ÅŸma dÃ¼zeylerini deÄŸiÅŸtirmek ve sistemi
-dÃ¼zgÃ¼n bir ÅŸekilde kapatmak iÃ§in gereken dosyalarÄ± iÃ§erir. AyrÄ±ca pek
-Ã§ok bilgisayar aÄŸÄ± arayÃ¼zlerini etkinleÅŸtiren ya da edilginleÅŸtiren
-programcÄ±klar iÃ§erir.
+%description -l tr
+Bu paket, sistem açmak, çalýþma düzeylerini deðiþtirmek ve sistemi
+düzgün bir þekilde kapatmak için gereken dosyalarý içerir. Ayrýca pek
+çok bilgisayar aðý arayüzlerini etkinleþtiren ya da edilginleþtiren
+programcýklar içerir.
 
 %prep
 %setup -q
