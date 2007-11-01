@@ -9,13 +9,13 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.1.9
+Version:	0.4.1.10
 Release:	1
 License:	GPL
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	aa0e29d5d74cf806da57728cd49646d7
+# Source0-md5:	a16d1154eecdbd9a0a123e0b064d200d
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-sleep.patch
 Patch2:		%{name}-fuser.patch
@@ -244,6 +244,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_bindir}/usleep
 
 %attr(755,root,root) %{_sbindir}/consoletype
+%attr(755,root,root) %{_sbindir}/fstab-decode
 %attr(755,root,root) %{_sbindir}/genhostid
 %attr(755,root,root) %{_sbindir}/getkey
 %attr(755,root,root) %{_sbindir}/hwprofile
