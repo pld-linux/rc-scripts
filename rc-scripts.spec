@@ -11,7 +11,7 @@ Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.1.10
 Release:	1
-License:	GPL
+License:	GPL v2
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
