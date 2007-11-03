@@ -39,7 +39,7 @@ Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	blockdev
 Requires:	coreutils
-Requires:	filesystem >= 3.0-11
+Requires:	filesystem >= 2.0-1
 Requires:	findutils
 Requires:	fsck
 Requires:	gettext
@@ -51,14 +51,14 @@ Requires:	module-init-tools
 Requires:	mount >= 2.12
 Requires:	net-tools
 Requires:	procps >= 1:3.2.6-1.1
-Requires:	psmisc >= 22.5-2
+Requires:	psmisc >= 22.3-2
 Requires:	utempter
 Requires:	util-linux
 Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
-Conflicts:	iputils-arping < 1:s20070202-1
+Conflicts:	iputils-arping < 1:ss021109-6
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
