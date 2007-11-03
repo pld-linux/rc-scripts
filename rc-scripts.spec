@@ -9,13 +9,13 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.1.6
-Release:	2
-License:	GPL
+Version:	0.4.1.11
+Release:	1
+License:	GPL v2
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	1d6819878e14787491d99dd5bdc847b8
+# Source0-md5:	8ee91ed141cfee6c00d387493b386bfd
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-sleep.patch
 Patch2:		%{name}-fuser.patch
@@ -39,7 +39,7 @@ Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	blockdev
 Requires:	coreutils
-Requires:	filesystem >= 3.0-11
+Requires:	filesystem >= 2.0-1
 Requires:	findutils
 Requires:	fsck
 Requires:	gettext
@@ -51,13 +51,14 @@ Requires:	module-init-tools
 Requires:	mount >= 2.12
 Requires:	net-tools
 Requires:	procps >= 1:3.2.6-1.1
-Requires:	psmisc >= 22.5-2
+Requires:	psmisc >= 22.3-2
 Requires:	utempter
 Requires:	util-linux
 Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
+Conflicts:	iputils-arping < 1:ss021109-6
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
@@ -243,6 +244,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_bindir}/usleep
 
 %attr(755,root,root) %{_sbindir}/consoletype
+%attr(755,root,root) %{_sbindir}/fstab-decode
 %attr(755,root,root) %{_sbindir}/genhostid
 %attr(755,root,root) %{_sbindir}/getkey
 %attr(755,root,root) %{_sbindir}/hwprofile
