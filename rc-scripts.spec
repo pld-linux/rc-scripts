@@ -15,7 +15,7 @@ License:	GPL v2
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	8ee91ed141cfee6c00d387493b386bfd
+# Source0-md5:	5847c3aed61ac18f785b7a0cffbe9d6f
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-sleep.patch
 Patch2:		%{name}-fuser.patch
