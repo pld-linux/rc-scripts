@@ -9,13 +9,13 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.1.12
-Release:	1
+Version:	0.4.1.13
+Release:	2
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	5847c3aed61ac18f785b7a0cffbe9d6f
+# Source0-md5:	76e6f83484a3039fd0c1ed1d0f6e4d83
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-sleep.patch
 Patch2:		%{name}-fuser.patch
@@ -113,6 +113,7 @@ programcıklar içerir.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/var/{run/netreport,log}
+install -d $RPM_BUILD_ROOT/etc/sysconfig/hwprofiles
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -202,6 +203,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 /etc/rc.d/init.d/functions
 %attr(754,root,root) /etc/rc.d/init.d/allowlogin
 %attr(754,root,root) /etc/rc.d/init.d/cpusets
+%attr(754,root,root) /etc/rc.d/init.d/cryptsetup
 %attr(754,root,root) /etc/rc.d/init.d/killall
 %attr(754,root,root) /etc/rc.d/init.d/local
 %attr(754,root,root) /etc/rc.d/init.d/network
@@ -301,6 +303,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(750,root,root) %dir /var/run/netreport
 
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/crypttab
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/initlog.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/inittab
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/modules
