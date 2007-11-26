@@ -9,13 +9,13 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.1.6
-Release:	2
-License:	GPL
+Version:	0.4.1.13
+Release:	1
+License:	GPL v2
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	1d6819878e14787491d99dd5bdc847b8
+# Source0-md5:	76e6f83484a3039fd0c1ed1d0f6e4d83
 Patch0:		%{name}-dev_alias.patch
 Patch1:		%{name}-sleep.patch
 Patch2:		%{name}-fuser.patch
@@ -39,7 +39,7 @@ Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	blockdev
 Requires:	coreutils
-Requires:	filesystem >= 3.0-11
+Requires:	filesystem >= 2.0-1
 Requires:	findutils
 Requires:	fsck
 Requires:	gettext
@@ -51,13 +51,14 @@ Requires:	module-init-tools
 Requires:	mount >= 2.12
 Requires:	net-tools
 Requires:	procps >= 1:3.2.6-1.1
-Requires:	psmisc >= 22.5-2
+Requires:	psmisc >= 22.3-2
 Requires:	utempter
 Requires:	util-linux
 Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
+Conflicts:	iputils-arping < 1:ss021109-6
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
@@ -112,6 +113,7 @@ programcıklar içerir.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/var/{run/netreport,log}
+install -d $RPM_BUILD_ROOT/etc/sysconfig/hwprofiles
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -201,6 +203,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 /etc/rc.d/init.d/functions
 %attr(754,root,root) /etc/rc.d/init.d/allowlogin
 %attr(754,root,root) /etc/rc.d/init.d/cpusets
+%attr(754,root,root) /etc/rc.d/init.d/cryptsetup
 %attr(754,root,root) /etc/rc.d/init.d/killall
 %attr(754,root,root) /etc/rc.d/init.d/local
 %attr(754,root,root) /etc/rc.d/init.d/network
@@ -243,6 +246,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_bindir}/usleep
 
 %attr(755,root,root) %{_sbindir}/consoletype
+%attr(755,root,root) %{_sbindir}/fstab-decode
 %attr(755,root,root) %{_sbindir}/genhostid
 %attr(755,root,root) %{_sbindir}/getkey
 %attr(755,root,root) %{_sbindir}/hwprofile
@@ -299,6 +303,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(750,root,root) %dir /var/run/netreport
 
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/crypttab
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/initlog.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/inittab
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/modules
