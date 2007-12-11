@@ -1,7 +1,6 @@
 #
 # Conditional build:
 %bcond_without	static		# link binaries with glib dynamically
-%bcond_without	devalias 	# without dev_alias patch
 #
 Summary:	inittab and /etc/rc.d scripts
 Summary(de.UTF-8):	inittab und /etc/rc.d Scripts
@@ -9,20 +8,14 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.1.13
-Release:	3
+Version:	0.4.1.14
+Release:	1
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	76e6f83484a3039fd0c1ed1d0f6e4d83
-Patch0:		%{name}-dev_alias.patch
-Patch1:		%{name}-sleep.patch
-Patch2:		%{name}-fuser.patch
-Patch3:		%{name}-lang.patch
+# Source0-md5:	cfc943d3e6928b2cb8a610ea16c000a7
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
-BuildRequires:	autoconf
-BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
 %{?with_static:BuildRequires:	glib2-static}
@@ -98,15 +91,8 @@ programcıklar içerir.
 
 %prep
 %setup -q
-%{?with_devalias:%patch0 -p0}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p0
 
 %build
-%{__aclocal}
-%{__automake}
-%{__autoconf}
 %configure \
 	--with-localedir=%{localedir}
 %{__make} \
@@ -215,7 +201,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 
 %attr(754,root,root) /etc/rc.d/rc
 %attr(754,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/rc.d/rc.local
-%attr(754,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/rc.d/rc.modules
 %attr(754,root,root) /etc/rc.d/rc.init
 %attr(754,root,root) /etc/rc.d/rc.sysinit
 %attr(754,root,root) /etc/rc.d/rc.shutdown
