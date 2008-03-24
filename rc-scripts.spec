@@ -52,7 +52,7 @@ Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
-Conflicts:	iputils-arping < 1:s20070202-1
+Conflicts:	iputils-arping < 2:s20070202-1
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
