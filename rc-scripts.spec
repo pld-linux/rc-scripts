@@ -14,7 +14,7 @@ License:	GPL v2
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	bde17cd61e40686f4237b3e940f44a43
+# Source0-md5:	0a988df06a9bc3e27de7a0b1c9246272
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
