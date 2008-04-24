@@ -8,8 +8,8 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.1.21
-Release:	1
+Version:	0.4.1.22
+Release:	2
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
