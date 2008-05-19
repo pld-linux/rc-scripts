@@ -14,7 +14,7 @@ License:	GPL v2
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	238cd770327c8fdba7a5bc7d0103377a
+# Source0-md5:	72c3e96897b05e449b9d767e286e6548
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
