@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.1.23
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
@@ -35,6 +35,7 @@ Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	blockdev
 Requires:	coreutils
+Requires:	coreutils-su
 Requires:	filesystem >= 3.0-11
 Requires:	findutils
 Requires:	fsck
