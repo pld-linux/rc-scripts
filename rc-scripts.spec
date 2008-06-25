@@ -35,7 +35,6 @@ Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	blockdev
 Requires:	coreutils
-Requires:	coreutils-su
 Requires:	filesystem >= 3.0-11
 Requires:	findutils
 Requires:	fsck
