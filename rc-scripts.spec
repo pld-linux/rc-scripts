@@ -58,6 +58,7 @@ Conflicts:	iputils-arping < 2:s20070202-1
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
+Conflicts:	wpa_supplicant < 0.6.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix	/
