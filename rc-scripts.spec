@@ -8,14 +8,16 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.1.23
+Version:	0.4.1.24
 Release:	1
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	72c3e96897b05e449b9d767e286e6548
+# Source0-md5:	1a4dc7af98112a7865b4b4a2e1a0e023
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
 %{?with_static:BuildRequires:	glib2-static}
@@ -45,7 +47,7 @@ Requires:	module-init-tools
 Requires:	mount >= 2.12
 Requires:	net-tools
 Requires:	procps >= 1:3.2.6-1.1
-Requires:	psmisc >= 22.3-2
+Requires:	psmisc >= 22.5-2
 Requires:	utempter
 Requires:	util-linux
 Provides:	initscripts
@@ -56,6 +58,7 @@ Conflicts:	iputils-arping < 1:ss021109-6
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
+Conflicts:	wpa_supplicant < 0.6.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix	/
@@ -93,6 +96,10 @@ programcıklar içerir.
 %setup -q
 
 %build
+%{__aclocal}
+%{__autoheader}
+%{__autoconf}
+%{__automake}
 %configure \
 	--with-localedir=%{localedir}
 %{__make} \
