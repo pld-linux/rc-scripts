@@ -1,4 +1,8 @@
 #
+# NOTE:
+#	- uncomment dev/udev-core conflicts after update to new version
+#	  and remove this note
+#
 # Conditional build:
 %bcond_without	static		# link binaries with glib dynamically
 #
@@ -54,10 +58,12 @@ Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
+#Conflicts:	dev < 2.9.0-22
 Conflicts:	iputils-arping < 2:s20070202-1
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
+#Conflicts:	udev-core < 135-2
 Conflicts:	wpa_supplicant < 0.6.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
