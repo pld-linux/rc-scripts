@@ -1,8 +1,4 @@
 #
-# NOTE:
-#	- uncomment dev/udev-core conflicts after update to new version
-#	  and remove this note
-#
 # Conditional build:
 %bcond_without	static		# link binaries with glib dynamically
 #
@@ -12,13 +8,13 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.1.25
-Release:	2
+Version:	0.4.1.26
+Release:	1
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	effa89793c94eca3d0810c684582f7cb
+# Source0-md5:	d4d44fd0c8003b19392ae0d9a90b8eb5
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -58,12 +54,12 @@ Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
-#Conflicts:	dev < 2.9.0-22
+Conflicts:	dev < 2.9.0-22
 Conflicts:	iputils-arping < 2:s20070202-1
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
-#Conflicts:	udev-core < 1:135-2
+Conflicts:	udev-core < 1:135-2
 Conflicts:	wpa_supplicant < 0.6.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
