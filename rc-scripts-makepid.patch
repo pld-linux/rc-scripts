@@ -1,0 +1,37 @@
+Index: rc.d/init.d/functions
+===================================================================
+--- rc.d/init.d/functions	(wersja 10098)
++++ rc.d/init.d/functions	(kopia robocza)
+@@ -497,12 +497,12 @@
+ 	typeset errors="" prog="" end="" waitname="" waittime=""
+ 	typeset -i exit_code=0
+ 	local nice=$SERVICE_RUN_NICE_LEVEL
+-	local fork user closefds pidfile chdir=/
++	local fork user closefds pidfile makepid chdir=/
+ 
+ 	while [ $# -gt 0 ]; do
+ 		case $1 in
+ 		'')
+-			msg_usage " daemon [--user user] [--fork] [--waitforname procname] [--waitfortime seconds] [+/-nicelevel] {program} <program args>"
++		msg_usage " daemon [--check] [--user user] [--fork] [--chdir directory] [--closefds] [--waitforname procname] [--waitfortime seconds] [--pidfile file] [--makepid] [+/-nicelevel] {program} <program args>"
+ 			return 2
+ 			;;
+ 		--check)
+@@ -539,6 +539,9 @@
+ 			shift
+ 			pidfile="$1"
+ 			;;
++		--makepid)
++			makepid=1
++			;;
+ 		-*|+*)
+ 			nice=$1
+ 			shift
+@@ -601,6 +604,7 @@
+ 				${user:+-c $user} \
+ 				${chdir:+--chdir "$chdir"} \
+ 				${fork:+-b} \
++				${makepid:+-m} \
+ 				--exec "$prog" \
+ 				-- ${1:+"$@"}
+ 		else
