@@ -8,12 +8,14 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.1.27
-Release:	1
+Version:	0.4.1.25
+Release:	2
 License:	GPL v2
 Group:		Base
-Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
-# Source0-md5:	dfe0d31875a96693dd2a766121201eb5
+#Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	effa89793c94eca3d0810c684582f7cb
+Patch0:		%{name}-color.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -34,7 +36,7 @@ Requires:	/bin/ps
 Requires:	SysVinit
 Requires:	blockdev
 Requires:	coreutils
-Requires:	filesystem >= 3.0-11
+Requires:	filesystem >= 2.0-1
 Requires:	findutils
 Requires:	fsck
 Requires:	gettext
@@ -53,16 +55,10 @@ Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
-Conflicts:	dev < 2.9.0-22
-Conflicts:	iputils-arping < 2:s20070202-1
+Conflicts:	iputils-arping < 1:ss021109-6
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
-%if "%{pld_release}" == "ti"
-Conflicts:	udev-core < 1:124-3
-%else
-Conflicts:	udev-core < 1:135-2
-%endif
 Conflicts:	wpa_supplicant < 0.6.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -99,6 +95,7 @@ programcıklar içerir.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__aclocal}
