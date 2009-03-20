@@ -35,6 +35,7 @@ Requires:	/bin/stat
 Requires:	SysVinit
 Requires:	blockdev
 Requires:	coreutils
+Requires:	ethtool
 Requires:	filesystem >= 3.0-11
 Requires:	findutils
 Requires:	fsck
