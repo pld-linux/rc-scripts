@@ -8,13 +8,12 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.2.1
-Release:	2
+Version:	0.4.99.1
+Release:	0.1
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
-# Source0-md5:	91481969460a6665207adbd117d2ac27
-Patch0:		%{name}-addrlabel.patch
+# Source0-md5:	e85f0f2e8cccab4a916c2f6ac494a6ae
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -27,31 +26,20 @@ Requires(post):	fileutils
 %ifarch sparc sparc64
 Requires:	agetty
 %endif
-Requires:	/bin/awk
-Requires:	/bin/basename
 Requires:	/bin/gettext
-Requires:	/bin/nice
-Requires:	/bin/ps
-Requires:	/bin/stat
 Requires:	SysVinit
 Requires:	blockdev
-Requires:	coreutils
+Requires:	busybox >= 1.13.3
 Requires:	ethtool
 Requires:	filesystem >= 3.0-11
-Requires:	findutils
 Requires:	fsck
 Requires:	gettext
-Requires:	grep
 Requires:	iproute2
 Requires:	mingetty
-Requires:	mktemp
 Requires:	module-init-tools
 Requires:	mount >= 2.12
 Requires:	net-tools
-Requires:	procps >= 1:3.2.6-1.1
-Requires:	psmisc >= 22.5-2
 Requires:	utempter
-Requires:	util-linux
 Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
@@ -102,7 +90,6 @@ programcıklar içerir.
 
 %prep
 %setup -q
-%patch0 -p0
 
 %build
 %{__aclocal}
