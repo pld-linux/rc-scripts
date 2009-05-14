@@ -1,0 +1,169 @@
+Index: src/start-stop-daemon.c
+===================================================================
+--- src/start-stop-daemon.c	(wersja 10357)
++++ src/start-stop-daemon.c	(kopia robocza)
+@@ -62,6 +62,11 @@
+ #include <limits.h>
+ #endif
+ 
++#if HAVE_SYS_CAPABILITY_H
++#include <sys/prctl.h>
++#include <sys/capability.h>
++#endif
++
+ #if defined(OShpux)
+ #include <sys/param.h>
+ #include <sys/pstat.h>
+@@ -117,6 +122,7 @@
+ static const char *schedule_str = NULL;
+ static const char *progname = "";
+ static int nicelevel = 0;
++static char *caplist = NULL;
+ 
+ static struct stat exec_stat;
+ #if defined(OSHURD)
+@@ -278,6 +284,7 @@
+ "  -n|--name <process-name>      stop processes with this name\n"
+ "  -s|--signal <signal>          signal to send (default TERM)\n"
+ "  -a|--startas <pathname>       program to start (default is <executable>)\n"
++"  -D|--dropcap <capbilities>    drop theses capabilities\n"
+ "  -C|--chdir <directory>        Change to <directory>(default is /)\n"
+ "  -N|--nicelevel <incr>         add incr to the process's nice level\n"
+ "  -b|--background               force the process to detach\n"
+@@ -442,7 +449,47 @@
+ 	}
+ }
+ 
++#ifdef HAVE_SYS_CAPABILITY_H
+ static void
++remove_capabilities(char *capstr) {
++	cap_value_t capval;
++	char *savedptr, *ptr;
++	cap_t caps;
++
++	caps = cap_get_proc();
++	if (caps == NULL) {
++		fatal("Unable to retrieve my capabilities");
++	}
++
++	ptr = strtok_r(capstr, ",", &savedptr);
++	while (ptr) {
++		if (cap_from_name(ptr, &capval) != 0) {
++			errno = EINVAL;
++			fatal("Unable to parse this capability : \"%s\"", ptr);
++		}
++
++		if (prctl(PR_CAPBSET_DROP, capval, 0, 0) != 0) {
++			fatal("Unable to drop this capability: %s", ptr);
++		}
++
++		if (cap_set_flag(caps, CAP_INHERITABLE, 1, (cap_value_t *)&capval, CAP_CLEAR) != 0) {
++			fatal("Unable to clear the capability %s", ptr);
++		}
++
++		ptr = strtok_r(NULL, ",", &savedptr);
++	}
++
++	if (cap_set_proc(caps) != 0) {
++		fatal("Unable to remove theses capabilities from the inherited set\n");
++	}
++
++	if (cap_free(caps) == -1) {
++		fatal("Cannot free the capability");
++	}
++}
++#endif
++
++static void
+ parse_options(int argc, char * const *argv)
+ {
+ 	static struct option longopts[] = {
+@@ -460,6 +507,7 @@
+ 		{ "user",	  1, NULL, 'u'},
+ 		{ "group",	  1, NULL, 'g'},
+ 		{ "chroot",	  1, NULL, 'r'},
++		{ "dropcap",      1, NULL, 'D'},
+ 		{ "verbose",	  0, NULL, 'v'},
+ 		{ "exec",	  1, NULL, 'x'},
+ 		{ "chuid",	  1, NULL, 'c'},
+@@ -473,7 +521,7 @@
+ 	int c;
+ 
+ 	for (;;) {
+-		c = getopt_long(argc, argv, "HKSVa:n:op:qr:s:tu:vx:c:N:bmR:g:d:",
++		c = getopt_long(argc, argv, "HKSVa:n:op:qr:s:tu:vx:c:N:bmR:g:d:D",
+ 				longopts, (int *) 0);
+ 		if (c == -1)
+ 			break;
+@@ -533,6 +581,13 @@
+ 		case 'r':  /* --chroot /new/root */
+ 			changeroot = optarg;
+ 			break;
++		case 'D':  /* --dropcap cap_net_raw,cap_mac_admin */
++#ifdef HAVE_SYS_CAPABILITY_H
++			caplist = optarg;
++#else
++			badusage("Capabilities are not supported on your OS");
++#endif
++			break;
+ 		case 'N':  /* --nice */
+ 			nicelevel = atoi(optarg);
+ 			break;
+@@ -1298,6 +1353,13 @@
+ 		setpgid(0,0);
+ #endif
+ 	}
++
++#ifdef HAVE_SYS_CAPABILITY_H
++	if (caplist) {
++		remove_capabilities(caplist);
++	}
++#endif
++
+ 	execv(startas, argv);
+ 	fatal("Unable to start %s: %s", startas, strerror(errno));
+ }
+Index: man/start-stop-daemon.8
+===================================================================
+--- man/start-stop-daemon.8	(wersja 10357)
++++ man/start-stop-daemon.8	(kopia robocza)
+@@ -203,6 +203,9 @@
+ before starting the process. Please note that the pidfile is also written
+ after the chroot.
+ .TP
++.BR \-D ", " \-\-dropcap " \fIcapabilities1,capabilities2\fP"
++Drop theses capabilities separated by commas.
++.TP
+ \fB\-d\fP|\fB\-\-chdir\fP \fIpath\fP
+ Chdir to
+ .I path
+--- configure.ac~	2009-05-14 23:25:58.000000000 +0200
++++ configure.ac	2009-05-14 23:26:55.909921728 +0200
+@@ -90,7 +90,7 @@
+   DPKG_C_GCC_ATTRIBUTE(format...,format,[char *y, ...],[format(printf,1,2)],PRINTFFORMAT,[Define if printf-format argument lists a la GCC are available.]))
+ 
+ AC_CHECK_TYPE(ptrdiff_t,int)
+-AC_CHECK_HEADERS([stddef.h])
++AC_CHECK_HEADERS([stddef.h sys/capability.h])
+ 
+ dnl Output
+ AC_SUBST(BASHSCRIPTS)
+--- src/Makefile.am	2008-04-09 10:54:00.000000000 +0200
++++ src/Makefile.am	2009-05-14 23:33:27.764736146 +0200
+@@ -65,5 +65,6 @@
+ consoletype_SOURCES = consoletype.c
+ 
+ start_stop_daemon_SOURCES = start-stop-daemon.c
++start_stop_daemon_LDADD = -lcap
+ 
+ fstab_decode_SOURCES = fstab-decode.c
+--- rc.d/init.d/functions	2009-05-14 23:34:02.000000000 +0200
++++ rc.d/init.d/functions	2009-05-15 00:16:59.584273051 +0200
+@@ -617,6 +617,7 @@
+ 				${chdir:+--chdir "$chdir"} \
+ 				${fork:+--background} \
+ 				${waitname:+--name $waitname} \
++				${SERVICE_DROPCAPS:+--dropcap $SERVICE_DROPCAPS} \
+ 				--exec "$prog" \
+ 				-- ${1:+"$@"}
+ 		else
