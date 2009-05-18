@@ -22,6 +22,7 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
 %{?with_static:BuildRequires:	glib2-static}
+BuildRequires:	libcap-devel
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 Requires(post):	fileutils
