@@ -1,0 +1,14 @@
+Index: rc.d/init.d/functions
+===================================================================
+--- rc.d/init.d/functions	(wersja 10418)
++++ rc.d/init.d/functions	(kopia robocza)
+@@ -25,7 +25,8 @@
+ 	_setterm
+ 	unset _setterm
+ fi
+-[ -z "$COLUMNS" ] && COLUMNS=80
++[ -z "$LINES" -o "$LINES" -le 0 ] && COLUMNS=40
++[ -z "$COLUMNS" -o "$COLUMNS" -le 0 ] && COLUMNS=80
+ export LINES COLUMNS
+ INIT_COL=$((COLUMNS - 13))
+ 
