@@ -26,7 +26,7 @@ BuildRequires:	libcap-devel
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 Requires(post):	fileutils
-%ifarch sparc sparc64
+%ifarch sparc sparcv9 sparc64
 Requires:	agetty
 %endif
 Requires:	/bin/awk
