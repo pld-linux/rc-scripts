@@ -16,6 +16,7 @@ Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 # Source0-md5:	95b3591898500557e73e5aaaac6b0595
 Patch0:		dropcaps.patch
 Patch1:		%{name}-mdadm.patch
+Patch2:		%{name}-modules.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -106,6 +107,7 @@ programcıklar içerir.
 %setup -q
 %patch0 -p0
 %patch1 -p0
+%patch2 -p1
 
 %build
 %{__aclocal}
