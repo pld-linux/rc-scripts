@@ -221,7 +221,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/init.d/sys-chroots
 
 %attr(754,root,root) /etc/rc.d/rc
-%attr(754,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/rc.d/rc.local
+%config(noreplace) %verify(not md5 mtime size) /etc/rc.d/rc.local
 %attr(754,root,root) /etc/rc.d/rc.init
 %attr(754,root,root) /etc/rc.d/rc.sysinit
 %attr(754,root,root) /etc/rc.d/rc.shutdown
