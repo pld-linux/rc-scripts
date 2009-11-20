@@ -15,7 +15,8 @@ Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 # Source0-md5:	969442e0b04c3ff3ebb8f301f52fb879
 Patch0:		dropcaps.patch
-Patch2:		%{name}-modules.patch
+Patch1:		%{name}-modules.patch
+Patch2:		typo.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -106,6 +107,7 @@ programcıklar içerir.
 %prep
 %setup -q
 %patch0 -p0
+%patch1 -p1
 %patch2 -p1
 
 %build
