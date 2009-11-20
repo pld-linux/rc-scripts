@@ -36,7 +36,6 @@ Requires:	/bin/basename
 Requires:	/bin/gettext
 Requires:	/bin/nice
 Requires:	/bin/ps
-Requires:	/bin/stat
 Requires:	SysVinit
 Requires:	blockdev
 Requires:	coreutils
