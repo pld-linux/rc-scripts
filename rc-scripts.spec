@@ -8,24 +8,27 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.1.25
-Release:	2
+Version:	0.4.2.6
+Release:	1
 License:	GPL v2
 Group:		Base
-#Source0:	ftp://ftp1.pld-linux.org/people/arekm/software/%{name}-%{version}.tar.gz
-Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	effa89793c94eca3d0810c684582f7cb
-Patch0:		%{name}-color.patch
+Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
+# Source0-md5:	969442e0b04c3ff3ebb8f301f52fb879
+Patch0:		dropcaps.patch
+Patch1:		%{name}-modules.patch
+Patch2:		typo.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
 %{?with_static:BuildRequires:	glib2-static}
+BuildRequires:	libcap-devel >= 2.17
+BuildRequires:	linux-libc-headers >= 2.6.27
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 Requires(post):	fileutils
-%ifarch sparc sparc64
+%ifarch sparc sparcv9 sparc64
 Requires:	agetty
 %endif
 Requires:	/bin/awk
@@ -55,6 +58,7 @@ Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
+Conflicts:	dev < 2.9.0-22
 Conflicts:	iputils-arping < 1:ss021109-6
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
@@ -95,7 +99,9 @@ programcıklar içerir.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch0 -p0
+%patch1 -p1
+%patch2 -p1
 
 %build
 %{__aclocal}
@@ -209,7 +215,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/init.d/sys-chroots
 
 %attr(754,root,root) /etc/rc.d/rc
-%attr(754,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/rc.d/rc.local
+%config(noreplace) %verify(not md5 mtime size) /etc/rc.d/rc.local
 %attr(754,root,root) /etc/rc.d/rc.init
 %attr(754,root,root) /etc/rc.d/rc.sysinit
 %attr(754,root,root) /etc/rc.d/rc.shutdown
