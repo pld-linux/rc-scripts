@@ -1,0 +1,11 @@
+--- ./rc.d/rc.sysinit~	2009-11-20 13:38:27.000000000 +0100
++++ ./rc.d/rc.sysinit	2009-11-22 17:26:14.000000000 +0100
+@@ -267,7 +271,7 @@
+ 		CLOCKFLAGS="$CLOCKFLAGS -u"
+ 		CLOCKDEF="$CLOCKDEF (utc)"
+ 	else
+-		CLOCKFLAGS="$CLOCKFLAGS -l"
++		CLOCKFLAGS="$CLOCKFLAGS --localtime"
+ 		CLOCKDEF="$CLOCKDEF (local)"
+ 	fi
+ 
