@@ -1,6 +1,18 @@
---- ./rc.d/rc.sysinit~	2009-11-20 13:38:27.000000000 +0100
-+++ ./rc.d/rc.sysinit	2009-11-22 17:26:14.000000000 +0100
-@@ -267,7 +271,7 @@
+--- ./rc.d/rc.sysinit	2009-11-22 17:26:14.000000000 +0100
++++ ./rc.d/rc.sysinit	(working copy)
+@@ -261,17 +261,17 @@
+ 	fi
+ 
+ 	CLOCKDEF=""
+-	CLOCKFLAGS="-w"
++	CLOCKFLAGS="--hctosys"
+ 
+ 	if is_yes "$UTC" ; then
+-		CLOCKFLAGS="$CLOCKFLAGS -u"
++		CLOCKFLAGS="$CLOCKFLAGS --utc"
+ 		CLOCKDEF="$CLOCKDEF (utc)"
+ 	else
+ 		CLOCKFLAGS="$CLOCKFLAGS --localtime"
  		CLOCKFLAGS="$CLOCKFLAGS -u"
  		CLOCKDEF="$CLOCKDEF (utc)"
  	else
