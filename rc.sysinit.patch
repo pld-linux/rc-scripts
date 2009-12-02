@@ -1,6 +1,6 @@
---- ./rc.d/rc.sysinit	2009-11-22 17:26:14.000000000 +0100
-+++ ./rc.d/rc.sysinit	(working copy)
-@@ -261,17 +261,17 @@
+--- rc-scripts-0.4.2.6/rc.d/rc.sysinit	2009-12-02 21:16:05.894346123 +0200
++++ rc-scripts-0.4.2.6/rc.d/rc.sysinit	2009-12-02 21:13:38.664359933 +0200
+@@ -261,13 +261,13 @@
  	fi
  
  	CLOCKDEF=""
@@ -10,10 +10,6 @@
  	if is_yes "$UTC" ; then
 -		CLOCKFLAGS="$CLOCKFLAGS -u"
 +		CLOCKFLAGS="$CLOCKFLAGS --utc"
- 		CLOCKDEF="$CLOCKDEF (utc)"
- 	else
- 		CLOCKFLAGS="$CLOCKFLAGS --localtime"
- 		CLOCKFLAGS="$CLOCKFLAGS -u"
  		CLOCKDEF="$CLOCKDEF (utc)"
  	else
 -		CLOCKFLAGS="$CLOCKFLAGS -l"
