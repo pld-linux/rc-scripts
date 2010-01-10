@@ -1,0 +1,1 @@
+- libcap >= 2.18, llh >= 2.6.27 (at least) for dropcaps.patch
