@@ -1,8 +1,0 @@
---- rc-scripts/rc.d/init.d/sys-chroots~	2009-11-20 14:32:04.108784548 +0200
-+++ rc-scripts/rc.d/init.d/sys-chroots	2009-11-20 14:54:23.415049264 +0200
-@@ -1,4 +1,4 @@
--#!/bin/busybox sh
-+#!/bin/sh
- #
- # sys-chroots	Starts and stops services in chroots
- #
