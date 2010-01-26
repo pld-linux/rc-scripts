@@ -23,8 +23,8 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
 %{?with_static:BuildRequires:	glib2-static}
-BuildRequires:	libcap-devel >= 2.17
-BuildRequires:	linux-libc-headers >= 2.6.27
+BuildRequires:	libcap-devel >= 1:2.17
+BuildRequires:	linux-libc-headers >= 7:2.6.27
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 Requires(post):	fileutils
@@ -36,12 +36,10 @@ Requires:	/bin/basename
 Requires:	/bin/gettext
 Requires:	/bin/nice
 Requires:	/bin/ps
-Requires:	/bin/stat
 Requires:	SysVinit
 Requires:	blockdev
 Requires:	coreutils
-Requires:	ethtool
-Requires:	filesystem >= 3.0-11
+Requires:	filesystem >= 2.0-1
 Requires:	findutils
 Requires:	fsck
 Requires:	gettext
@@ -61,15 +59,10 @@ Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
 Conflicts:	dev < 2.9.0-22
-Conflicts:	iputils-arping < 2:s20070202-1
+Conflicts:	iputils-arping < 1:ss021109-6
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
-%if "%{pld_release}" == "ti"
-Conflicts:	udev-core < 1:124-3
-%else
-Conflicts:	udev-core < 1:135-2
-%endif
 Conflicts:	wpa_supplicant < 0.6.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
