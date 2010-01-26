@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.2.6
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -23,8 +23,8 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
 %{?with_static:BuildRequires:	glib2-static}
-BuildRequires:	libcap-devel >= 2.17
-BuildRequires:	linux-libc-headers >= 2.6.27
+BuildRequires:	libcap-devel >= 1:2.17
+BuildRequires:	linux-libc-headers >= 7:2.6.27
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 Requires(post):	fileutils
