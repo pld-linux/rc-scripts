@@ -1,0 +1,12 @@
+--- src/start-stop-daemon.c	2004-07-19 20:56:49.000000000 +0200
++++ src/start-stop-daemon.c	2004-08-28 21:00:33.000000000 +0200
+@@ -734,7 +734,8 @@
+ 		return;
+ 	if (start && !pid_is_running(pid))
+ 		return;
+-	push(&found, pid);
++	if (stop && pid_is_running(pid))
++		push(&found, pid);
+ }
+ 
+ static void
