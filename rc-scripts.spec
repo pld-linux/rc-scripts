@@ -9,13 +9,13 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 %define ver	0.4.2.8
-%define snap 	_un11395
+%define snap 	_un11398
 Version:	%{ver}%{snap}
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
-# Source0-md5:	de074bccb7fc91fd994a95cb1fddfa35
+# Source0-md5:	29098907ff65e1fca240329308efbce1
 Patch0:		dropcaps.patch
 Patch2:		start-stop-daemon-pid-check.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
@@ -266,6 +266,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_sbindir}/ppp-watch
 %attr(755,root,root) %{_sbindir}/service
 %attr(755,root,root) %{_sbindir}/setsysfont
+%attr(755,root,root) %{_sbindir}/setuidgid
 %attr(755,root,root) %{_sbindir}/start-stop-daemon
 %attr(755,root,root) %{_sbindir}/tnl*
 %attr(4755,root,root) %{_sbindir}/usernetctl
