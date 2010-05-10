@@ -8,12 +8,12 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.2.8
+Version:	0.4.3.0
 Release:	1
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
-# Source0-md5:	dc48dea52becce0d6b55f662c6bfc915
+# Source0-md5:	899f30f9dcb0d3774da803f824115bd8
 Patch0:		dropcaps.patch
 Patch2:		start-stop-daemon-pid-check.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
@@ -39,7 +39,7 @@ Requires:	SysVinit
 Requires:	blockdev
 Requires:	coreutils
 Requires:	ethtool
-Requires:	filesystem >= 3.0-11
+Requires:	filesystem >= 3.0-35
 Requires:	findutils
 Requires:	fsck
 Requires:	gettext
@@ -207,6 +207,8 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %dir /etc/rc.d/rc?.d
 /etc/init.d
 
+%config(noreplace) %verify(not md5 mtime size) /etc/init/random.conf
+
 /etc/rc.d/init.d/functions
 %attr(754,root,root) /etc/rc.d/init.d/allowlogin
 %attr(754,root,root) /etc/rc.d/init.d/cpusets
@@ -264,6 +266,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_sbindir}/ppp-watch
 %attr(755,root,root) %{_sbindir}/service
 %attr(755,root,root) %{_sbindir}/setsysfont
+%attr(755,root,root) %{_sbindir}/setuidgid
 %attr(755,root,root) %{_sbindir}/start-stop-daemon
 %attr(755,root,root) %{_sbindir}/tnl*
 %attr(4755,root,root) %{_sbindir}/usernetctl
