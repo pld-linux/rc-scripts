@@ -13,7 +13,7 @@ Release:	1
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
-# Source0-md5:	52438f9f4585864ca4ce1b1e9104bbad
+# Source0-md5:	3ce19a68df0e6a60a9610f526061dc1d
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -66,6 +66,7 @@ Conflicts:	udev-core < 1:124-3
 %else
 Conflicts:	udev-core < 1:135-2
 %endif
+Conflicts:	upstart-SysVinit < 2.86-25
 Conflicts:	wpa_supplicant < 0.6.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -204,6 +205,9 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 /etc/init.d
 
 %config(noreplace) %verify(not md5 mtime size) /etc/init/random.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/init/rc.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/init/rcS-sulogin.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/init/rcS.conf
 
 /etc/rc.d/init.d/functions
 %attr(754,root,root) /etc/rc.d/init.d/allowlogin
