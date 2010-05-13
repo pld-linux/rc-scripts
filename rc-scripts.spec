@@ -9,11 +9,12 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.3.2
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 # Source0-md5:	8449de4a472e8bc4d61c703328171098
+Patch0:		%{name}-fw.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -103,6 +104,7 @@ programcıklar içerir.
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
 %{__aclocal}
@@ -270,6 +272,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_sbindir}/start-stop-daemon
 %attr(755,root,root) %{_sbindir}/tnl*
 %attr(4755,root,root) %{_sbindir}/usernetctl
+%attr(755,root,root) /lib/firmware/firmware-loader.sh
 
 %dir %{_sysconfdir}/ppp
 %attr(754,root,root) %{_sysconfdir}/ppp/*
