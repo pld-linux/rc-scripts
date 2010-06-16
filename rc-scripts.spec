@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.2.8
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -63,10 +63,10 @@ Conflicts:	iputils-arping < 2:s20070202-1
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
-%if "%{pld_release}" == "ti"
-Conflicts:	udev-core < 1:124-3
-%else
+%if "%{pld_release}" == "th"
 Conflicts:	udev-core < 1:135-2
+%else
+Conflicts:	udev-core < 1:124-3
 %endif
 Conflicts:	wpa_supplicant < 0.6.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
