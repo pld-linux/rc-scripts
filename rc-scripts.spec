@@ -61,10 +61,10 @@ Conflicts:	iputils-arping < 2:s20070202-1
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
-%if "%{pld_release}" == "ti"
-Conflicts:	udev-core < 1:124-3
-%else
+%if "%{pld_release}" == "th"
 Conflicts:	udev-core < 1:135-2
+%else
+Conflicts:	udev-core < 1:124-3
 %endif
 Conflicts:	upstart-SysVinit < 2.86-25
 Conflicts:	wpa_supplicant < 0.6.3
