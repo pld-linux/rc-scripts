@@ -1,0 +1,20 @@
+--- /etc/rc.d/rc.shutdown.old	2010-06-18 01:52:20.912246281 +0200
++++ /etc/rc.d/rc.shutdown	2010-06-18 02:01:41.481643924 +0200
+@@ -75,7 +75,7 @@
+ 		UMOUNT_IGNORE="/ $UMOUNT_IGNORE"
+ 	fi
+ 	remaining=$(awk -v ig="^($UMOUNT_IGNORE)$" 'BEGIN { gsub(/[\t ]+/, "|", ig); } \
+-			$3 !~ /^(proc|loopfs|devpts|shm|iso9660|ramfs|tmpfs|sysfs|securityfs|squashfs)$/ \
++			$3 !~ /^(proc|loopfs|devpts|devtmpfs|shm|iso9660|ramfs|tmpfs|sysfs|securityfs|squashfs)$/ \
+ 			&& $1 !~ /^(none|\/dev\/root)$/ \
+ 			&& $2 !~ ig {print $2}' /proc/mounts)
+ 	while [ -n "$remaining" -a "$retry" -gt 0 ]; do
+@@ -99,7 +99,7 @@
+ 
+ 		sleep 2
+ 		remaining=$(awk -v ig="^($UMOUNT_IGNORE)$" 'BEGIN { gsub(/[\t ]+/, "|", ig); } \
+-				$3 !~ /^(proc|loopfs|devpts|shm|iso9660|ramfs|tmpfs|sysfs|securityfs|squashfs)$/ \
++				$3 !~ /^(proc|loopfs|devpts|devtmpfs|shm|iso9660|ramfs|tmpfs|sysfs|securityfs|squashfs)$/ \
+ 				&& $1 !~ /^(none|\/dev\/root)$/ \
+ 				&& $2 !~ ig {print $2}' /proc/mounts)
+ 		[ -z "$remaining" ] && break
