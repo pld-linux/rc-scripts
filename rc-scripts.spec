@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	static		# link binaries with glib dynamically
-#
+
 Summary:	inittab and /etc/rc.d scripts
 Summary(de.UTF-8):	inittab und /etc/rc.d Scripts
 Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
@@ -25,6 +25,7 @@ BuildRequires:	libcap-devel >= 1:2.17
 BuildRequires:	linux-libc-headers >= 7:2.6.27
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
+BuildRequires:	rpm >= 4.4.9-56
 Requires(post):	fileutils
 %ifarch sparc sparcv9 sparc64
 Requires:	agetty
@@ -38,7 +39,11 @@ Requires:	SysVinit
 Requires:	blockdev
 Requires:	coreutils
 Requires:	ethtool
+%if "%{pld_release}" == "ac"
+Requires:	filesystem >= 3.0-11
+%else
 Requires:	filesystem >= 3.0-35
+%endif
 Requires:	findutils
 Requires:	fsck
 Requires:	gettext
@@ -169,6 +174,10 @@ ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
 # in static-routes can be also rules:
 ln -s static-routes $RPM_BUILD_ROOT/etc/sysconfig/static-rules
 
+%if "%{pld_release}" == "ac"
+rm -rf $RPM_BUILD_ROOT/etc/init
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -206,10 +215,12 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %dir /etc/rc.d/rc?.d
 /etc/init.d
 
+%if "%{pld_release}" != "ac"
 %config(noreplace) %verify(not md5 mtime size) /etc/init/random.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/rc.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/rcS-sulogin.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/rcS.conf
+%endif
 
 /etc/rc.d/init.d/functions
 %attr(754,root,root) /etc/rc.d/init.d/allowlogin
