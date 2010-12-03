@@ -8,13 +8,12 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.3.5
-Release:	3
+Version:	0.4.3.6
+Release:	1
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
-# Source0-md5:	599cf1c5a381265b513d33258fd2069d
-Patch0:		%{name}-svn.patch
+# Source0-md5:	ef74f5a0b99b12f8a4c630f2b02f04bb
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -109,7 +108,6 @@ programcıklar içerir.
 
 %prep
 %setup -q
-%patch0 -p0
 
 %build
 %{__aclocal}
@@ -136,6 +134,7 @@ done
 
 for i in 2 3 4 5; do
 	ln -s ../init.d/local $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99local
+	ln -s ../init.d/netfs $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S25netfs
 	ln -s ../init.d/network $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S10network
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99allowlogin
 	ln -s ../init.d/sys-chroots $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/S99sys-chroots
@@ -160,6 +159,7 @@ for i in 0 6; do
 done
 
 for i in 0 1 6; do
+	ln -s ../init.d/netfs $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K75netfs
 	ln -s ../init.d/network $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K90network
 	ln -s ../init.d/allowlogin $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K01allowlogin
 	ln -s ../init.d/sys-chroots $RPM_BUILD_ROOT/etc/rc.d/rc$i.d/K01sys-chroots
@@ -228,6 +228,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/init.d/cryptsetup
 %attr(754,root,root) /etc/rc.d/init.d/killall
 %attr(754,root,root) /etc/rc.d/init.d/local
+%attr(754,root,root) /etc/rc.d/init.d/netfs
 %attr(754,root,root) /etc/rc.d/init.d/network
 %attr(754,root,root) /etc/rc.d/init.d/random
 %attr(754,root,root) /etc/rc.d/init.d/single
@@ -242,6 +243,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc?.d/K??cpusets
 %attr(754,root,root) /etc/rc.d/rc?.d/K??killall
 %attr(754,root,root) /etc/rc.d/rc?.d/K??local
+%attr(754,root,root) /etc/rc.d/rc?.d/K??netfs
 %attr(754,root,root) /etc/rc.d/rc?.d/K??network
 %attr(754,root,root) /etc/rc.d/rc?.d/K??random
 %attr(754,root,root) /etc/rc.d/rc?.d/K??single
@@ -250,6 +252,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(754,root,root) /etc/rc.d/rc?.d/S??cpusets
 %attr(754,root,root) /etc/rc.d/rc?.d/S??killall
 %attr(754,root,root) /etc/rc.d/rc?.d/S??local
+%attr(754,root,root) /etc/rc.d/rc?.d/S??netfs
 %attr(754,root,root) /etc/rc.d/rc?.d/S??network
 %attr(754,root,root) /etc/rc.d/rc?.d/S??random
 %attr(754,root,root) /etc/rc.d/rc?.d/S??single
