@@ -1,0 +1,121 @@
+Index: doc/sysconfig.txt
+===================================================================
+--- doc/sysconfig.txt	(wersja 12087)
++++ doc/sysconfig.txt	(kopia robocza)
+@@ -3,23 +3,6 @@
+ Files in /etc/sysconfig
+ =======================
+ 
+-/etc/sysconfig/clock:
+-
+-  deprecated values from earlier releases:
+-
+-    CLOCKMODE=GMT indicates that the clock is set to UTC
+-    CLOCKMODE=ARC on alpha only indicates the ARC console's
+-      42-year time offset is in effect
+-
+-  currently correct values:
+-
+-    UTC=true indicates that the clock is set to UTC; anything
+-      else indicates that it is set to local time
+-    ARC=true on alpha only indicates the ARC console's
+-      42-year time offset is in effect; otherwise the normal
+-      Unix epoch is assumed
+-
+-
+ /etc/sysconfig/keyboard:
+ 
+   KEYTABLE=<keytable file>
+Index: rc.d/rc.sysinit
+===================================================================
+--- rc.d/rc.sysinit	(wersja 12087)
++++ rc.d/rc.sysinit	(kopia robocza)
+@@ -289,50 +289,9 @@
+ 	# may be missing).
+ 	sysctl -e -p /etc/sysctl.conf > /dev/null 2>&1
+ 
+-	# Set the system clock.
+-	ARC=0
+-	SRM=0
+-	UTC=0
+-
+-	if [ -f /etc/sysconfig/clock ]; then
+-		. /etc/sysconfig/clock
+-
+-		# convert old style clock config to new values
+-		if [ "${CLOCKMODE}" = "GMT" ]; then
+-			UTC=true
+-		elif [ "${CLOCKMODE}" = "ARC" ]; then
+-			ARC=true
+-		fi
+-	fi
+-
+-	if grep "system serial" /proc/cpuinfo 2>/dev/null | grep -q MILO 2>/dev/null ; then
+-		ARC=true
+-	fi
+-
+-	CLOCKDEF=""
+-	CLOCKFLAGS="--hctosys"
+-
+-	if is_yes "$UTC" ; then
+-		CLOCKFLAGS="$CLOCKFLAGS --utc"
+-		CLOCKDEF="$CLOCKDEF (utc)"
+-	else
+-		CLOCKFLAGS="$CLOCKFLAGS --localtime"
+-		CLOCKDEF="$CLOCKDEF (local)"
+-	fi
+-
+-	if is_yes "$ARC" ; then
+-		CLOCKFLAGS="$CLOCKFLAGS -A"
+-		CLOCKDEF="$CLOCKDEF (arc)"
+-	fi
+-
+-	if is_yes "$SRM" ; then
+-		CLOCKFLAGS="$CLOCKFLAGS -S"
+-		CLOCKDEF="$CLOCKDEF (srm)"
+-	fi
+-
+ 	# Check if timezone definition is available
+-	if [ -e /etc/localtime -a -e /dev/rtc ] ; then
+-		if run_cmd "$(nls 'Setting clock')$CLOCKDEF" hwclock $CLOCKFLAGS; then
++	if [ -e /etc/localtime ] && [ -e /dev/rtc -o -e /dev/rtc0 ] ; then
++		if run_cmd "$(nls 'Setting clock')" hwclock --hctosys; then
+ 			show "$(nls 'Today`s date:') $(LC_CTYPE=C date)"; ok
+ 		fi
+ 	else
+@@ -918,8 +877,8 @@
+ 	fi
+ 
+ 	# Set the clock if timezone definition wasn't available (eg. /usr not mounted)
+-	if is_yes "$TIME_SETUP_DELAYED" && [ -e /dev/rtc ]; then
+-		if run_cmd "$(nls 'Setting clock')$CLOCKDEF" hwclock $CLOCKFLAGS; then
++	if is_yes "$TIME_SETUP_DELAYED" && [ -e /dev/rtc -o -e /dev/rtc0 ]; then
++		if run_cmd "$(nls 'Setting clock')" hwclock --hctosys; then
+ 			show "$(nls 'Today`s date:') $(LC_CTYPE=C date)"; ok
+ 		fi
+ 	fi
+Index: sysconfig/Makefile.am
+===================================================================
+--- sysconfig/Makefile.am	(wersja 12087)
++++ sysconfig/Makefile.am	(kopia robocza)
+@@ -5,7 +5,6 @@
+ sysconfigdir = @sysconfigdir@
+ 
+ sysconfig_DATA = \
+-	clock \
+ 	init-colors \
+ 	hwprof \
+ 	system \
+Index: sysconfig/clock
+===================================================================
+--- sysconfig/clock	(wersja 12087)
++++ sysconfig/clock	(kopia robocza)
+@@ -1,8 +0,0 @@
+-# $Id$
+-# Should the hardware clock be kept in Coordinated Universal Time
+-# (instead of local time).
+-UTC=true
+-# true means your machine uses epoch 1980 in its hardware clock
+-ARC=false
+-# true means your machine uses epoch 1900 in its hardware clock
+-SRM=false

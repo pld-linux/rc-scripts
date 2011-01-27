@@ -9,11 +9,12 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.3.8
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 # Source0-md5:	52305571d87f83d453007189a9a4f42f
+Patch0:		%{name}-svn.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -108,6 +109,7 @@ programcıklar içerir.
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
 %{__aclocal}
@@ -334,7 +336,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/inittab
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/modules
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/sysctl.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/clock
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/cpusets/cpuset-test
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/hwprof
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/i18n
