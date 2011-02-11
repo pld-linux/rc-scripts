@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.3.8
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -119,7 +119,8 @@ programcıklar içerir.
 %configure \
 	--with-localedir=%{localedir}
 %{__make} \
-	%{!?with_static:ppp_watch_LDADD="-lglib-2.0" ppp_watch_DEPENDENCIES=}
+	%{?with_static:ppp_watch_LDADD="-Wl,-static $(pkg-config --libs --static glib-2.0) -Wl,-Bdynamic" ppp_watch_DEPENDENCIES=} \
+	%{!?with_static:ppp_watch_LDADD="$(pkg-config --libs glib-2.0)" ppp_watch_DEPENDENCIES=}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -128,7 +129,8 @@ install -d $RPM_BUILD_ROOT/etc/sysconfig/hwprofiles
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	%{!?with_static:ppp_watch_LDADD="-lglib-2.0" ppp_watch_DEPENDENCIES=}
+	%{?with_static:ppp_watch_LDADD="-Wl,-static $(pkg-config --libs --static glib-2.0) -Wl,-Bdynamic" ppp_watch_DEPENDENCIES=} \
+	%{!?with_static:ppp_watch_LDADD="$(pkg-config --libs glib-2.0)" ppp_watch_DEPENDENCIES=}
 
 for i in 0 1 2 3 4 5 6; do
 	install -d $RPM_BUILD_ROOT/etc/rc.d/rc$i.d
