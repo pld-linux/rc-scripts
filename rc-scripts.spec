@@ -51,6 +51,7 @@ Requires:	gettext
 Requires:	grep
 Requires:	hostname
 Requires:	iproute2
+Requires:	iputils-arping
 Requires:	mingetty
 Requires:	mktemp
 Requires:	module-init-tools
