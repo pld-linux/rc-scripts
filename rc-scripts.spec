@@ -14,7 +14,6 @@ License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 # Source0-md5:	aec23ce414c5fbfa0d827ea82b97ae02
-Patch0:		%{name}-svn.patch
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -111,7 +110,6 @@ programcıklar içerir.
 
 %prep
 %setup -q
-%patch0 -p0
 
 %build
 %{__aclocal}
