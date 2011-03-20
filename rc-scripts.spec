@@ -121,7 +121,6 @@ programcıklar içerir.
 %configure \
 	--with-localedir=%{localedir}
 %{__make} \
-	%{?with_static:ppp_watch_LDADD="-Wl,-static $(pkg-config --libs --static glib-2.0) -Wl,-Bdynamic" ppp_watch_DEPENDENCIES=} \
 	%{!?with_static:ppp_watch_LDADD="$(pkg-config --libs glib-2.0)" ppp_watch_DEPENDENCIES=}
 
 %install
@@ -131,7 +130,6 @@ install -d $RPM_BUILD_ROOT/etc/sysconfig/hwprofiles
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	%{?with_static:ppp_watch_LDADD="-Wl,-static $(pkg-config --libs --static glib-2.0) -Wl,-Bdynamic" ppp_watch_DEPENDENCIES=} \
 	%{!?with_static:ppp_watch_LDADD="$(pkg-config --libs glib-2.0)" ppp_watch_DEPENDENCIES=}
 
 for i in 0 1 2 3 4 5 6; do
