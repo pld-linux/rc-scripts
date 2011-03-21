@@ -173,9 +173,6 @@ done
 # make /etc/init.d symlink relative
 ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
 
-# in static-routes can be also rules:
-ln -s static-routes $RPM_BUILD_ROOT/etc/sysconfig/static-rules
-
 %if "%{pld_release}" == "ac"
 rm -rf $RPM_BUILD_ROOT/etc/init
 %endif
@@ -345,7 +342,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-arp
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-nat
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-routes
-%config(noreplace,missingok) %verify(not md5 mtime size) /etc/sysconfig/static-rules
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/system
 
 %{_mandir}/man?/*
