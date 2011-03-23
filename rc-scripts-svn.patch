@@ -8,7 +8,7 @@ Index: sysconfig/network-scripts/functions.network
  {
 -	if is_yes "$IPV6_NETWORKING" && is_module "ipv6"; then
 -		_modprobe single ipv6
-+	if is_yes "$IPV6_NETWORKING"
++	if is_yes "$IPV6_NETWORKING"; then
 +		if is_module "ipv6"; then
 +			_modprobe single ipv6
 +		fi
