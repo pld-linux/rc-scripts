@@ -61,6 +61,7 @@ Requires:	procps >= 1:3.2.6-1.1
 Requires:	psmisc >= 22.5-2
 Requires:	utempter
 Requires:	util-linux
+Suggests:	libcgroup
 Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
