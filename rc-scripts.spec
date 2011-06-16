@@ -8,12 +8,12 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.4.2
+Version:	0.4.4.3
 Release:	1
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
-# Source0-md5:	6e62fd462f8cdfe1e72957ee504a6ee6
+# Source0-md5:	c91e4a4113e8b62bbd0997a4297c45b9
 URL:		http://svn.pld-linux.org/cgi-bin/viewsvn/rc-scripts/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -220,6 +220,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 mtime size) /etc/init/rc.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/rcS-sulogin.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/rcS.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/init/udev.conf
 %endif
 
 /etc/rc.d/init.d/functions
