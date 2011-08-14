@@ -8,12 +8,13 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.4.3
-Release:	1
+Version:	0.4.5
+Release:	0.3
 License:	GPL v2
 Group:		Base
-Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
-# Source0-md5:	c91e4a4113e8b62bbd0997a4297c45b9
+#Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	a1cd1a564da88f61e7e571d8ad8835b1
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -203,7 +204,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog
-%doc doc/*.txt rc.d/init.d/template.init
+%doc doc/*.txt doc/template.init
 %doc sysconfig/interfaces/data/chat-ppp*
 %doc sysconfig/interfaces/ifc*
 %doc sysconfig/interfaces/tnl*
@@ -289,6 +290,28 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(4755,root,root) %{_sbindir}/usernetctl
 %attr(755,root,root) /lib/firmware/firmware-loader.sh
 
+%dir /lib/rc-scripts
+%attr(755,root,root) /lib/rc-scripts/ifdown-br
+%attr(755,root,root) /lib/rc-scripts/ifdown-irda
+%attr(755,root,root) /lib/rc-scripts/ifdown-post
+%attr(755,root,root) /lib/rc-scripts/ifdown-ppp
+%attr(755,root,root) /lib/rc-scripts/ifdown-sl
+%attr(755,root,root) /lib/rc-scripts/ifdown-vlan
+/lib/rc-scripts/ifup-aliases
+%attr(755,root,root) /lib/rc-scripts/ifup-br
+%attr(755,root,root) /lib/rc-scripts/ifup-ipx
+%attr(755,root,root) /lib/rc-scripts/ifup-irda
+%attr(755,root,root) /lib/rc-scripts/ifup-iucv
+/lib/rc-scripts/ifup-neigh
+%attr(755,root,root) /lib/rc-scripts/ifup-plip
+%attr(755,root,root) /lib/rc-scripts/ifup-plusb
+%attr(755,root,root) /lib/rc-scripts/ifup-post
+%attr(755,root,root) /lib/rc-scripts/ifup-ppp
+/lib/rc-scripts/ifup-routes
+%attr(755,root,root) /lib/rc-scripts/ifup-sl
+%attr(755,root,root) /lib/rc-scripts/ifup-vlan
+/lib/rc-scripts/functions.network
+
 %dir %{_sysconfdir}/ppp
 %attr(754,root,root) %{_sysconfdir}/ppp/*
 %dir /etc/sysconfig/cpusets
@@ -297,28 +320,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %dir /etc/sysconfig/interfaces/data
 %dir /etc/sysconfig/isapnp
 
-%dir /etc/sysconfig/network-scripts
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-br
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-irda
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-post
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-ppp
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-sl
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifdown-vlan
-/etc/sysconfig/network-scripts/ifup-aliases
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-br
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-ipx
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-irda
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-iucv
-/etc/sysconfig/network-scripts/ifup-neigh
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-plip
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-plusb
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-post
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-ppp
-/etc/sysconfig/network-scripts/ifup-routes
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-sl
-%attr(755,root,root) /etc/sysconfig/network-scripts/ifup-vlan
-
-/etc/sysconfig/network-scripts/functions.network
 %dir /etc/sysconfig/interfaces/down.d
 %dir /etc/sysconfig/interfaces/down.d/*
 %dir /etc/sysconfig/interfaces/up.d
@@ -326,6 +327,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/interfaces/down.d/ppp/logger
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/interfaces/up.d/ppp/logger
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/isapnp/isapnp-kernel.conf
+
 %attr(640,root,root) %ghost /var/log/dmesg
 %attr(750,root,root) %dir /var/run/netreport
 
