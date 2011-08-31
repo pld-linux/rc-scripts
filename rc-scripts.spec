@@ -9,12 +9,12 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5
-Release:	0.3
+Release:	0.4
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	a1cd1a564da88f61e7e571d8ad8835b1
+# Source0-md5:	0ac111bcac70aaf5539c6b855646122a
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -215,6 +215,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %dir /etc/rc.d/init.d
 %dir /etc/rc.d/rc?.d
 /etc/init.d
+/etc/rc.d/init.d/functions
 
 %if "%{pld_release}" != "ac"
 %config(noreplace) %verify(not md5 mtime size) /etc/init/random.conf
@@ -224,7 +225,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 mtime size) /etc/init/udev.conf
 %endif
 
-/etc/rc.d/init.d/functions
 %attr(754,root,root) /etc/rc.d/init.d/allowlogin
 %attr(754,root,root) /etc/rc.d/init.d/cpusets
 %attr(754,root,root) /etc/rc.d/init.d/cryptsetup
@@ -311,6 +311,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) /lib/rc-scripts/ifup-sl
 %attr(755,root,root) /lib/rc-scripts/ifup-vlan
 /lib/rc-scripts/functions.network
+/lib/rc-scripts/functions
 
 %dir %{_sysconfdir}/ppp
 %attr(754,root,root) %{_sysconfdir}/ppp/*
