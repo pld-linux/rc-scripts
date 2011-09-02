@@ -14,7 +14,7 @@ License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	0ac111bcac70aaf5539c6b855646122a
+# Source0-md5:	beb85a22862ca1d76f43647141ab6aeb
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 BuildRequires:	autoconf
 BuildRequires:	automake
