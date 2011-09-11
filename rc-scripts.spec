@@ -9,12 +9,12 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5
-Release:	0.4
+Release:	0.5
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	beb85a22862ca1d76f43647141ab6aeb
+# Source0-md5:	db3dbe52fe269c789926b1862881fe84
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -218,10 +218,14 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 /etc/rc.d/init.d/functions
 
 %if "%{pld_release}" != "ac"
+%config(noreplace) %verify(not md5 mtime size) /etc/init/allowlogin.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/init/cpusets.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/init/cryptsetup.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/random.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/rc.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/init/rcS-sulogin.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/rcS.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/init/rcS-sulogin.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/init/sys-chroots.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/udev.conf
 %endif
 
