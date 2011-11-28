@@ -9,12 +9,13 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5.1
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 # Source0-md5:	00d0cbd7bb54c89fed07ebce20a4a0b7
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
+Patch0:		%{name}-svn.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
@@ -112,6 +113,7 @@ programcıklar içerir.
 
 %prep
 %setup -q
+%patch0 -p0
 
 # hack, currently this results -lgcc_s not found error:
 #GLIB_LIBS="-Wl,-static `$PKG_CONFIG --libs --static glib-2.0` -Wl,-Bdynamic"
