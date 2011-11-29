@@ -15,6 +15,7 @@ Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 # Source0-md5:	00d0cbd7bb54c89fed07ebce20a4a0b7
 Source1:	rc-scripts-systemd-tmpfiles.d.conf
+Source2:	rc-local.service
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 Patch0:		%{name}-svn.patch
 BuildRequires:	autoconf
@@ -182,7 +183,9 @@ done
 # make /etc/init.d symlink relative
 ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
 
+# systemd
 install -D %{SOURCE1} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/rc-scripts.conf
+install -D %{SOURCE2} $RPM_BUILD_ROOT/lib/systemd/system/rc-local.service
 
 %if "%{pld_release}" == "ac"
 rm -rf $RPM_BUILD_ROOT/etc/init
@@ -305,6 +308,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) /lib/firmware/firmware-loader.sh
 
 /usr/lib/tmpfiles.d/rc-scripts.conf
+/lib/systemd/system/rc-local.service
 
 %dir /lib/rc-scripts
 %attr(755,root,root) /lib/rc-scripts/ifdown-br
