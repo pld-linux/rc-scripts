@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5.1
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -39,6 +39,7 @@ Requires:	/bin/gettext
 Requires:	/bin/nice
 Requires:	/bin/ps
 Requires:	SysVinit
+Requires:	SysVinit-tools >= 2.88-1
 Requires:	blockdev
 Requires:	coreutils
 Requires:	ethtool
@@ -139,6 +140,9 @@ install -d $RPM_BUILD_ROOT/etc/sysconfig/hwprofiles
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	%{!?with_static:ppp_watch_LDADD="$(pkg-config --libs glib-2.0)" ppp_watch_DEPENDENCIES=}
+
+# now part of SysVinit-tools
+%{__rm} $RPM_BUILD_ROOT%{_sbindir}/fstab-decode
 
 for i in 0 1 2 3 4 5 6; do
 	install -d $RPM_BUILD_ROOT/etc/rc.d/rc$i.d
@@ -288,7 +292,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %attr(755,root,root) %{_bindir}/usleep
 
 %attr(755,root,root) %{_sbindir}/consoletype
-%attr(755,root,root) %{_sbindir}/fstab-decode
 %attr(755,root,root) %{_sbindir}/genhostid
 %attr(755,root,root) %{_sbindir}/getkey
 %attr(755,root,root) %{_sbindir}/hwprofile
