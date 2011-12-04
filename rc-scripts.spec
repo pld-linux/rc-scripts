@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5.1
-Release:	6
+Release:	7
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -38,7 +38,7 @@ Requires:	/bin/basename
 Requires:	/bin/gettext
 Requires:	/bin/nice
 Requires:	/bin/ps
-Requires:	SysVinit
+Requires:	virtual(init-daemon)
 Requires:	SysVinit-tools >= 2.88-1
 Requires:	blockdev
 Requires:	coreutils
