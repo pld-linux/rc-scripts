@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5.1
-Release:	5
+Release:	6
 License:	GPL v2
 Group:		Base
 Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -142,7 +142,8 @@ install -d $RPM_BUILD_ROOT/etc/sysconfig/hwprofiles
 	%{!?with_static:ppp_watch_LDADD="$(pkg-config --libs glib-2.0)" ppp_watch_DEPENDENCIES=}
 
 # now part of SysVinit-tools
-%{__rm} $RPM_BUILD_ROOT%{_sbindir}/fstab-decode
+%{__rm} $RPM_BUILD_ROOT%{_sbindir}/fstab-decode \
+	$RPM_BUILD_ROOT%{_mandir}/man8/fstab-decode.8*
 
 for i in 0 1 2 3 4 5 6; do
 	install -d $RPM_BUILD_ROOT/etc/rc.d/rc$i.d
