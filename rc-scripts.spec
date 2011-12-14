@@ -8,16 +8,17 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.5.1
-Release:	7
+Version:	0.4.5.2
+Release:	1
 License:	GPL v2
 Group:		Base
-Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
-# Source0-md5:	00d0cbd7bb54c89fed07ebce20a4a0b7
+#Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	bf27c7699c48598293e166eae364a5e0
 Source1:	rc-scripts-systemd-tmpfiles.d.conf
 Source2:	rc-local.service
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
-Patch0:		%{name}-svn.patch
+#Patch0:		%{name}-svn.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
@@ -116,7 +117,7 @@ programcıklar içerir.
 
 %prep
 %setup -q
-%patch0 -p0
+#%patch0 -p0
 
 # hack, currently this results -lgcc_s not found error:
 #GLIB_LIBS="-Wl,-static `$PKG_CONFIG --libs --static glib-2.0` -Wl,-Bdynamic"
@@ -140,10 +141,6 @@ install -d $RPM_BUILD_ROOT/etc/sysconfig/hwprofiles
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	%{!?with_static:ppp_watch_LDADD="$(pkg-config --libs glib-2.0)" ppp_watch_DEPENDENCIES=}
-
-# now part of SysVinit-tools
-%{__rm} $RPM_BUILD_ROOT%{_sbindir}/fstab-decode \
-	$RPM_BUILD_ROOT%{_mandir}/man8/fstab-decode.8*
 
 for i in 0 1 2 3 4 5 6; do
 	install -d $RPM_BUILD_ROOT/etc/rc.d/rc$i.d
@@ -238,10 +235,12 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 %config(noreplace) %verify(not md5 mtime size) /etc/init/allowlogin.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/cpusets.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/cryptsetup.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/init/local.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/init/modules.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/random.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/rc.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/init/rcS.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/rcS-sulogin.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/init/rcS.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/sys-chroots.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/init/udev.conf
 %endif
