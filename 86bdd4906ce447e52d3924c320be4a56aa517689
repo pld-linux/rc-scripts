@@ -1,0 +1,1 @@
+- /var/run/netreport in /usr/lib/tmpfiles.d/rc-scripts.conf for systemd
