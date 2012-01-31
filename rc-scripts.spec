@@ -17,6 +17,7 @@ Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	bf27c7699c48598293e166eae364a5e0
 Source1:	rc-scripts-systemd-tmpfiles.d.conf
 Source2:	rc-local.service
+Source3:	%{name}.tmpfiles
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 Patch0:		%{name}-svn.patch
 Patch1:		%{name}-skip_networkmanager_users_config.patch
@@ -137,8 +138,9 @@ sed -i -e 's#^GLIB_LIBS=.*#GLIB_LIBS="%{_prefix}/%{_lib}/libglib-2.0.a %{_prefix
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/var/{run/netreport,log}
-install -d $RPM_BUILD_ROOT/etc/sysconfig/hwprofiles
+install -d $RPM_BUILD_ROOT/var/{run/netreport,log} \
+	$RPM_BUILD_ROOT/etc/sysconfig/hwprofiles \
+	$RPM_BUILD_ROOT/usr/lib/tmpfiles.d
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -190,6 +192,7 @@ ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
 # systemd
 install -D %{SOURCE1} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/rc-scripts.conf
 install -D %{SOURCE2} $RPM_BUILD_ROOT/lib/systemd/system/rc-local.service
+install %{SOURCE3} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/%{name}.conf
 
 %if "%{pld_release}" == "ac"
 rm -rf $RPM_BUILD_ROOT/etc/init
@@ -356,6 +359,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 
 %attr(640,root,root) %ghost /var/log/dmesg
 %attr(750,root,root) %dir /var/run/netreport
+/usr/lib/tmpfiles.d/%{name}.conf
 
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/crypttab
