@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5.3
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -120,9 +120,9 @@ programcıklar içerir.
 %setup -q
 %patch0 -p1
 
-# hack, currently this results -lgcc_s not found error:
+# hack, currently this results in errno@@GLIBC_PRIVATE symbol in ppp-watch:
 #GLIB_LIBS="-Wl,-static `$PKG_CONFIG --libs --static glib-2.0` -Wl,-Bdynamic"
-sed -i -e 's#^GLIB_LIBS=.*#GLIB_LIBS="%{_prefix}/%{_lib}/libglib-2.0.a %{_prefix}/%{_lib}/librt.a"#' configure.ac
+sed -i -e 's#^GLIB_LIBS=.*#GLIB_LIBS="%{_prefix}/%{_lib}/libglib-2.0.a -lrt"#' configure.ac
 
 %build
 %{__aclocal}
