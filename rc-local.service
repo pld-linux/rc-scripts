@@ -12,6 +12,7 @@ After=network.target local-fs.target remote-fs.target
 [Service]
 Type=forking
 ExecStart=/etc/rc.d/init.d/local start
+ExecStop=-/bin/rm -f /var/lock/subsys/local
 TimeoutSec=0
 StandardOutput=tty
 RemainAfterExit=yes
