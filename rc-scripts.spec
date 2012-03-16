@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5.3
-Release:	5
+Release:	6
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -17,7 +17,8 @@ Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	ac04b9e70d2bb1583f5ea41dd2d1894e
 Source1:	rc-scripts-systemd-tmpfiles.d.conf
 Source2:	rc-local.service
-Source3:	%{name}.tmpfiles
+Source3:	sys-chroots.service
+Source4:	%{name}.tmpfiles
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 Patch0:		%{name}-skip_networkmanager_users_config.patch
 Patch1:		%{name}-svn.patch
@@ -192,7 +193,8 @@ ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
 # systemd
 install -D %{SOURCE1} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/rc-scripts.conf
 install -D %{SOURCE2} $RPM_BUILD_ROOT/lib/systemd/system/local.service
-install %{SOURCE3} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/%{name}.conf
+install -D %{SOURCE3} $RPM_BUILD_ROOT/lib/systemd/system/sys-chroots.service
+install %{SOURCE4} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/%{name}.conf
 
 %if "%{pld_release}" == "ac"
 rm -rf $RPM_BUILD_ROOT/etc/init
@@ -317,6 +319,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 
 /usr/lib/tmpfiles.d/rc-scripts.conf
 /lib/systemd/system/local.service
+/lib/systemd/system/sys-chroots.service
 
 %dir /lib/rc-scripts
 %attr(755,root,root) /lib/rc-scripts/ifdown-br

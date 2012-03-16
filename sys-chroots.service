@@ -1,0 +1,12 @@
+[Unit]
+Description=/etc/rc.d/init.d/sys-chroots Compatibility
+After=network.target local-fs.target remote-fs.target
+
+[Service]
+Type=forking
+ExecStart=/etc/rc.d/init.d/sys-chroots start
+ExecStop=/etc/rc.d/init.d/sys-chroots stop
+TimeoutSec=0
+StandardOutput=tty
+RemainAfterExit=yes
+SysVStartPriority=99
