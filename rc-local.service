@@ -7,11 +7,11 @@
 
 [Unit]
 Description=/etc/rc.d/rc.local Compatibility
-ConditionFileIsExecutable=/etc/rc.d/rc.local
+After=network.target local-fs.target remote-fs.target
 
 [Service]
 Type=forking
-ExecStart=/etc/rc.d/rc.local start
+ExecStart=/etc/rc.d/init.d/local start
 TimeoutSec=0
 StandardOutput=tty
 RemainAfterExit=yes
