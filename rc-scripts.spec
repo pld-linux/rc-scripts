@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5.3
-Release:	6
+Release:	7
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -192,7 +192,8 @@ ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
 
 # systemd
 install -D %{SOURCE1} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/rc-scripts.conf
-install -D %{SOURCE2} $RPM_BUILD_ROOT/lib/systemd/system/local.service
+ln -s /dev/null $RPM_BUILD_ROOT/lib/systemd/system/local.service
+install -D %{SOURCE2} $RPM_BUILD_ROOT/lib/systemd/system/rc-local.service
 install -D %{SOURCE3} $RPM_BUILD_ROOT/lib/systemd/system/sys-chroots.service
 install %{SOURCE4} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/%{name}.conf
 
@@ -319,6 +320,7 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 
 /usr/lib/tmpfiles.d/rc-scripts.conf
 /lib/systemd/system/local.service
+/lib/systemd/system/rc-local.service
 /lib/systemd/system/sys-chroots.service
 
 %dir /lib/rc-scripts
