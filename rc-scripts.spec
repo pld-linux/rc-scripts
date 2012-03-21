@@ -9,16 +9,15 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5.3
-Release:	7
+Release:	8
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	ac04b9e70d2bb1583f5ea41dd2d1894e
-Source1:	rc-scripts-systemd-tmpfiles.d.conf
-Source2:	rc-local.service
-Source3:	sys-chroots.service
-Source4:	%{name}.tmpfiles
+Source1:	rc-local.service
+Source2:	sys-chroots.service
+Source3:	%{name}.tmpfiles
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 Patch0:		%{name}-skip_networkmanager_users_config.patch
 Patch1:		%{name}-svn.patch
@@ -82,9 +81,9 @@ Conflicts:	udev-core < 1:135-2
 %else
 Conflicts:	udev-core < 1:124-3
 %endif
+Conflicts:	lvm2 < 2.02.83
 Conflicts:	upstart-SysVinit < 2.86-25
 Conflicts:	wpa_supplicant < 0.6.3
-Conflicts:	lvm2 < 2.02.83
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix	/
@@ -141,7 +140,7 @@ sed -i -e 's#^GLIB_LIBS=.*#GLIB_LIBS="%{_prefix}/%{_lib}/libglib-2.0.a -lrt"#' c
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/var/{run/netreport,log} \
 	$RPM_BUILD_ROOT/etc/sysconfig/hwprofiles \
-	$RPM_BUILD_ROOT/usr/lib/tmpfiles.d
+	$RPM_BUILD_ROOT{%{systemdtmpfilesdir},%{systemdunitdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -191,11 +190,10 @@ done
 ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
 
 # systemd
-install -D %{SOURCE1} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/rc-scripts.conf
-ln -s /dev/null $RPM_BUILD_ROOT/lib/systemd/system/local.service
-install -D %{SOURCE2} $RPM_BUILD_ROOT/lib/systemd/system/rc-local.service
-install -D %{SOURCE3} $RPM_BUILD_ROOT/lib/systemd/system/sys-chroots.service
-install %{SOURCE4} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/%{name}.conf
+install %{SOURCE1} $RPM_BUILD_ROOT%{systemdunitdir}/rc-local.service
+ln -s /dev/null $RPM_BUILD_ROOT%{systemdunitdir}/local.service
+install %{SOURCE2} $RPM_BUILD_ROOT%{systemdunitdir}/sys-chroots.service
+install %{SOURCE3} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
 
 %if "%{pld_release}" == "ac"
 rm -rf $RPM_BUILD_ROOT/etc/init
@@ -318,10 +316,10 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 
 %attr(755,root,root) /lib/firmware/firmware-loader.sh
 
-/usr/lib/tmpfiles.d/rc-scripts.conf
-/lib/systemd/system/local.service
-/lib/systemd/system/rc-local.service
-/lib/systemd/system/sys-chroots.service
+%{systemdtmpfilesdir}/rc-scripts.conf
+%{systemdunitdir}/local.service
+%{systemdunitdir}/rc-local.service
+%{systemdunitdir}/sys-chroots.service
 
 %dir /lib/rc-scripts
 %attr(755,root,root) /lib/rc-scripts/ifdown-br
@@ -364,7 +362,6 @@ mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
 
 %attr(640,root,root) %ghost /var/log/dmesg
 %attr(750,root,root) %dir /var/run/netreport
-/usr/lib/tmpfiles.d/%{name}.conf
 
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/crypttab
