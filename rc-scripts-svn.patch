@@ -44,3 +44,16 @@ Index: service
  	exec env -i USE_UPSTART=$USE_UPSTART LANG=$LANG PATH=$PATH TERM=$TERM "${SERVICEDIR}/${SERVICE}" ${ACTION} ${OPTIONS}
  else
  	echo "${SERVICE}: unrecognized service" >&2
+Index: rc.d/rc.sysinit
+===================================================================
+--- rc.d/rc.sysinit	(wersja 12506)
++++ rc.d/rc.sysinit	(kopia robocza)
+@@ -173,7 +173,7 @@
+ 	fi
+ 
+ 	# we need /proc mounted before everything
+-	is_fsmounted proc /proc || mount -n -o gid=17 -t proc /proc /proc
++	is_fsmounted proc /proc || mount -n /proc || mount -n -o gid=17,hidepid=2 -t proc /proc /proc
+ 
+ 	# Only read this once.
+ 	cmdline=$(cat /proc/cmdline)
