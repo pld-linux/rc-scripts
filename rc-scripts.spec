@@ -19,7 +19,6 @@ Source1:	rc-local.service
 Source2:	sys-chroots.service
 Source3:	%{name}.tmpfiles
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
-Patch1:		%{name}-svn.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
