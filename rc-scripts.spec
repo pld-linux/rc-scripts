@@ -13,8 +13,7 @@ Release:	0.1
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
-#Source0:	%{name}-%{version}.tar.gz
-Source0:	http://duch.mimuw.edu.pl/~baggins/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	e073e75ca6220e463bd659d25feefde6
 Source1:	rc-local.service
 Source2:	sys-chroots.service
