@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5.4
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -120,7 +120,7 @@ programcıklar içerir.
 
 # hack, currently this results in errno@@GLIBC_PRIVATE symbol in ppp-watch:
 #GLIB_LIBS="-Wl,-static `$PKG_CONFIG --libs --static glib-2.0` -Wl,-Bdynamic"
-sed -i -e 's#^GLIB_LIBS=.*#GLIB_LIBS="%{_prefix}/%{_lib}/libglib-2.0.a -lrt"#' configure.ac
+sed -i -e 's#^GLIB_LIBS=.*#GLIB_LIBS="%{_prefix}/%{_lib}/libglib-2.0.a -lrt -lpthread"#' configure.ac
 
 %build
 %{__aclocal}
@@ -135,7 +135,7 @@ sed -i -e 's#^GLIB_LIBS=.*#GLIB_LIBS="%{_prefix}/%{_lib}/libglib-2.0.a -lrt"#' c
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/var/{run/netreport,log} \
-	$RPM_BUILD_ROOT/etc/sysconfig/hwprofiles \
+	$RPM_BUILD_ROOT/etc/sysconfig/{interfaces/data,hwprofiles} \
 	$RPM_BUILD_ROOT{%{systemdtmpfilesdir},%{systemdunitdir}}
 
 %{__make} install \
