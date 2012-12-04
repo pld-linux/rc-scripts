@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5.4
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -217,7 +217,9 @@ chown root:root /var/cache/rc-scripts/msg.cache
 
 # move network interfaces description files to new location
 %triggerpostun -- initscripts
-mv -f /etc/sysconfig/network-scripts/ifcfg-* /etc/sysconfig/interfaces
+for iface in /etc/sysconfig/network-scripts/ifcfg-* ; do
+	[ -f "$iface" ] && mv -f "$iface" /etc/sysconfig/interfaces
+done
 
 %files
 %defattr(644,root,root,755)
