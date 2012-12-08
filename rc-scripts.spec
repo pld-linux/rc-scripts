@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5.4
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -66,7 +66,6 @@ Requires:	utempter
 Requires:	util-linux
 Requires:	virtual(module-tools)
 Suggests:	libcgroup
-Provides:	initscripts
 Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
@@ -87,7 +86,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix	/
 %define		localedir	/etc/sysconfig/locale
-%define 	_bindir		/bin
+%define		_bindir		/bin
 %define		_sbindir	/sbin
 
 %description
@@ -217,8 +216,16 @@ chown root:root /var/cache/rc-scripts/msg.cache
 
 # move network interfaces description files to new location
 %triggerpostun -- initscripts
-for iface in /etc/sysconfig/network-scripts/ifcfg-* ; do
-	[ -f "$iface" ] && mv -f "$iface" /etc/sysconfig/interfaces
+[ -d /etc/sysconfig/network-scripts ] || exit 0
+cd /etc/sysconfig/network-scripts
+for iface in ifcfg-* ; do
+	[ -f $iface ] || continue
+	if [ -f /etc/sysconfig/interfaces/$iface ]; then
+		echo "/etc/sysconfig/interfaces/$iface renamed to /etc/sysconfig/interfaces/$iface.rpmnew"
+		mv -f /etc/sysconfig/interfaces/$iface{,.rpmnew}
+	fi
+	echo "/etc/sysconfig/network-scripts/$iface moved to /etc/sysconfig/interfaces/$iface"
+	mv -f /etc/sysconfig/network-scripts/$iface /etc/sysconfig/interfaces
 done
 
 %files
