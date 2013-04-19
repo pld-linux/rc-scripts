@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.5.5
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -189,6 +189,9 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{systemdunitdir}/rc-local.service
 ln -s /dev/null $RPM_BUILD_ROOT%{systemdunitdir}/local.service
 install %{SOURCE2} $RPM_BUILD_ROOT%{systemdunitdir}/sys-chroots.service
 install %{SOURCE3} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
+
+# packaged into SysVinit and systemd-init (supported options differ)
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man5/crypttab.5
 
 %if "%{pld_release}" == "ac"
 rm -rf $RPM_BUILD_ROOT/etc/init
