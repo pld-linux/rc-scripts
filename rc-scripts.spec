@@ -57,7 +57,6 @@ Requires:	hostname
 Requires:	iproute2
 Requires:	iputils-arping
 Requires:	mingetty
-Requires:	mksh
 Requires:	mktemp
 Requires:	mount >= 2.12
 Requires:	procps >= 1:3.2.6-1.1
