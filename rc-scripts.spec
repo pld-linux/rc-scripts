@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.7
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -81,6 +81,14 @@ Conflicts:	udev-core < 1:124-3
 Conflicts:	lvm2 < 2.02.83
 Conflicts:	upstart-SysVinit < 2.86-25
 Conflicts:	wpa_supplicant < 0.6.3
+# run-parts filename would be ignored by debian run-parts
+Conflicts:	PackageKit < 0.8.11-2
+Conflicts:	exim < 4.80.1-15
+Conflicts:	fcron < 3.0.6-2
+Conflicts:	libvirt-sandbox < 0.5.0-2
+Conflicts:	man-db < 2.6.5-2
+Conflicts:	mlocate < 0.26-2
+Conflicts:	php-dirs < 1.4-3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix	/
