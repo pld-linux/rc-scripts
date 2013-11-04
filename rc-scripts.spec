@@ -8,13 +8,13 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.7
-Release:	3
+Version:	0.4.8
+Release:	1
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	b515bd4f8a53ae9a8cefdca30934a621
+# Source0-md5:	07e6d6997a13f4800415984a7aa5d5f1
 Source1:	rc-local.service
 Source2:	sys-chroots.service
 Source3:	%{name}.tmpfiles
@@ -303,6 +303,8 @@ done
 %attr(755,root,root) %{_bindir}/ipcalc
 %attr(755,root,root) %{_bindir}/resolvesymlink
 %attr(755,root,root) %{_bindir}/run-parts
+# deprecated shell version, packaged for quick fix if something broken. will be dropped soon
+%attr(755,root,root) %{_bindir}/run-parts.sh
 %attr(755,root,root) %{_bindir}/usleep
 
 %attr(755,root,root) %{_sbindir}/consoletype
