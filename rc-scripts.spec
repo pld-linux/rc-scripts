@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.9
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -61,7 +61,7 @@ Requires:	mktemp
 Requires:	mount >= 2.12
 Requires:	procps >= 1:3.2.6-1.1
 Requires:	psmisc >= 22.5-2
-Requires:	libutempter > 1.1.6-2
+Requires:	libutempter >= 1.1.6-2
 Requires:	util-linux
 Requires:	virtual(module-tools)
 Suggests:	libcgroup
