@@ -61,7 +61,7 @@ Requires:	mktemp
 Requires:	mount >= 2.12
 Requires:	procps >= 1:3.2.6-1.1
 Requires:	psmisc >= 22.5-2
-Requires:	utempter
+Requires:	libutempter > 1.1.6-2
 Requires:	util-linux
 Requires:	virtual(module-tools)
 Suggests:	libcgroup
@@ -79,6 +79,7 @@ Conflicts:	udev-core < 1:135-2
 Conflicts:	udev-core < 1:124-3
 %endif
 Conflicts:	lvm2 < 2.02.83
+Conflicts:	SysVinit < 2.88-16
 Conflicts:	upstart-SysVinit < 2.86-25
 Conflicts:	wpa_supplicant < 0.6.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
