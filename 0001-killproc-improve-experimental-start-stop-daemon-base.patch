@@ -1,0 +1,42 @@
+From 6154a5cecca4c7cf7252a230f81d2fa913c0bfab Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Elan=20Ruusam=C3=A4e?= <glen@pld-linux.org>
+Date: Wed, 5 Dec 2012 20:54:15 +0000
+Subject: [PATCH] killproc: improve experimental start-stop-daemon based
+ killing.
+
+do not send --retry, in case we specify a signal to kill (usually HUP)
+as processes do not usually exit (remove their pid from pidfile) if they receive HUP
+
+
+svn-id: @12603
+---
+ lib/functions | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/lib/functions b/lib/functions
+index 3b9fc39..e7debac 100644
+--- a/rc.d/init.d/functions
++++ b/rc.d/init.d/functions
+@@ -754,9 +754,17 @@ killproc() {
+ 	# experimental start-stop-daemon based killing.
+ 	# works only with pidfile
+ 	if is_no "$RC_LOGGING" && [ "$pidfile" ]; then
+-		local sig=${killlevel:--TERM}
++		local sig=${killlevel:--TERM} retry
++		# retry only if signal is not specified,
++	   	# as otherwise impossible to send HUP if process pid stays in pidfile.
++		if [ "${killlevel+set}" = "set" ]; then
++			# if we send HUP it's ok if process does not die
++			retry="--oknodo"
++		else
++			retry="--retry ${sig#-}/10/${sig#-}/60/KILL/10"
++		fi
+ 		/sbin/start-stop-daemon -q --stop \
+-			--retry ${sig#-}/10/${sig#-}/60/KILL/10 \
++			$retry \
+ 			-s ${sig#-} \
+ 			${pidfile:+--pidfile $pidfile}
+ 		result=$?
+-- 
+1.9.1
+
