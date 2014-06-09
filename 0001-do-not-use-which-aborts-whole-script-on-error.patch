@@ -1,0 +1,89 @@
+From e99ccdf7ce570a3a6cf7c7d8ebcde0680d57465d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Elan=20Ruusam=C3=A4e?= <glen@pld-linux.org>
+Date: Sun, 26 May 2013 19:20:46 +0000
+Subject: [PATCH] do not use `:>` which aborts whole script on error
+
+special builtins like `:>` abort whole script on error while `>` doesn't
+
+and that is so by POSIX:
+http://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_08_01
+
+
+svn-id: @12662
+---
+ rc.d/init.d/sys-chroots |  8 ++++----
+ rc.d/rc.sysinit         | 10 +++++-----
+ 2 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/rc.d/init.d/sys-chroots b/rc.d/init.d/sys-chroots
+index 3a32767..19ba42f 100755
+--- a/rc.d/init.d/sys-chroots
++++ b/rc.d/init.d/sys-chroots
+@@ -53,8 +53,8 @@ start() {
+ 		chroot $dir sh -c '
+ 		. /etc/rc.d/init.d/functions
+ 		# Clear mtab
+-		:>/etc/mtab
+-		[ -f /etc/cryptomtab ] && :>/etc/cryptomtab
++		> /etc/mtab
++		[ -f /etc/cryptomtab ] && > /etc/cryptomtab
+ 
+ 		# Remove stale backups
+ 		rm -f /etc/mtab~ /etc/mtab~~ /etc/cryptomtab~ /etc/cryptomtab~~
+@@ -78,12 +78,12 @@ start() {
+ 
+ 		# Clean up utmp/wtmp
+ 		if ! is_no "$NEED_XFILES" ; then
+-			:>/var/run/utmpx
++			> /var/run/utmpx
+ 			touch /var/log/wtmpx
+ 			chown root:utmp /var/run/utmpx /var/log/wtmpx
+ 			chmod 0664 /var/run/utmpx /var/log/wtmpx
+ 		else
+-			:>/var/run/utmp
++			> /var/run/utmp
+ 			touch /var/log/wtmp
+ 			chown root:utmp /var/run/utmp /var/log/wtmp
+ 			chmod 0664 /var/run/utmp /var/log/wtmp
+diff --git a/rc.d/rc.sysinit b/rc.d/rc.sysinit
+index 92cad03..e63cbf7 100755
+--- a/rc.d/rc.sysinit
++++ b/rc.d/rc.sysinit
+@@ -72,7 +72,7 @@ relabel_selinux() {
+ 
+ # Remove duplicate entries from mtab (for vserver guest use only)
+ clean_vserver_mtab() {
+-	:>/etc/mtab.clean
++	> /etc/mtab.clean
+ 	while read device mountpoint line; do
+ 		grep -qs "$mountpoint" /etc/mtab.clean || \
+ 			echo "$device $mountpoint $line" >> /etc/mtab.clean
+@@ -465,8 +465,8 @@ fi
+ 
+ if ! is_yes "$VSERVER"; then
+ 	# Clear mtab
+-	:>/etc/mtab
+-	[ -f /etc/cryptomtab ] && :>/etc/cryptomtab
++	> /etc/mtab
++	[ -f /etc/cryptomtab ] && > /etc/cryptomtab
+ 
+ 	# Enter root, /proc, /sys and other into mtab.
+ 	mount -f / 2> /dev/null
+@@ -963,12 +963,12 @@ rm -rf /tmp/.X*-unix /tmp/.ICE-unix /tmp/.font-unix /tmp/hsperfdata_* \
+ {
+ # Clean up utmp/wtmp
+ if ! is_no "$NEED_XFILES"; then
+-	:>/var/run/utmpx
++	> /var/run/utmpx
+ 	touch /var/log/wtmpx
+ 	chown root:utmp /var/run/utmpx /var/log/wtmpx
+ 	chmod 0664 /var/run/utmpx /var/log/wtmpx
+ else
+-	:>/var/run/utmp
++	> /var/run/utmp
+ 	touch /var/log/wtmp
+ 	chown root:utmp /var/run/utmp /var/log/wtmp
+ 	chmod 0664 /var/run/utmp /var/log/wtmp
+-- 
+1.9.0
+
