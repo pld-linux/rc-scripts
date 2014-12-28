@@ -21,7 +21,7 @@ Source3:	%{name}.tmpfiles
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel
 %{?with_static:BuildRequires:	glib2-static}
 %{?with_static:BuildRequires:	glibc-static}
