@@ -8,13 +8,13 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.13
-Release:	2
+Version:	0.4.14
+Release:	1
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	7df99aa887070a0d83a0daa28bf7deb9
+# Source0-md5:	0ea644baf8597bedf67b47beb1994753
 Source1:	rc-local.service
 Source2:	sys-chroots.service
 Source3:	%{name}.tmpfiles
@@ -80,7 +80,7 @@ Conflicts:	udev-core < 1:124-3
 %endif
 Conflicts:	lvm2 < 2.02.83
 Conflicts:	SysVinit < 2.88-16
-Conflicts:	upstart-SysVinit < 2.86-25
+Conflicts:	upstart
 Conflicts:	wpa_supplicant < 0.6.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -194,10 +194,6 @@ install %{SOURCE3} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
 # packaged into SysVinit and systemd-init (supported options differ)
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man5/crypttab.5
 
-%if "%{pld_release}" == "ac"
-rm -rf $RPM_BUILD_ROOT/etc/init
-%endif
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -245,20 +241,6 @@ done
 %dir /etc/rc.d/rc?.d
 /etc/init.d
 /etc/rc.d/init.d/functions
-
-%if "%{pld_release}" != "ac"
-%config(noreplace) %verify(not md5 mtime size) /etc/init/allowlogin.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/init/cpusets.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/init/cryptsetup.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/init/local.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/init/modules.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/init/random.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/init/rc.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/init/rcS-sulogin.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/init/rcS.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/init/sys-chroots.conf
-%config(noreplace) %verify(not md5 mtime size) /etc/init/udev.conf
-%endif
 
 %attr(754,root,root) /etc/rc.d/init.d/allowlogin
 %attr(754,root,root) /etc/rc.d/init.d/cpusets
