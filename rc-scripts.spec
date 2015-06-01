@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.14
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -43,6 +43,7 @@ Requires:	SysVinit-tools >= 2.88-1
 Requires:	blockdev
 Requires:	coreutils
 Requires:	ethtool
+Requires:	run-parts = %{version}-%{release}
 Requires:	virtual(init-daemon)
 %if "%{pld_release}" == "ac"
 Requires:	filesystem >= 3.0-11
@@ -56,12 +57,12 @@ Requires:	grep
 Requires:	hostname
 Requires:	iproute2
 Requires:	iputils-arping
+Requires:	libutempter >= 1.1.6-2
 Requires:	mingetty
 Requires:	mktemp
 Requires:	mount >= 2.12
 Requires:	procps >= 1:3.2.6-1.1
 Requires:	psmisc >= 22.5-2
-Requires:	libutempter >= 1.1.6-2
 Requires:	util-linux
 Requires:	virtual(module-tools)
 Suggests:	libcgroup
@@ -78,8 +79,8 @@ Conflicts:	udev-core < 1:135-2
 %else
 Conflicts:	udev-core < 1:124-3
 %endif
-Conflicts:	lvm2 < 2.02.83
 Conflicts:	SysVinit < 2.88-16
+Conflicts:	lvm2 < 2.02.83
 Conflicts:	upstart
 Conflicts:	wpa_supplicant < 0.6.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -114,6 +115,15 @@ Bu paket, sistem açmak, çalışma düzeylerini değiştirmek ve sistemi
 düzgün bir şekilde kapatmak için gereken dosyaları içerir. Ayrıca pek
 çok bilgisayar ağı arayüzlerini etkinleştiren ya da edilginleştiren
 programcıklar içerir.
+
+%package -n run-parts
+Summary:	run scripts or programs in a directory
+Group:		Base
+
+%description -n run-parts
+run-parts runs all the executable files named within constraints
+described below, found in directory directory. Other files and
+directories are silently ignored.
 
 %prep
 %setup -q
@@ -186,10 +196,10 @@ done
 ln -nfs rc.d/init.d $RPM_BUILD_ROOT/etc/init.d
 
 # systemd
-install %{SOURCE1} $RPM_BUILD_ROOT%{systemdunitdir}/rc-local.service
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{systemdunitdir}/rc-local.service
 ln -s /dev/null $RPM_BUILD_ROOT%{systemdunitdir}/local.service
-install %{SOURCE2} $RPM_BUILD_ROOT%{systemdunitdir}/sys-chroots.service
-install %{SOURCE3} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
+cp -p %{SOURCE2} $RPM_BUILD_ROOT%{systemdunitdir}/sys-chroots.service
+cp -p %{SOURCE3} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
 
 # packaged into SysVinit and systemd-init (supported options differ)
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man5/crypttab.5
@@ -285,9 +295,6 @@ done
 %attr(755,root,root) %{_bindir}/doexec
 %attr(755,root,root) %{_bindir}/ipcalc
 %attr(755,root,root) %{_bindir}/resolvesymlink
-%attr(755,root,root) %{_bindir}/run-parts
-# deprecated shell version, packaged for quick fix if something broken. will be dropped soon
-%attr(755,root,root) %{_bindir}/run-parts.sh
 %attr(755,root,root) %{_bindir}/usleep
 
 %attr(755,root,root) %{_sbindir}/consoletype
@@ -381,7 +388,15 @@ done
 %lang(ja) %{_mandir}/ja/man?/*
 %lang(ru) %{_mandir}/ru/man?/*
 %lang(sv) %{_mandir}/sv/man?/*
+%exclude %{_mandir}/man8/run-parts.8*
 
 %dir %{localedir}
 %lang(de) %{localedir}/de
 %lang(pl) %{localedir}/pl
+
+%files -n run-parts
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/run-parts
+# deprecated shell version, packaged for quick fix if something broken. will be dropped soon
+%attr(755,root,root) %{_bindir}/run-parts.sh
+%{_mandir}/man8/run-parts.8*
