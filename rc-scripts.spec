@@ -119,6 +119,7 @@ programcıklar içerir.
 %package -n run-parts
 Summary:	run scripts or programs in a directory
 Group:		Base
+Conflicts:	%{name} < 0.4.14-2
 
 %description -n run-parts
 run-parts runs all the executable files named within constraints
