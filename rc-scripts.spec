@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.14
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -149,6 +149,7 @@ sed -i -e 's#^GLIB_LIBS=.*#GLIB_LIBS="%{_prefix}/%{_lib}/libglib-2.0.a -lrt -lpt
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/var/{run/netreport,log} \
 	$RPM_BUILD_ROOT/etc/sysconfig/{interfaces/data,hwprofiles} \
+	$RPM_BUILD_ROOT{%{_sysconfdir},%{_prefix}/lib}/sysctl.d \
 	$RPM_BUILD_ROOT{%{systemdtmpfilesdir},%{systemdunitdir}}
 
 %{__make} install \
@@ -383,6 +384,9 @@ done
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-routes
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/static-routes6
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/system
+
+%dir %{_sysconfdir}/sysctl.d
+%dir %{_prefix}/lib/sysctl.d
 
 %{_mandir}/man?/*
 %lang(de) %{_mandir}/de/man?/*
