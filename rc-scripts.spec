@@ -8,17 +8,17 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.14
-Release:	4
+Version:	0.4.15
+Release:	1
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	0ea644baf8597bedf67b47beb1994753
+# Source0-md5:	6acdba8a0df67f4cdbfcfd78a0512017
 Source1:	rc-local.service
 Source2:	sys-chroots.service
 Source3:	%{name}.tmpfiles
-Patch0:		%{name}-git.patch
+#Patch0:		%{name}-git.patch
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -129,7 +129,7 @@ directories are silently ignored.
 
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 
 # hack, currently this results in errno@@GLIBC_PRIVATE symbol in ppp-watch:
 #GLIB_LIBS="-Wl,-static `$PKG_CONFIG --libs --static glib-2.0` -Wl,-Bdynamic"
@@ -345,6 +345,7 @@ done
 /lib/rc-scripts/ifup-routes
 %attr(755,root,root) /lib/rc-scripts/ifup-sl
 %attr(755,root,root) /lib/rc-scripts/ifup-vlan
+%attr(755,root,root) /lib/rc-scripts/makepid
 /lib/rc-scripts/functions.network
 /lib/rc-scripts/functions
 
