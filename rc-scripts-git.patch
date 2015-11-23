@@ -1,36 +1,13 @@
-commit f60ef786cf271e20da75988326a8c0cf90a7c485
-Author: Arkadiusz Miśkiewicz <arekm@maven.pl>
-Date:   Thu Jul 9 09:18:37 2015 +0200
-
-    Make DELAY_LOGIN checks consistent with the one in rc.sysinit (broken in 277e5f5352e622c4317852cded63e2a287506655).
-
-diff --git a/rc.d/init.d/allowlogin b/rc.d/init.d/allowlogin
-index dcd789e..d837189 100755
---- a/rc.d/init.d/allowlogin
-+++ b/rc.d/init.d/allowlogin
-@@ -24,14 +24,14 @@ esac
- . /etc/rc.d/init.d/functions
- 
- start() {
--	if is_yes "$DELAY_LOGIN" && [ -f /etc/nologin.boot ]; then
-+	if ! is_no "$DELAY_LOGIN" && [ -f /etc/nologin.boot ]; then
- 		run_cmd "Allowing users to login" rm -f /etc/nologin /etc/nologin.boot
+diff --git a/lib/functions b/lib/functions
+index 8d018f7..501cac9 100644
+--- a/lib/functions
++++ b/lib/functions
+@@ -1009,7 +1009,7 @@ pidofproc() {
  	fi
- }
  
- stop() {
- 	# /etc/nologin when shutting down system
--	if is_yes "$DELAY_LOGIN" && [ ! -f /etc/nologin ]; then
-+	if ! is_no "$DELAY_LOGIN" && [ ! -f /etc/nologin ]; then
- 		nls "System shutdown in progress\n" > /etc/nologin
- 		chmod 644 /etc/nologin
- 		cp -fp /etc/nologin /etc/nologin.boot
-@@ -39,7 +39,7 @@ stop() {
- }
+ 	# Next try "pidof" if pidfile is not specified
+-	if [ -z "$pid" ] && [ -z "$pidfile" ]; then
++	if [ -z "$pid" ] && [ -z "$2" ]; then
+ 		pid=$(pidof -o $$ -o $PPID -o %PPID -x "$1")
+ 	fi
  
- status() {
--	if is_yes "$DELAY_LOGIN"; then
-+	if ! is_no "$DELAY_LOGIN"; then
- 		nls "Delay login is enabled"
- 	else
- 		nls "Delay login is not enabled"
