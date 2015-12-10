@@ -1,8 +1,27 @@
 diff --git a/lib/functions b/lib/functions
-index 8d018f7..501cac9 100644
+index 8d018f7..f9538d2 100644
 --- a/lib/functions
 +++ b/lib/functions
-@@ -1009,7 +1009,7 @@ pidofproc() {
+@@ -690,13 +690,12 @@ _daemon_exec() {
+ 			--exec "$prog" \
+ 			-- "$@"
+ 	else
+-
+-		if [ "$makepid" ] && [ "$pidfile" ]; then
+-			export PIDFILE="$pidfile"
+-			set -- /lib/rc-scripts/makepid "$@"
+-		fi
+-
+ 		if [ "$fork" = "1" ]; then
++			export PIDFILE="/dev/null"
++			if [ "$makepid" ] && [ "$pidfile" ]; then
++				export PIDFILE="$pidfile"
++			fi
++			set -- /lib/rc-scripts/makepid "$@"
+ 			set -- /usr/bin/setsid "$@"
+ 		fi
+ 		if [ -n "$user" -a "$user" != "root" ]; then
+@@ -1009,7 +1008,7 @@ pidofproc() {
  	fi
  
  	# Next try "pidof" if pidfile is not specified
