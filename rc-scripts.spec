@@ -64,7 +64,7 @@ Requires:	mktemp
 Requires:	mount >= 2.12
 Requires:	procps >= 1:3.2.6-1.1
 Requires:	psmisc >= 22.5-2
-Requires:	util-linux
+Requires:	util-linux >= 2.22.1
 Requires:	virtual(module-tools)
 Suggests:	libcgroup
 Obsoletes:	initscripts
