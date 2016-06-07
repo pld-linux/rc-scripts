@@ -30,3 +30,31 @@ index 8d018f7..f9538d2 100644
  		pid=$(pidof -o $$ -o $PPID -o %PPID -x "$1")
  	fi
  
+commit bf42a4fb7c71c31954499bf9cbce4548305afe80
+Author: Arkadiusz Miśkiewicz <arekm@maven.pl>
+Date:   Tue Jun 7 17:09:48 2016 +0200
+
+    Mount /run as mode=0755,noexec,nosuid,nodev.
+
+diff --git a/rc.d/rc.sysinit b/rc.d/rc.sysinit
+index f7f0eea..99bb078 100755
+--- a/rc.d/rc.sysinit
++++ b/rc.d/rc.sysinit
+@@ -409,7 +409,7 @@ if ! is_yes "$VSERVER" && [[ "$container" != lxc* ]]; then
+ 	parse_cmdline
+ 
+ 	if [ -d /run ]; then
+-		is_fsmounted tmpfs /run || mount -n -t tmpfs run /run
++		is_fsmounted tmpfs /run || mount -n -t tmpfs run /run -o mode=0755,noexec,nosuid,nodev
+ 	fi
+ 
+ 	# Early sysctls
+@@ -680,7 +680,7 @@ if ! is_yes "$VSERVER" && [[ "$container" != lxc* ]]; then
+ 		mount -f -t devtmpfs devtmpfs /dev 2> /dev/null
+ 	fi
+ 	if is_fsmounted tmpfs /run; then
+-		mount -f -t tmpfs run /run 2> /dev/null
++		mount -f -t tmpfs run /run -o mode=0755,noexec,nosuid,nodev 2> /dev/null
+ 	fi
+ 
+ 	if is_fsmounted usbfs /proc/bus/usb; then
