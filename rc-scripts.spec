@@ -317,7 +317,8 @@ done
 %attr(755,root,root) %{_sbindir}/genhostid
 %attr(755,root,root) %{_sbindir}/getkey
 %attr(755,root,root) %{_sbindir}/hwprofile
-%attr(755,root,root) %{_sbindir}/if*
+%attr(755,root,root) %{_sbindir}/ifdown
+%attr(755,root,root) %{_sbindir}/ifup
 %attr(755,root,root) %{_sbindir}/initlog
 %attr(755,root,root) %{_sbindir}/loglevel
 %attr(755,root,root) %{_sbindir}/minilogd
@@ -327,7 +328,8 @@ done
 %attr(755,root,root) %{_sbindir}/setsysfont
 %attr(755,root,root) %{_sbindir}/setuidgid
 %attr(755,root,root) %{_sbindir}/start-stop-daemon
-%attr(755,root,root) %{_sbindir}/tnl*
+%attr(755,root,root) %{_sbindir}/tnldown
+%attr(755,root,root) %{_sbindir}/tnlup
 %attr(4755,root,root) %{_sbindir}/usernetctl
 
 %attr(755,root,root) /lib/firmware/firmware-loader.sh
@@ -362,7 +364,14 @@ done
 /lib/rc-scripts/functions
 
 %dir %{_sysconfdir}/ppp
-%attr(754,root,root) %{_sysconfdir}/ppp/*
+%attr(754,root,root) %{_sysconfdir}/ppp/auth-down
+%attr(754,root,root) %{_sysconfdir}/ppp/auth-up
+%attr(754,root,root) %{_sysconfdir}/ppp/ip-down
+%attr(754,root,root) %{_sysconfdir}/ppp/ip-up
+%attr(754,root,root) %{_sysconfdir}/ppp/ipv6-down
+%attr(754,root,root) %{_sysconfdir}/ppp/ipv6-up
+%attr(754,root,root) %{_sysconfdir}/ppp/ipx-down
+%attr(754,root,root) %{_sysconfdir}/ppp/ipx-up
 %dir /etc/sysconfig/cpusets
 %dir /etc/sysconfig/hwprofiles
 %dir /etc/sysconfig/interfaces
@@ -370,10 +379,10 @@ done
 %dir /etc/sysconfig/isapnp
 
 %dir /etc/sysconfig/interfaces/down.d
-%dir /etc/sysconfig/interfaces/down.d/*
-%dir /etc/sysconfig/interfaces/up.d
-%dir /etc/sysconfig/interfaces/up.d/*
+%dir /etc/sysconfig/interfaces/down.d/ppp
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/interfaces/down.d/ppp/logger
+%dir /etc/sysconfig/interfaces/up.d
+%dir /etc/sysconfig/interfaces/up.d/ppp
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/interfaces/up.d/ppp/logger
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/isapnp/isapnp-kernel.conf
 
@@ -401,14 +410,23 @@ done
 %dir %{_sysconfdir}/sysctl.d
 %dir %{_prefix}/lib/sysctl.d
 
-%{_mandir}/man?/*
+%{_mandir}/man1/consoletype.1*
+%{_mandir}/man1/doexec.1*
+%{_mandir}/man1/genhostid.1*
+%{_mandir}/man1/getkey.1*
+%{_mandir}/man1/initlog.1*
+%{_mandir}/man1/ipcalc.1*
+%{_mandir}/man1/netreport.1*
+%{_mandir}/man1/usleep.1*
+%{_mandir}/man8/ppp-watch.8*
+%{_mandir}/man8/start-stop-daemon.8*
+%{_mandir}/man8/usernetctl.8*
 %lang(de) %{_mandir}/de/man?/*
 %lang(es) %{_mandir}/es/man?/*
 %lang(fr) %{_mandir}/fr/man?/*
 %lang(ja) %{_mandir}/ja/man?/*
 %lang(ru) %{_mandir}/ru/man?/*
 %lang(sv) %{_mandir}/sv/man?/*
-%exclude %{_mandir}/man8/run-parts.8*
 
 %dir %{localedir}
 %lang(de) %{localedir}/de
