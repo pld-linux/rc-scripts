@@ -1,0 +1,10 @@
+--- rc-scripts-0.4.15/rc.d/rc.sysinit.orig	2016-06-19 20:27:45.987376063 +0200
++++ rc-scripts-0.4.15/rc.d/rc.sysinit	2016-06-19 20:27:50.154042707 +0200
+@@ -47,6 +47,7 @@
+ 
+ 	# filter only what is wanted by this script: aliases and options
+ 	modprobe_c_cache=$(modprobe -c | grep -E '^(alias|options)')
++	echo "$modprobe_c_cache"
+ }
+ 
+ # parse kernel cmdline
