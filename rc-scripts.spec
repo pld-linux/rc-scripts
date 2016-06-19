@@ -122,14 +122,20 @@ düzgün bir şekilde kapatmak için gereken dosyaları içerir. Ayrıca pek
 programcıklar içerir.
 
 %package -n run-parts
-Summary:	run scripts or programs in a directory
+Summary:	Run scripts or programs in a directory
+Summary(pl.UTF-8):	Uruchamianie skryptów lub programów z katalogu
 Group:		Base
-Conflicts:	%{name} < 0.4.14-2
+Conflicts:	rc-scripts < 0.4.14-2
 
 %description -n run-parts
-run-parts runs all the executable files named within constraints
-described below, found in directory directory. Other files and
-directories are silently ignored.
+run-parts runs all the executable files named within specific
+constraints, found in directory directory. Other files and directories
+are silently ignored.
+
+%description -n run-parts -l pl.UTF-8
+Program run-parts pozwala na uruchamianie wszystkich plików zgodnych
+z pewnymi ograniczeniami, obecnych w katalogu. Inne pliki i katalogi
+są po cichu ignorowane.
 
 %prep
 %setup -q
