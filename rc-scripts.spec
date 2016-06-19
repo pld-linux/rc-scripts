@@ -20,6 +20,7 @@ Source2:	sys-chroots.service
 Source3:	%{name}.tmpfiles
 Patch0:		%{name}-git.patch
 Patch1:		%{name}-modprobe-cache.patch
+Patch2:		%{name}-selinuxfs.patch
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -134,6 +135,7 @@ directories are silently ignored.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 # hack, currently this results in errno@@GLIBC_PRIVATE symbol in ppp-watch:
 #GLIB_LIBS="-Wl,-static `$PKG_CONFIG --libs --static glib-2.0` -Wl,-Bdynamic"
