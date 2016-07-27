@@ -1,4 +1,6 @@
 #
+# TODO: move inittab file to SysVinit
+#
 # Conditional build:
 %bcond_without	static		# link binaries with glib dynamically
 
@@ -61,7 +63,6 @@ Requires:	hostname
 Requires:	iproute2
 Requires:	iputils-arping
 Requires:	libutempter >= 1.1.6-2
-Requires:	mingetty
 Requires:	mktemp
 Requires:	mount >= 2.12
 Requires:	procps >= 1:3.2.6-1.1
