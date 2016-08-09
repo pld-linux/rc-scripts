@@ -16,4 +16,3 @@ ExecStop=-/bin/rm -f /var/lock/subsys/local
 TimeoutSec=0
 StandardOutput=tty
 RemainAfterExit=yes
-SysVStartPriority=99
