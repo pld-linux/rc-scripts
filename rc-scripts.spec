@@ -74,9 +74,9 @@ Obsoletes:	initscripts
 Obsoletes:	vserver-rc-scripts
 Conflicts:	LPRng < 3.8.0-2
 Conflicts:	dev < 2.9.0-22
+Conflicts:	iputils-arping < 2:s20070202-1
 # character classes support required
 Conflicts:	mawk < 1.3.4-0.20090727
-Conflicts:	iputils-arping < 2:s20070202-1
 Conflicts:	openssh-server < 2:3.6.1p2-6
 Conflicts:	psacct < 6.3.5-10
 Conflicts:	tzdata < 2007b-1.1
@@ -134,9 +134,9 @@ constraints, found in directory directory. Other files and directories
 are silently ignored.
 
 %description -n run-parts -l pl.UTF-8
-Program run-parts pozwala na uruchamianie wszystkich plików zgodnych
-z pewnymi ograniczeniami, obecnych w katalogu. Inne pliki i katalogi
-są po cichu ignorowane.
+Program run-parts pozwala na uruchamianie wszystkich plików zgodnych z
+pewnymi ograniczeniami, obecnych w katalogu. Inne pliki i katalogi są
+po cichu ignorowane.
 
 %prep
 %setup -q
