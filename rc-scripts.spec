@@ -11,7 +11,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.16
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -168,6 +168,9 @@ install -d $RPM_BUILD_ROOT/var/{run/netreport,log} \
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	%{!?with_static:ppp_watch_LDADD="$(pkg-config --libs glib-2.0)" ppp_watch_DEPENDENCIES=}
+
+# deprecated shell version
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/run-parts.sh
 
 for i in 0 1 2 3 4 5 6; do
 	install -d $RPM_BUILD_ROOT/etc/rc.d/rc$i.d
@@ -436,6 +439,4 @@ done
 %files -n run-parts
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/run-parts
-# deprecated shell version, packaged for quick fix if something broken. will be dropped soon
-%attr(755,root,root) %{_bindir}/run-parts.sh
 %{_mandir}/man8/run-parts.8*
