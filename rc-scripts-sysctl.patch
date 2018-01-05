@@ -1,0 +1,26 @@
+commit 2cb59275d1432da76a021416a7e65718476cebea
+Author: Arkadiusz Miśkiewicz <arekm@maven.pl>
+Date:   Fri Jan 5 19:32:28 2018 +0100
+
+    Quote filename when checking. Without that * is expanded causing problems.
+
+diff --git a/lib/functions b/lib/functions
+index 74f4c95..9716981 100644
+--- a/lib/functions
++++ b/lib/functions
+@@ -182,12 +182,12 @@ apply_sysctl() {
+ 
+ 	local file
+ 	for file in /usr/lib/sysctl.d/*.conf; do
+-		[ -f /run/sysctl.d/${file##*/} ] && continue
+-		[ -f /etc/sysctl.d/${file##*/} ] && continue
++		[ -f "/run/sysctl.d/${file##*/}" ] && continue
++		[ -f "/etc/sysctl.d/${file##*/}" ] && continue
+ 		test -f "$file" && sysctl -q -e -p "$file"
+ 	done
+ 	for file in /run/sysctl.d/*.conf; do
+-		[ -f /etc/sysctl.d/${file##*/} ] && continue
++		[ -f "/etc/sysctl.d/${file##*/}" ] && continue
+ 		test -f "$file" && sysctl -q -e -p "$file"
+ 	done
+ 	for file in /etc/sysctl.d/*.conf; do

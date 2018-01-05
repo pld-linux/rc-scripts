@@ -11,7 +11,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.16
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -23,6 +23,7 @@ Source3:	%{name}.tmpfiles
 Patch0:		%{name}-git.patch
 Patch1:		%{name}-modprobe-cache.patch
 Patch2:		%{name}-selinuxfs.patch
+Patch3:		%{name}-sysctl.patch
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -143,6 +144,7 @@ po cichu ignorowane.
 #%patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 # hack, currently this results in errno@@GLIBC_PRIVATE symbol in ppp-watch:
 #GLIB_LIBS="-Wl,-static `$PKG_CONFIG --libs --static glib-2.0` -Wl,-Bdynamic"
