@@ -58,3 +58,30 @@ index f7f0eea..99bb078 100755
  	fi
  
  	if is_fsmounted usbfs /proc/bus/usb; then
+commit 8903a3b15f08d759d06bb2b02e637e0baf7497bf
+Author: Arkadiusz Miśkiewicz <arekm@maven.pl>
+Date:   Tue Jul 3 15:13:45 2018 +0200
+
+    Don't fail if arrays are already assembled (ex raid10 with 4 devices, one device gets removed/kicked from array).
+
+diff --git a/rc.d/rc.sysinit b/rc.d/rc.sysinit
+index 99bb078..6fdca19 100755
+--- a/rc.d/rc.sysinit
++++ b/rc.d/rc.sysinit
+@@ -326,8 +326,15 @@ init_mdadm() {
+ 	fi
+ 
+ 	show "Starting up RAID devices"; busy
+-	/sbin/mdadm --assemble --scan --auto=yes
++	mdadm_out=$(/sbin/mdadm --assemble --scan --auto=yes 2>&1)
+ 	rc=$?
++
++	if (echo -n "$mdadm_out" | grep -q "Found some drive for an array that is already active:"); then
++		rc=0
++	fi
++
++	echo -n "$MDADM_OUT" >&2
++
+ 	if [ "$rc" -eq 0 -o "$rc" -eq 2 ]; then
+ 		# rc is used later too, so set sane value
+ 		rc=0
