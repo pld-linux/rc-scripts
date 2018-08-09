@@ -85,3 +85,21 @@ index 99bb078..6fdca19 100755
  	if [ "$rc" -eq 0 -o "$rc" -eq 2 ]; then
  		# rc is used later too, so set sane value
  		rc=0
+commit 5d2ee544efe6d27d1b6bc263385c5c9b5bf1b00d
+Author: Arkadiusz Miśkiewicz <arekm@maven.pl>
+Date:   Thu Jan 18 10:41:54 2018 +0100
+
+    Onlink doesn't work for IPv6, so add gate route manually first.
+
+diff --git a/lib/functions.network b/lib/functions.network
+index bb7a525..d151b04 100644
+--- a/lib/functions.network
++++ b/lib/functions.network
+@@ -299,6 +299,7 @@ setup_ip_gw_ro ()
+ 		if [ -z "${IPV6_GLOBALROUTEDEV}" -o "${IPV6_GLOBALROUTEDEV}" = "${DEVICE}" ]; then
+ 			# set up default route
+ 			if [ "${IPV6_GLOBALROUTEGW}" ]; then
++				ip -6 route add ${IPV6_GLOBALROUTEGW} dev ${DEVICE} ${IP6SRCADDR} onlink
+ 				ip -6 route add 2000::/3 via ${IPV6_GLOBALROUTEGW} dev ${DEVICE} ${IP6SRCADDR} onlink
+ 			elif [ "${IPV6_GLOBALROUTEDEV}" = "${DEVICE}" ]; then
+ 				ip -6 route add 2000::/3 dev ${DEVICE} ${IP6SRCADDR}
