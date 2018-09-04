@@ -10,20 +10,16 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.16
-Release:	6
+Version:	0.4.17
+Release:	1
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	3dada9e3d2a9e182116e906df25f80b3
+# Source0-md5:	5a8bc27f5efb34301ef7f285acc20c98
 Source1:	rc-local.service
 Source2:	sys-chroots.service
 Source3:	%{name}.tmpfiles
-Patch0:		%{name}-git.patch
-Patch1:		%{name}-modprobe-cache.patch
-Patch2:		%{name}-selinuxfs.patch
-Patch3:		%{name}-sysctl.patch
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -141,10 +137,6 @@ po cichu ignorowane.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 # hack, currently this results in errno@@GLIBC_PRIVATE symbol in ppp-watch:
 #GLIB_LIBS="-Wl,-static `$PKG_CONFIG --libs --static glib-2.0` -Wl,-Bdynamic"
@@ -260,7 +252,6 @@ done
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog
 %doc doc/*.txt doc/template.init
 %doc sysconfig/interfaces/data/chat-ppp*
 %doc sysconfig/interfaces/ifc*
