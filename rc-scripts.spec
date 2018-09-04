@@ -16,7 +16,7 @@ License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	5a8bc27f5efb34301ef7f285acc20c98
+# Source0-md5:	3d1efc0b982e742316103d27d1f44c64
 Source1:	rc-local.service
 Source2:	sys-chroots.service
 Source3:	%{name}.tmpfiles
@@ -252,6 +252,7 @@ done
 
 %files
 %defattr(644,root,root,755)
+%doc ChangeLog
 %doc doc/*.txt doc/template.init
 %doc sysconfig/interfaces/data/chat-ppp*
 %doc sysconfig/interfaces/ifc*
