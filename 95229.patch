@@ -1,0 +1,28 @@
+--- /etc/init.d/functions~	2018-09-07 16:57:25.000000000 +0300
++++ /etc/init.d/functions	2018-09-07 17:02:41.443552246 +0300
+@@ -884,12 +883,19 @@
+ 			# 3. kill with KILL, wait $waitretry
+ 			retry="--retry ${sig#-}/${delay}/${sig#-}/${waittime}/KILL/${waitretry}"
+ 		fi
+-		/sbin/start-stop-daemon -q --stop \
+-			$retry \
+-			${waitname:+--name $waitname} \
+-			-s ${sig#-} \
+-			${pidfile:+--pidfile $pidfile}
+-		result=$?
++
++		# expand if pidfile has multiple pids
++		result=0
++		local pid
++
++		for pid in $(cat $pidfile); do
++			/sbin/start-stop-daemon -q --stop \
++				$retry \
++				${waitname:+--name $waitname} \
++				-s ${sig#-} \
++				--pid $pid || result=$?
++		done
++
+ 		if [ "$result" -eq 0 ]; then
+ 			ok
+ 		else
