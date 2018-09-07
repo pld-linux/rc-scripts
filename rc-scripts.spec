@@ -20,6 +20,7 @@ Source0:	%{name}-%{version}.tar.gz
 Source1:	rc-local.service
 Source2:	sys-chroots.service
 Source3:	%{name}.tmpfiles
+Patch0:	95229.patch
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -137,6 +138,7 @@ po cichu ignorowane.
 
 %prep
 %setup -q
+%patch0 -p3 -d lib
 
 # hack, currently this results in errno@@GLIBC_PRIVATE symbol in ppp-watch:
 #GLIB_LIBS="-Wl,-static `$PKG_CONFIG --libs --static glib-2.0` -Wl,-Bdynamic"
