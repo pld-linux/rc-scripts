@@ -10,13 +10,13 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.17
+Version:	0.4.18
 Release:	1
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	3d1efc0b982e742316103d27d1f44c64
+# Source0-md5:	19a80f3b7ac8abd1008ecad71ddc9294
 Source1:	rc-local.service
 Source2:	sys-chroots.service
 Source3:	%{name}.tmpfiles
