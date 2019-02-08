@@ -1,0 +1,31 @@
+From 27a3470a3eca2ab9b6d5ac5b7b8c7fdb65b66435 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Arkadiusz=20Mi=C5=9Bkiewicz?= <arekm@maven.pl>
+Date: Wed, 6 Feb 2019 15:45:43 +0100
+Subject: [PATCH] Don't delete base pidfile if other pid file was specified.
+ Delete it instead. It was deleting aaa.pid even if we did killproc -p bbb.pid
+ aaa and our service name was aaa.
+
+---
+ lib/functions | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/lib/functions b/lib/functions
+index 9716981..b696738 100644
+--- a/lib/functions
++++ b/lib/functions
+@@ -976,7 +976,11 @@ killproc() {
+ 
+ 	# Remove pid file if any.
+ 	if [ "$notset" = "1" ]; then
+-		rm -f /var/run/${base}.pid
++		if [ -f "${pidfile}" ] ; then
++			rm -f "$pidfile"
++		else
++			rm -f /var/run/${base}.pid
++		fi
+ 	fi
+ 
+ 	return $result
+-- 
+2.20.1
+
