@@ -11,7 +11,7 @@ Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
 Version:	0.4.18
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
@@ -139,7 +139,8 @@ po cichu ignorowane.
 
 %prep
 %setup -q
-%patch0 -p3 -d lib
+# broken: --pid is alias to --pidfile, not --pid
+#%patch0 -p3 -d lib
 %patch1 -p1
 
 # hack, currently this results in errno@@GLIBC_PRIVATE symbol in ppp-watch:
