@@ -10,20 +10,17 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.18
-Release:	6
+Version:	0.4.19
+Release:	1
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	19a80f3b7ac8abd1008ecad71ddc9294
+# Source0-md5:	a123c2dd45a676bafab5a14e2c066a35
 Source1:	rc-local.service
 Source2:	sys-chroots.service
 Source3:	%{name}.tmpfiles
 Patch0:		95229.patch
-Patch1:		27a3470.patch
-Patch2:		%{name}-bond.patch
-Patch3:		tmpfiles.patch
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -34,6 +31,8 @@ BuildRequires:	glib2-devel
 BuildRequires:	libcap-devel >= 1:2.17
 BuildRequires:	linux-libc-headers >= 7:2.6.27
 BuildRequires:	pkgconfig
+BuildRequires:	pcre-devel
+%{?with_static:BuildRequires:	pcre-static}
 BuildRequires:	popt-devel
 BuildRequires:	rpm >= 4.4.9-56
 Requires(post):	fileutils
@@ -141,11 +140,6 @@ po cichu ignorowane.
 
 %prep
 %setup -q
-# broken: --pid is alias to --pidfile, not --pid
-#%patch0 -p3 -d lib
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 # hack, currently this results in errno@@GLIBC_PRIVATE symbol in ppp-watch:
 #GLIB_LIBS="-Wl,-static `$PKG_CONFIG --libs --static glib-2.0` -Wl,-Bdynamic"
