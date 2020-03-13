@@ -5,7 +5,7 @@
  # module is needed (ie. is requested, is available and isn't loaded already)
  is_module() {
 +	# return false if /sbin/lsmod not exists (like in containers)
-+	[ -x /sbin/lsmod ] || return 0
++	[ -x /sbin/lsmod ] || return 1
 +
  	# module name without .o at end
  	if ! lsmod | grep -q "$1"; then
