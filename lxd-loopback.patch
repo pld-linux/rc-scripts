@@ -1,0 +1,12 @@
+--- lib/functions.network	2020-02-08 10:48:07.000000000 +0100
++++ lib/functions.network.loopback	2020-03-13 11:19:35.602818930 +0100
+@@ -345,7 +345,8 @@
+ # Add ONLY IPv4 address (IPv6 address is added automaticly)
+ set_up_loopback()
+ {
+-	if is_yes "$IPV4_NETWORKING"; then
++	# test if addr is assigned already as lxd(lxc?) initializes loopback upfront
++	if is_yes "$IPV4_NETWORKING" && ! ip addr show lo | grep -q "127\.0\.0\.1"; then
+ 		ip addr add 127.0.0.1/8 dev lo
+ 	fi
+ 	ip link set dev lo up
