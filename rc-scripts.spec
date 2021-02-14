@@ -50,7 +50,7 @@ Requires:	blockdev
 Requires:	coreutils
 Requires:	ethtool
 Requires:	run-parts = %{version}-%{release}
-Requires:	virtual(init-daemon)
+Requires:	virtual-init-daemon
 %if "%{pld_release}" == "ac"
 Requires:	filesystem >= 3.0-11
 %else
