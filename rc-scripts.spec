@@ -10,18 +10,16 @@ Summary(fr.UTF-8):	inittab et scripts /etc/rc.d
 Summary(pl.UTF-8):	inittab i skrypty startowe z katalogu /etc/rc.d
 Summary(tr.UTF-8):	inittab ve /etc/rc.d dosyaları
 Name:		rc-scripts
-Version:	0.4.19
-Release:	3
+Version:	0.4.20
+Release:	1
 License:	GPL v2
 Group:		Base
 #Source0:	ftp://distfiles.pld-linux.org/src/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	a123c2dd45a676bafab5a14e2c066a35
+# Source0-md5:	cde72affb846648781f8f8540a39037b
 Source1:	rc-local.service
 Source2:	sys-chroots.service
 Source3:	%{name}.tmpfiles
-Patch0:		lsmod-fix.patch
-Patch1:		lxd-loopback.patch
 URL:		http://svn.pld-linux.org/trac/svn/wiki/packages/rc-scripts
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -43,6 +41,7 @@ Requires:	agetty
 Requires:	/bin/awk
 Requires:	/bin/basename
 Requires:	/bin/gettext
+Requires:	/bin/ipcalc
 Requires:	/bin/nice
 Requires:	/bin/ps
 Requires:	SysVinit-tools >= 2.88-1
@@ -61,6 +60,7 @@ Requires:	fsck
 Requires:	gettext
 Requires:	grep
 Requires:	hostname
+Requires:	ipcalc >= 1.0.1-2
 Requires:	iproute2
 Requires:	iputils-arping
 Requires:	libutempter >= 1.1.6-2
@@ -141,8 +141,6 @@ po cichu ignorowane.
 
 %prep
 %setup -q
-%patch0 -p0
-%patch1 -p0
 
 # hack, currently this results in errno@@GLIBC_PRIVATE symbol in ppp-watch:
 #GLIB_LIBS="-Wl,-static `$PKG_CONFIG --libs --static glib-2.0` -Wl,-Bdynamic"
@@ -313,7 +311,6 @@ done
 %attr(755,root,root) /etc/profile.d/lang.*sh
 
 %attr(755,root,root) %{_bindir}/doexec
-%attr(755,root,root) %{_bindir}/ipcalc
 %attr(755,root,root) %{_bindir}/resolvesymlink
 %attr(755,root,root) %{_bindir}/usleep
 
@@ -420,7 +417,6 @@ done
 %{_mandir}/man1/genhostid.1*
 %{_mandir}/man1/getkey.1*
 %{_mandir}/man1/initlog.1*
-%{_mandir}/man1/ipcalc.1*
 %{_mandir}/man1/netreport.1*
 %{_mandir}/man1/usleep.1*
 %{_mandir}/man8/ppp-watch.8*
