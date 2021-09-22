@@ -1,0 +1,39 @@
+commit 0de30f3c80fa819fc8d3f4815251d63c1615ba98
+Author: Arkadiusz Miśkiewicz <arekm@maven.pl>
+Date:   Wed Sep 22 08:52:45 2021 +0200
+
+    Keep sys mounted, too (lvm tools use these).
+
+diff --git a/rc.d/rc.shutdown b/rc.d/rc.shutdown
+index d86f962..b4f6e7e 100755
+--- a/rc.d/rc.shutdown
++++ b/rc.d/rc.shutdown
+@@ -82,7 +82,7 @@ if ! is_yes "$VSERVER"; then
+ 			&& $2 !~ ig {print $2}' /proc/mounts)
+ 	while [ -n "$remaining" -a "$retry" -gt 0 ]; do
+ 	 	show "Unmounting file systems"; busy
+-		ERRORS=$(umount -a $force -t noproc 2>&1); rc=$?
++		ERRORS=$(umount -a $force -t noproc,nosysfs 2>&1); rc=$?
+ 
+ 		# we might had unmounted /usr, recheck $TPUT availability
+ 		# but well. we need tput only for show() and busy() (ok() and fail() messages are already cached)
+
+commit 6371a9cfbcc65b0e32a1e34f46610ea0dccb9d3f
+Author: Arkadiusz Miśkiewicz <arekm@maven.pl>
+Date:   Wed Sep 22 09:34:14 2021 +0200
+
+    vgchange -a n can hang on shutdown waiting for udevd synchronization. Don't do such synchronization since  udevd is already killed at this moment anyway. (https://listman.redhat.com/archives/linux-lvm/2021-September/msg00011.html)
+
+diff --git a/rc.d/rc.shutdown b/rc.d/rc.shutdown
+index b4f6e7e..c6ecd5a 100755
+--- a/rc.d/rc.shutdown
++++ b/rc.d/rc.shutdown
+@@ -117,7 +117,7 @@ if ! is_yes "$VSERVER"; then
+ 	if [ -x /sbin/vgchange ]; then
+ 		lvmversion=$(LC_ALL=C /sbin/vgchange --version 2>/dev/null | awk '/LVM version:/{if ($3 >= 2) print "2"}')
+ 		if [ "$lvmversion" = "2" ]; then
+-			lvmsysinit="--sysinit"
++			lvmsysinit="--sysinit --noudevsync"
+ 		else
+ 			lvmsysinit=""
+ 		fi
