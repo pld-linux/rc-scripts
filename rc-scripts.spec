@@ -99,7 +99,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_sbindir	/sbin
 
 %description
-This package contains the scripts use to boot a system, change run
+This package contains the scripts used to boot a system, change run
 levels, and shut the system down cleanly.
 
 %description -l de.UTF-8
