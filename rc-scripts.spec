@@ -63,6 +63,7 @@ Requires:	grep
 Requires:	hostname
 Requires:	ipcalc >= 1.0.1-2
 Requires:	iproute2
+Requires:	iproute2-tc
 Requires:	iputils-arping
 Requires:	libutempter >= 1.1.6-2
 Requires:	mktemp
