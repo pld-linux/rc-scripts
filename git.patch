@@ -37,3 +37,219 @@ index b4f6e7e..c6ecd5a 100755
  		else
  			lvmsysinit=""
  		fi
+
+commit 31b68aac1cc37a4135056a16967535519bc7eff0
+Author: Adam Osuchowski <adwol@pld-linux.org>
+Date:   Fri Jan 28 01:20:30 2022 +0100
+
+    - wait for duplicated IPv6 address detection while interface configuration
+
+diff --git a/lib/ifup b/lib/ifup
+index 38780bf..71652f7 100755
+--- a/lib/ifup
++++ b/lib/ifup
+@@ -219,6 +219,19 @@ else
+ 	# IPv6 in use ?
+ 	if is_yes "$IPV6_NETWORKING" && [ -n "${IP6ADDR}" ]; then
+ 		ip addr add ${IP6ADDR} dev ${DEVICE} ${IP6ADDROPT}
++		timeout=0
++		while [ $timeout -le 20 ] && \
++		      if_state="`ip -o addr list dev ${DEVICE} to ${IP6ADDR}`" && \
++		      echo "$if_state" | grep -q tentative && \
++		      ! echo "$if_state" | grep -q dadfailed ; do
++			usleep 500000
++			timeout=$((timeout+1))
++		done
++		if ip -o addr list dev ${DEVICE} to ${IP6ADDR} | grep -q dadfailed ; then
++			ip addr del ${IP6ADDR} dev ${DEVICE}
++			nls '%s: Duplicated address detected: %s' "$DEVICE" "$IP6ADDR"
++			exit 1
++		fi
+ 		if [ -n "${IP6ADDRLABEL}" ]; then
+ 			ip addrlabel add prefix ${IP6ADDR} dev ${DEVICE} label ${IP6ADDRLABEL}
+ 		fi
+
+commit b8adb71fbeabf8890720ab44bb43dfb6bc68e3b7
+Author: Jan Rękorajski <baggins@pld-linux.org>
+Date:   Sat Oct 21 10:58:11 2023 +0200
+
+    Drop grsecurity sysctl knobs
+
+diff --git a/sysctl.conf b/sysctl.conf
+index a34935b..de26cd5 100644
+--- a/sysctl.conf
++++ b/sysctl.conf
+@@ -140,58 +140,6 @@ kernel.sysrq = 1
+ # 0 - never reboot system (suggested 60)
+ #kernel.panic = 60
+ 
+-#
+-# GRSECURITY http://www.grsecurity.org
+-#
+-# WARNING!
+-# These values are SET ONCE!
+-#
+-#kernel.grsecurity.linking_restrictions = 1
+-#kernel.grsecurity.fifo_restrictions = 1
+-#kernel.grsecurity.destroy_unused_shm = 0
+-#kernel.grsecurity.chroot_caps = 0
+-#kernel.grsecurity.chroot_deny_chmod = 0
+-#kernel.grsecurity.chroot_deny_chroot = 1
+-#kernel.grsecurity.chroot_deny_fchdir = 0
+-#kernel.grsecurity.chroot_deny_mknod = 1
+-#kernel.grsecurity.chroot_deny_mount = 1
+-#kernel.grsecurity.chroot_deny_pivot = 1
+-#kernel.grsecurity.chroot_deny_shmat = 0
+-#kernel.grsecurity.chroot_deny_sysctl = 1
+-#kernel.grsecurity.chroot_deny_unix = 0
+-#kernel.grsecurity.chroot_enforce_chdir = 0
+-#kernel.grsecurity.chroot_execlog = 0
+-#kernel.grsecurity.chroot_findtask = 1
+-#kernel.grsecurity.chroot_restrict_nice = 0
+-
+-#kernel.grsecurity.exec_logging = 0
+-#kernel.grsecurity.signal_logging = 1
+-#kernel.grsecurity.forkfail_logging = 0
+-#kernel.grsecurity.timechange_logging = 1
+-#kernel.grsecurity.audit_chdir = 0
+-#kernel.grsecurity.audit_gid = 65505
+-#kernel.grsecurity.audit_group = 0
+-#kernel.grsecurity.audit_ipc = 0
+-#kernel.grsecurity.audit_mount = 0
+-
+-#kernel.grsecurity.execve_limiting = 1
+-#kernel.grsecurity.dmesg = 1
+-#kernel.grsecurity.tpe = 1
+-#kernel.grsecurity.tpe_gid = 65500
+-#kernel.grsecurity.tpe_glibc = 0
+-#kernel.grsecurity.tpe_restrict_all = 0
+-
+-#kernel.grsecurity.rand_pids = 1
+-#kernel.grsecurity.socket_all = 1
+-#kernel.grsecurity.socket_all_gid = 65501
+-#kernel.grsecurity.socket_client = 1
+-#kernel.grsecurity.socket_client_gid = 65502
+-#kernel.grsecurity.socket_server = 1
+-#kernel.grsecurity.socket_server_gid = 65503
+-
+-#kernel.grsecurity.disable_modules = 0
+-#kernel.grsecurity.grsec_lock = 0
+-
+ # kernel.randomize_va_space = 2
+ # 0 - Turn the process address space randomization off by default.
+ # 1 - Conservative address space randomization makes the addresses of
+
+commit af38444cbbd0962c350a178b45a2cc32f94570a0
+Author: Jan Rękorajski <baggins@pld-linux.org>
+Date:   Sat Oct 21 11:01:58 2023 +0200
+
+    Add (commented out) vm.oom_kill_allocating_task sysctl knob
+
+diff --git a/sysctl.conf b/sysctl.conf
+index de26cd5..0b39fd9 100644
+--- a/sysctl.conf
++++ b/sysctl.conf
+@@ -127,6 +127,12 @@ net.ipv4.conf.default.rp_filter = 1
+ # fs.file-max = 8192
+ # fs.inode-max = 16384
+ 
++# Sometimes (read: always) the Linux OOM killer doesn’t kill the offending
++# process. Usually, this is because as the system is out of memory, it isn’t
++# able to do the memory intensive task of scanning through all the processes.
++# Ironic.
++#vm.oom_kill_allocating_task = 1
++
+ # Controls whether core dumps will append the PID to the core filename.
+ # Useful for debugging multi-threaded applications.
+ #kernel.core_uses_pid = 1
+@@ -140,7 +146,6 @@ kernel.sysrq = 1
+ # 0 - never reboot system (suggested 60)
+ #kernel.panic = 60
+ 
+-# kernel.randomize_va_space = 2
+ # 0 - Turn the process address space randomization off by default.
+ # 1 - Conservative address space randomization makes the addresses of
+ #     mmap base and VDSO page randomized. This, among other things,
+@@ -154,6 +159,7 @@ kernel.sysrq = 1
+ #     start of the brk area is randomized. There are however no known
+ #     non-legacy applications that would be broken this way, so for most
+ #     systems it is safe to choose Full randomization.
++# kernel.randomize_va_space = 2
+ 
+ # for mplayer
+ #dev.rtc.max-user-freq = 1024
+
+commit 8f507628ee9d6eff95f4e001e56f40600c2fcb60
+Author: Arkadiusz Miśkiewicz <arekm@maven.pl>
+Date:   Sun Apr 14 15:41:40 2024 +0200
+
+    Skip cgroup/cgroup2 fs, too.
+
+diff --git a/rc.d/rc.shutdown b/rc.d/rc.shutdown
+index c6ecd5a..a3807dd 100755
+--- a/rc.d/rc.shutdown
++++ b/rc.d/rc.shutdown
+@@ -77,7 +77,7 @@ if ! is_yes "$VSERVER"; then
+ 		UMOUNT_IGNORE="/ $UMOUNT_IGNORE"
+ 	fi
+ 	remaining=$(awk -v ig="^($UMOUNT_IGNORE)$" 'BEGIN { gsub(/[\t ]+/, "|", ig); } \
+-			$3 !~ /^(proc|loopfs|devpts|devtmpfs|shm|iso9660|ramfs|tmpfs|sysfs|securityfs|squashfs)$/ \
++			$3 !~ /^(proc|loopfs|devpts|devtmpfs|shm|iso9660|ramfs|tmpfs|cgroup|cgroup2|sysfs|securityfs|squashfs)$/ \
+ 			&& $1 !~ /^(none|\/dev\/root)$/ \
+ 			&& $2 !~ ig {print $2}' /proc/mounts)
+ 	while [ -n "$remaining" -a "$retry" -gt 0 ]; do
+@@ -101,7 +101,7 @@ if ! is_yes "$VSERVER"; then
+ 
+ 		sleep 2
+ 		remaining=$(awk -v ig="^($UMOUNT_IGNORE)$" 'BEGIN { gsub(/[\t ]+/, "|", ig); } \
+-				$3 !~ /^(proc|loopfs|devpts|devtmpfs|shm|iso9660|ramfs|tmpfs|sysfs|securityfs|squashfs)$/ \
++				$3 !~ /^(proc|loopfs|devpts|devtmpfs|shm|iso9660|ramfs|tmpfs|cgroup|cgroup2|sysfs|securityfs|squashfs)$/ \
+ 				&& $1 !~ /^(none|\/dev\/root)$/ \
+ 				&& $2 !~ ig {print $2}' /proc/mounts)
+ 		[ -z "$remaining" ] && break
+
+commit 5a02578c97b0a2c01cc453344397645efc437f18
+Author: Arkadiusz Miśkiewicz <arekm@maven.pl>
+Date:   Sun Apr 14 16:00:06 2024 +0200
+
+    Umount remaining filesystems one by one (using -R) option which helps in cases when we have chroot mounted somewhere with proc, sys etc inside. Also when doing final -a umount skip tmpfs (used by /run) and dev* (used in /dev).
+
+diff --git a/rc.d/rc.shutdown b/rc.d/rc.shutdown
+index a3807dd..be5c785 100755
+--- a/rc.d/rc.shutdown
++++ b/rc.d/rc.shutdown
+@@ -81,8 +81,20 @@ if ! is_yes "$VSERVER"; then
+ 			&& $1 !~ /^(none|\/dev\/root)$/ \
+ 			&& $2 !~ ig {print $2}' /proc/mounts)
+ 	while [ -n "$remaining" -a "$retry" -gt 0 ]; do
+-	 	show "Unmounting file systems"; busy
+-		ERRORS=$(umount -a $force -t noproc,nosysfs 2>&1); rc=$?
++		for mnt in $remaining; do
++			run_cmd "$(nls 'Umounting file system: %s' $mnt)" umount $force -R $mnt
++
++			# we might had unmounted /usr, recheck $TPUT availability
++			# but well. we need tput only for show() and busy() (ok() and fail() messages are already cached)
++			# TODO: look ahead the messages?
++			if is_yes "$TPUT"; then
++			    TPUT=
++			    rc_gettext_init
++			fi
++		done
++
++		show "Unmounting remainging file systems"; busy
++		ERRORS=$(umount -a $force -t noproc,nosysfs,notmpfs,nodevpts,nodevtmpfs 2>&1); rc=$?
+ 
+ 		# we might had unmounted /usr, recheck $TPUT availability
+ 		# but well. we need tput only for show() and busy() (ok() and fail() messages are already cached)
+@@ -96,7 +108,10 @@ if ! is_yes "$VSERVER"; then
+ 			ok
+ 		else
+ 			fail
+-			[ -n "$ERRORS" ] && echo "$ERRORS"
++			if [ -n "$ERRORS" ]; then
++			       nls "Umount errors:"
++			       echo "$ERRORS"
++			fi
+ 		fi
+ 
+ 		sleep 2
