@@ -253,3 +253,132 @@ index a3807dd..be5c785 100755
  		fi
  
  		sleep 2
+
+commit 64eec49fa594a9ba5f631c3a65c74a1df8a82b75
+Author: Adam Osuchowski <>
+Date:   Mon Jan 20 12:38:22 2025 +0100
+
+    Conditions for lxc similar to vservers
+
+diff --git a/lib/functions b/lib/functions
+index d1b6c1e..d81eaca 100644
+--- a/lib/functions
++++ b/lib/functions
+@@ -369,7 +369,8 @@ nls() {
+ rc_splash() {
+ 	local action="$1"
+ 
+-	if ! is_no "$BOOT_SPLASH" && ! is_yes "$VSERVER"; then
++	if ! is_no "$BOOT_SPLASH" && ! is_yes "$VSERVER" && \
++		[[ "$container" != lxc* ]]; then
+ 		[ -x /bin/splash ] && /bin/splash "$action"
+ 	fi
+ 
+@@ -495,7 +496,7 @@ filter_chroot() {
+ 		pids=$(filter_ns "$@") && set -- "$pids"
+ 	fi
+ 
+-	if is_yes "$VSERVER"; then
++	if is_yes "$VSERVER" || [[ "$container" = lxc* ]]; then
+ 		echo $@
+ 		return
+ 	fi
+diff --git a/rc.d/rc b/rc.d/rc
+index eba0652..74303c4 100755
+--- a/rc.d/rc
++++ b/rc.d/rc
+@@ -69,6 +69,7 @@ fi
+ # (it can be serial console too)
+ if [ "$COLUMNS" -gt 0 ]; then
+ 	if [ "$argv2" != "chroot" ] && ! is_yes "$VSERVER" && \
++		[[ "$container" != lxc* ]] && \
+ 		[ "$runlevel" = "0" -o "$runlevel" = "6" ]; then
+ 		CONSOLE=/dev/tty1
+ 		[ -x /usr/bin/chvt ] && /usr/bin/chvt 1 && echo > $CONSOLE
+@@ -82,7 +83,8 @@ fi
+ 
+ # See if we want to be in user confirmation mode
+ if [ "$previous" = "N" ]; then
+-	if ! is_yes "$VSERVER" && grep -qi confirm /proc/cmdline >/dev/null 2>/dev/null \
++	if ! is_yes "$VSERVER" && [[ "$container" != lxc* ]] && \
++		grep -qi confirm /proc/cmdline >/dev/null 2>/dev/null \
+ 		|| [ -f /var/run/confirm ]; then
+ 		rm -f /var/run/confirm
+ 		CONFIRM="yes"
+@@ -129,7 +131,7 @@ else
+ 	export progress=0
+ fi
+ 
+-if is_yes "$VSERVER"; then
++if is_yes "$VSERVER" || [[ "$container" = lxc* ]]; then
+ 	# if runlevel is not 0 (halt) or 6 (reboot) run rc.sysinit
+ 	# BUT only if rc is run standalone (not run by init, as init will run rc.sysinit)
+ 	if [ "$previous" != "N" -a "$runlevel" != "0" -a "$runlevel" != "6" ]; then
+diff --git a/rc.d/rc.shutdown b/rc.d/rc.shutdown
+index be5c785..9fc1d2a 100755
+--- a/rc.d/rc.shutdown
++++ b/rc.d/rc.shutdown
+@@ -54,7 +54,7 @@ fi
+ # Write to wtmp file before unmounting /var
+ halt -w
+ 
+-if ! is_yes "$VSERVER"; then
++if ! is_yes "$VSERVER" && [[ "$container" != lxc* ]]; then
+ 	# Turn off swap, then unmount file systems.
+ 	run_cmd "Turning off swap" swapoff -a
+ 
+diff --git a/rc.d/rc.sysinit b/rc.d/rc.sysinit
+index b55f0cc..86f7c27 100755
+--- a/rc.d/rc.sysinit
++++ b/rc.d/rc.sysinit
+@@ -1045,7 +1045,7 @@ is_yes "$SELINUX" && restorecon /tmp/.ICE-unix >/dev/null 2>&1
+ 
+ test -d /var/run/netreport || mkdir -m 770 /var/run/netreport
+ 
+-if ! is_yes "$VSERVER"; then
++if ! is_yes "$VSERVER" && [[ "$container" != lxc* ]]; then
+ 	enable_swap
+ 
+ 	# If a SCSI tape has been detected, load the st module unconditionally
+
+commit e524e438e7cc9114d4bf524db4c4670c6fcce8e4
+Author: Adam Osuchowski <>
+Date:   Mon Jan 20 14:46:38 2025 +0100
+
+    fix const qualifier
+
+diff --git a/src/initlog.c b/src/initlog.c
+index 3b1cded..134e952 100644
+--- a/src/initlog.c
++++ b/src/initlog.c
+@@ -369,7 +369,7 @@ int processArgs(int argc, char **argv, int silent) {
+         { 0, 0, 0, 0, 0, 0 }
+     };
+     
+-    context = poptGetContext("initlog", argc, argv, optTable, 0);
++    context = poptGetContext("initlog", argc, (const char **)argv, optTable, 0);
+     
+     while ((rc = poptGetNextOpt(context)) > 0) {
+ 	switch (rc) {
+diff --git a/src/process.c b/src/process.c
+index 475d188..4449237 100644
+--- a/src/process.c
++++ b/src/process.c
+@@ -244,7 +244,7 @@ int monitor(char *cmdname, int pid, int numfds, int *fds, int reexec, int quiet,
+ 			      tmpargs=NULL;
+ 			      cmdargc=0;
+ 			      
+-			      poptParseArgvString(tmpstr,&cmdargc,&tmpargs);
++			      poptParseArgvString(tmpstr,&cmdargc,(const char ***)&tmpargs);
+ 			      cmdargs=malloc( (cmdargc+2) * sizeof(char *) );
+ 			      cmdargs[0]=strdup("initlog");
+ 			      for (z=0;z<(cmdargc);z++) {
+@@ -293,7 +293,7 @@ int runCommand(char *cmd, int reexec, int quiet, int debug) {
+     char **args, **tmpargs;
+     char *cmdname;
+     
+-    poptParseArgvString(cmd,&x,&tmpargs);
++    poptParseArgvString(cmd,&x,(const char ***)&tmpargs);
+     args = malloc((x+1)*sizeof(char *));
+     for ( pid = 0; pid < x ; pid++) {
+ 	args[pid] = strdup(tmpargs[pid]);
