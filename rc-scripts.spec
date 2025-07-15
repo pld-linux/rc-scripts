@@ -143,7 +143,7 @@ po cichu ignorowane.
 
 %prep
 %setup -q
-%patch100 -p1
+%patch -P100 -p1
 
 # hack, currently this results in errno@@GLIBC_PRIVATE symbol in ppp-watch:
 #GLIB_LIBS="-Wl,-static `$PKG_CONFIG --libs --static glib-2.0` -Wl,-Bdynamic"
